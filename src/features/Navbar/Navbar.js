@@ -13,6 +13,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 const user = {
   name: "Tom Cook",
@@ -21,11 +22,9 @@ const user = {
     "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
 };
 const navigation = [
-  { name: "Dashboard", href: "#", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
-  { name: "Reports", href: "#", current: false },
+  { name: "Dashboard", to: "/", current: true },
+  { name: "Login", to: "/login", current: false },
+  { name: "Register", to: "/register", current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", href: "#" },
@@ -40,7 +39,7 @@ function classNames(...classes) {
 const Navbar = ({ children }) => {
   return (
     <>
-      <div className="min-h-full">
+      <div className="sticky min-h-full">
         <Disclosure as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
@@ -57,9 +56,9 @@ const Navbar = ({ children }) => {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <a
+                          <Link
                             key={item.name}
-                            href={item.href}
+                            to={item.to}
                             className={classNames(
                               item.current
                                 ? "bg-gray-900 text-white"
@@ -69,28 +68,30 @@ const Navbar = ({ children }) => {
                             aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
-                          </a>
+                          </Link>
                         ))}
                       </div>
                     </div>
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
-                      <button
-                        type="button"
-                        className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
-                      >
-                        <span className="sr-only">View notifications</span>
-                        <span className="relative inline-flex items-center justify-center">
-                          <ShoppingBagIcon
-                            className="h-6 w-6"
-                            aria-hidden="true"
-                          />
-                          <span className="absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black">
-                            1
+                      <Link to="/cart">
+                        <button
+                          type="button"
+                          className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
+                        >
+                          <span className="sr-only">View notifications</span>
+                          <span className="relative inline-flex items-center justify-center">
+                            <ShoppingBagIcon
+                              className="h-6 w-6"
+                              aria-hidden="true"
+                            />
+                            <span className="absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black">
+                              1
+                            </span>
                           </span>
-                        </span>
-                      </button>
+                        </button>
+                      </Link>
                       {/* Profile dropdown */}
                       <Menu as="div" className="relative ml-3">
                         <div>
@@ -116,15 +117,14 @@ const Navbar = ({ children }) => {
                             {userNavigation.map((item) => (
                               <MenuItem key={item.name}>
                                 {({ focus }) => (
-                                  <a
-                                    href={item.href}
+                                  <div
                                     className={classNames(
                                       focus ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700"
                                     )}
                                   >
                                     {item.name}
-                                  </a>
+                                  </div>
                                 )}
                               </MenuItem>
                             ))}
@@ -157,20 +157,19 @@ const Navbar = ({ children }) => {
               <DisclosurePanel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
-                    <DisclosureButton
-                      key={item.name}
-                      as="a"
-                      href={item.href}
-                      className={classNames(
-                        item.current
-                          ? "bg-gray-900 text-white"
-                          : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                        "block rounded-md px-3 py-2 text-base font-medium"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      {item.name}
-                    </DisclosureButton>
+                    <Link key={item.name} to={item.to}>
+                      <DisclosureButton
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "block rounded-md px-3 py-2 text-base font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </DisclosureButton>
+                    </Link>
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">
@@ -190,28 +189,28 @@ const Navbar = ({ children }) => {
                         {user.email}
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <span className="relative inline-flex items-center justify-center">
-                        <ShoppingBagIcon
-                          className="h-6 w-6"
-                          aria-hidden="true"
-                        />
-                        <span className="absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black">
-                          1
+                    <Link to="/cart">
+                      <button
+                        type="button"
+                        className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
+                      >
+                        <span className="sr-only">View notifications</span>
+                        <span className="relative inline-flex items-center justify-center">
+                          <ShoppingBagIcon
+                            className="h-6 w-6"
+                            aria-hidden="true"
+                          />
+                          <span className="absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black">
+                            1
+                          </span>
                         </span>
-                      </span>
-                    </button>
+                      </button>
+                    </Link>
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
                       <DisclosureButton
                         key={item.name}
-                        as="a"
-                        href={item.href}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                       >
                         {item.name}
@@ -224,13 +223,6 @@ const Navbar = ({ children }) => {
           )}
         </Disclosure>
 
-        <header className="bg-white shadow">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-              Dashboard
-            </h1>
-          </div>
-        </header>
         <main>
           <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
             {children}

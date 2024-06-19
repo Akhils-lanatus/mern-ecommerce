@@ -74,7 +74,7 @@ function classNames(...classes) {
 const ProductHome = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   return (
-    <div className="bg-white ">
+    <div>
       <div>
         {/* Mobile filter dialog */}
         <Transition show={mobileFiltersOpen}>
@@ -102,14 +102,12 @@ const ProductHome = () => {
                 leaveFrom="translate-x-0"
                 leaveTo="translate-x-full"
               >
-                <DialogPanel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
+                <DialogPanel className="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-gray-900 py-4 pb-12 shadow-xl">
                   <div className="flex items-center justify-between px-4">
-                    <h2 className="text-lg font-medium text-gray-900">
-                      Filters
-                    </h2>
+                    <h2 className="text-lg font-medium text-white">Filters</h2>
                     <button
                       type="button"
-                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
+                      className="-mr-2 flex h-10 w-10 items-center justify-center rounded-md  p-2 text-white"
                       onClick={() => setMobileFiltersOpen(false)}
                     >
                       <span className="sr-only">Close menu</span>
@@ -128,8 +126,8 @@ const ProductHome = () => {
                         {({ open }) => (
                           <>
                             <h3 className="-mx-2 -my-3 flow-root">
-                              <DisclosureButton className="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                                <span className="font-medium text-gray-900">
+                              <DisclosureButton className="flex w-full items-center justify-between px-2 py-3 text-white">
+                                <span className="font-medium text-white">
                                   {section.name}
                                 </span>
                                 <span className="ml-6 flex items-center">
@@ -160,11 +158,11 @@ const ProductHome = () => {
                                       defaultValue={option.value}
                                       type="checkbox"
                                       defaultChecked={option.checked}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                      className="h-4 w-4 rounded"
                                     />
                                     <label
-                                      htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
-                                      className="ml-3 min-w-0 flex-1 text-gray-500"
+                                      htmlhtmlFor={`filter-mobile-${section.id}-${optionIdx}`}
+                                      className="ml-3 min-w-0 flex-1 text-white"
                                     >
                                       {option.label}
                                     </label>
@@ -183,16 +181,16 @@ const ProductHome = () => {
           </Dialog>
         </Transition>
 
-        <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-12">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900">
+        <main className="mx-auto max-w-7xl px-0 sm:px-6 lg:px-8 bg-gray-900">
+          <div className="flex items-baseline justify-evenly lg:justify-between border-b border-gray-200 pb-6 pt-12">
+            <h1 className="text-4xl font-bold tracking-tight text-white">
               Products
             </h1>
 
             <div className="flex items-center">
               <Menu as="div" className="relative inline-block text-left">
                 <div>
-                  <MenuButton className="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
+                  <MenuButton className="group inline-flex justify-center text-sm font-medium text-white">
                     Sort
                     <ChevronDownIcon
                       className="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
@@ -252,7 +250,7 @@ const ProductHome = () => {
             </div>
           </div>
 
-          <section aria-labelledby="products-heading" className="pb-24 pt-6">
+          <section aria-labelledby="products-heading" className="pb-12 pt-6">
             <h2 id="products-heading" className="sr-only">
               Products
             </h2>
@@ -269,14 +267,14 @@ const ProductHome = () => {
                     {({ open }) => (
                       <>
                         <h3 className="-my-3 flow-root">
-                          <DisclosureButton className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                            <span className="font-medium text-gray-900">
+                          <DisclosureButton className="flex w-full items-center justify-between bg-gray-900 py-3 text-sm text-white">
+                            <span className="font-medium text-white">
                               {section.name}
                             </span>
                             <span className="ml-6 flex items-center">
                               {open ? (
                                 <MinusIcon
-                                  className="h-5 w-5"
+                                  className="h-5 w-5 "
                                   aria-hidden="true"
                                 />
                               ) : (
@@ -301,11 +299,11 @@ const ProductHome = () => {
                                   defaultValue={option.value}
                                   type="checkbox"
                                   defaultChecked={option.checked}
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  className="h-4 w-4 rounded "
                                 />
                                 <label
-                                  htmlFor={`filter-${section.id}-${optionIdx}`}
-                                  className="ml-3 text-sm text-gray-600"
+                                  htmlhtmlFor={`filter-${section.id}-${optionIdx}`}
+                                  className="ml-3 text-sm text-white"
                                 >
                                   {option.label}
                                 </label>
