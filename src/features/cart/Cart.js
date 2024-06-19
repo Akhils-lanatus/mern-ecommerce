@@ -65,8 +65,9 @@ const Cart = () => {
                         data-input-counter
                         className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                         placeholder=""
-                        // value="2"
+                        value="2"
                         required
+                        readOnly
                       />
                       <button
                         type="button"
@@ -205,8 +206,9 @@ const Cart = () => {
                         data-input-counter
                         className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                         placeholder=""
-                        // value="1"
+                        value="1"
                         required
+                        readOnly
                       />
                       <button
                         type="button"
@@ -344,8 +346,9 @@ const Cart = () => {
                         data-input-counter
                         className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                         placeholder=""
-                        // value="1"
+                        value="1"
                         required
+                        readOnly
                       />
                       <button
                         type="button"
@@ -483,8 +486,9 @@ const Cart = () => {
                         data-input-counter
                         className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                         placeholder=""
-                        // value="1"
+                        value="1"
                         required
+                        readOnly
                       />
                       <button
                         type="button"
@@ -621,8 +625,9 @@ const Cart = () => {
                         data-input-counter
                         className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                         placeholder=""
-                        // value="3"
+                        value="3"
                         required
+                        readOnly
                       />
                       <button
                         type="button"
@@ -1032,12 +1037,12 @@ const Cart = () => {
                 </dl>
               </div>
 
-              <div
-                href="#"
+              <Link
+                to="/checkout"
                 className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
               >
                 Proceed to Checkout
-              </div>
+              </Link>
 
               <div className="flex items-center justify-center gap-2">
                 <span className="text-sm font-normal text-gray-500 dark:text-gray-400">

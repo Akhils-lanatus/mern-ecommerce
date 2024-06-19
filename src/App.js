@@ -3,32 +3,22 @@ import Home from "./pages/Home";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import CartPage from "./pages/CartPage";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CheckoutPage from "./pages/CheckoutPage";
+import SingleProductPage from "./pages/SingleProductPage";
 const App = () => {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Home />,
-    },
-    {
-      path: "/login",
-      element: <LoginPage />,
-    },
-    {
-      path: "/register",
-      element: <SignupPage />,
-    },
-    {
-      path: "/cart",
-      element: <CartPage />,
-    },
-    {
-      path: "/checkout",
-      element: <CheckoutPage />,
-    },
-  ]);
-  return <RouterProvider router={router} />;
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<SignupPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/selected-product/:id" element={<SingleProductPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 };
 
 export default App;

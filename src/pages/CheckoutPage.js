@@ -2,9 +2,9 @@ import { Country, State, City } from "country-state-city";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 const CheckoutPage = () => {
-  const [selectedCountry, setSelectedCountry] = useState(null);
-  const [selectedState, setSelectedState] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedState, setSelectedState] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-8">
       <h1 className="text-4xl text-white mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -126,7 +126,7 @@ const CheckoutPage = () => {
                       <option value={0}>Select A State</option>
                     )}
                     {State?.getStatesOfCountry(selectedCountry).map((item) => (
-                      <option key={item.isoCode} value={item.isoCode}>
+                      <option key={item.name} value={item.isoCode}>
                         {item.name}
                       </option>
                     ))}
@@ -158,7 +158,7 @@ const CheckoutPage = () => {
 
                     {City?.getCitiesOfState(selectedCountry, selectedState).map(
                       (item) => (
-                        <option key={item.stateCode} value={item.name}>
+                        <option key={item.name} value={item.name}>
                           {item.name}
                         </option>
                       )
@@ -167,7 +167,24 @@ const CheckoutPage = () => {
                 </div>
 
                 <div>
-                  <div className="mb-2 flex items-center gap-2">
+                  <label
+                    htmlFor="your_pinCode"
+                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    {" "}
+                    Pin Code{" "}
+                  </label>
+                  <input
+                    type="text"
+                    id="your_pinCode"
+                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                    placeholder="380050"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <div className="mb-2 flex items-center gap-2 sm:grid-cols-1">
                     <label
                       htmlFor="select-City-input-3"
                       className="block text-sm font-medium text-gray-900 dark:text-white"
@@ -182,10 +199,19 @@ const CheckoutPage = () => {
                     placeholder="Enter your address"
                     required
                     maxLength={80}
+                    style={{ height: "calc(2.5rem + 2px)" }}
                   />
                 </div>
 
-                <div className="sm:col-span-2">
+                <div>
+                  <button
+                    type="reset"
+                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                  >
+                    Reset
+                  </button>
+                </div>
+                <div>
                   <button
                     type="submit"
                     className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
