@@ -46,7 +46,7 @@ export const counterSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions;
 
-export const selectCount = (state) => state.counter.value;
+export const selectCount = (state) => state.product.value;
 
 export const incrementIfOdd = (amount) => (dispatch, getState) => {
   const currentValue = selectCount(getState());
