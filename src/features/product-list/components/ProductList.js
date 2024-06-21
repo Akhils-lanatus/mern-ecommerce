@@ -1,12 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchAllProductsAsync, selectAllProducts } from "../ProductSlice";
+import {
+  fetchAllProductsAsync,
+  fetchSingleProductAsync,
+  selectAllProducts,
+} from "../ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function ProductList() {
   const products = useSelector(selectAllProducts);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const handleFetchSingleProduct = (id) => {
+    dispatch(fetchSingleProductAsync(id))
+      .unwrap()
+      .then((res) => {
+        if (Object.keys(res).length > 0) {
+          navigate(`/selected-product/${id}`);
+        } else {
+          console.log("err");
+        }
+      });
+  };
 
   useEffect(() => {
     dispatch(fetchAllProductsAsync());
@@ -65,29 +81,28 @@ export function ProductList() {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 pt-2">
-                  <Link to={`/selected-product/${product.id}`}>
-                    <button
-                      type="button"
-                      className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  <button
+                    type="button"
+                    className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    onClick={() => handleFetchSingleProduct(product.id)}
+                  >
+                    <svg
+                      className="-ms-2 me-1 h-5 w-5"
+                      aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
                     >
-                      <svg
-                        className="-ms-2 me-1 h-5 w-5"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"
-                        />
-                      </svg>
-                      View
-                    </button>
-                  </Link>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"
+                      />
+                    </svg>
+                    View
+                  </button>
                   <button
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

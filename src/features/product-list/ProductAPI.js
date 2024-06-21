@@ -56,3 +56,13 @@ export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
     console.log(`Error :: ${error}`);
   }
 };
+
+export const fetchSingleProduct = async (id) => {
+  try {
+    const res = await fetch(`http://localhost:8000/products/${id}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+};

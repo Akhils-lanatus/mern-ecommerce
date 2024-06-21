@@ -13,12 +13,42 @@ const Pagination = ({ page, handlePagination, setPage }) => {
 
   return (
     <div className="flex items-center justify-between border-t border-gray-200px-4 py-3 sm:px-6">
-      <div className="flex flex-1 justify-around sm:hidden">
-        <div className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-          Previous
+      <div className="flex flex-1 justify-evenly sm:hidden">
+        <div
+          className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium  ${
+            page !== Math.ceil(totalPages / ITEMS_PER_PAGE)
+              ? "text-white cursor-pointer"
+              : "text-gray-500 border-gray-950"
+          }`}
+        >
+          <span className="sr-only">Previous</span>
+          <button
+            disabled={page === Math.ceil(totalPages / ITEMS_PER_PAGE)}
+            onClick={() => setPage(page - 1)}
+          >
+            Previous
+          </button>
         </div>
-        <div className="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
-          Next
+        <div
+          className={`ml-1 items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-black bg-white `}
+        >
+          {page}
+        </div>
+        <div
+          className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium  ${
+            page !== totalPages
+              ? "text-white cursor-pointer"
+              : "text-gray-500 border-gray-950"
+          }`}
+        >
+          <span className="sr-only">Next</span>
+
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage(page + 1)}
+          >
+            Next
+          </button>
         </div>
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
