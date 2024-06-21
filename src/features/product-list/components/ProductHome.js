@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Dialog,
   DialogPanel,
@@ -24,6 +24,7 @@ import {
 import { ProductList } from "./ProductList";
 import Pagination from "../../Pagination/Pagination";
 import { fetchAllFilteredProductsAsync } from "../ProductSlice";
+import { ITEMS_PER_PAGE } from "../../../app/constants";
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
@@ -112,9 +113,11 @@ const ProductHome = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({});
   const [selectedSort, setSelectedSort] = useState({});
+  const [page, setPage] = useState(1);
   const dispatch = useDispatch();
 
   const handleFilter = (e, section, option) => {
+    setPage(1);
     const newFilter = { ...selectedFilters };
     if (section.id !== "category") {
       if (e.target.checked) {
@@ -143,6 +146,7 @@ const ProductHome = () => {
     });
   };
   const handleSort = (option) => {
+    setPage(1);
     const sort = {
       _sort: option.sort,
       _order: option.order,
@@ -154,10 +158,20 @@ const ProductHome = () => {
       behavior: "smooth",
     });
   };
+  const handlePagination = (page) => {
+    setPage(page);
+  };
 
   useEffect(() => {
-    dispatch(fetchAllFilteredProductsAsync({ selectedFilters, selectedSort }));
-  }, [dispatch, selectedFilters, selectedSort]);
+    const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
+    dispatch(
+      fetchAllFilteredProductsAsync({
+        selectedFilters,
+        selectedSort,
+        pagination,
+      })
+    );
+  }, [dispatch, selectedFilters, selectedSort, page]);
 
   return (
     <div>
@@ -426,7 +440,11 @@ const ProductHome = () => {
           </section>
         </main>
 
-        <Pagination />
+        <Pagination
+          handlePagination={handlePagination}
+          page={page}
+          setPage={setPage}
+        />
       </div>
     </div>
   );

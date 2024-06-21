@@ -8,7 +8,7 @@ export async function fetchAllProducts() {
   }
 }
 
-export const fetchAllFilteredProducts = async (filters, sort) => {
+export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
   try {
     let queryString = "";
 
@@ -26,6 +26,10 @@ export const fetchAllFilteredProducts = async (filters, sort) => {
     for (let x in sort) {
       queryString += `${x}=${sort[x]}&`;
     }
+    for (let x in pagination) {
+      queryString += `${x}=${pagination[x]}&`;
+    }
+    // console.log(`http://localhost:8000/products?${queryString}`);
     const res = await fetch(`http://localhost:8000/products?${queryString}`);
     const data = await res.json();
     return data;
