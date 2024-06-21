@@ -7,6 +7,24 @@ export async function fetchAllProducts() {
     console.log(`Error :: ${error}`);
   }
 }
+export async function fetchAllCategories() {
+  try {
+    const res = await fetch("http://localhost:8000/categories");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+}
+export async function fetchAllBrands() {
+  try {
+    const res = await fetch("http://localhost:8000/brands");
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+}
 
 export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
   try {
@@ -32,7 +50,8 @@ export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
     // console.log(`http://localhost:8000/products?${queryString}`);
     const res = await fetch(`http://localhost:8000/products?${queryString}`);
     const data = await res.json();
-    return data;
+    const totalItems = await res.headers.get("X-Total-Count");
+    return { data: { products: data, totalItems } };
   } catch (error) {
     console.log(`Error :: ${error}`);
   }
