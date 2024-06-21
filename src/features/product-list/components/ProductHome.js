@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   Dialog,
@@ -24,7 +24,6 @@ import {
 import { ProductList } from "./ProductList";
 import Pagination from "../../Pagination/Pagination";
 import { fetchAllFilteredProductsAsync } from "../ProductSlice";
-import { behavior } from "@testing-library/user-event/dist/cjs/event/behavior/registry.js";
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
@@ -112,12 +111,31 @@ function classNames(...classes) {
 const ProductHome = () => {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState({});
+  const [selectedSort, setSelectedSort] = useState({});
   const dispatch = useDispatch();
 
-  const handleFilter = (section, option) => {
-    const newFilter = { ...selectedFilters, [section.id]: option.value };
+  const handleFilter = (e, section, option) => {
+    const newFilter = { ...selectedFilters };
+    if (section.id !== "category") {
+      if (e.target.checked) {
+        if (newFilter[section.id]) {
+          newFilter[section.id].push(option.value);
+        } else {
+          newFilter[section.id] = [option.value];
+        }
+      } else {
+        const index = newFilter[section.id]?.indexOf(option.value);
+        if (index !== -1) {
+          newFilter[section.id].splice(index, 1);
+        }
+        if (newFilter[section.id]?.length === 0) {
+          delete newFilter[section.id];
+        }
+      }
+    } else {
+      newFilter[section.id] = option.value;
+    }
     setSelectedFilters(newFilter);
-    dispatch(fetchAllFilteredProductsAsync(newFilter));
     window.scrollTo({
       top: 0,
       left: 0,
@@ -125,19 +143,21 @@ const ProductHome = () => {
     });
   };
   const handleSort = (option) => {
-    const newFilter = {
-      ...selectedFilters,
+    const sort = {
       _sort: option.sort,
       _order: option.order,
     };
-    setSelectedFilters(newFilter);
-    dispatch(fetchAllFilteredProductsAsync(newFilter));
+    setSelectedSort(sort);
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    dispatch(fetchAllFilteredProductsAsync({ selectedFilters, selectedSort }));
+  }, [dispatch, selectedFilters, selectedSort]);
 
   return (
     <div>
@@ -222,11 +242,15 @@ const ProductHome = () => {
                                       id={`filter-mobile-${section.id}-${optionIdx}`}
                                       name={`${section.id}[]`}
                                       defaultValue={option.value}
-                                      type="checkbox"
+                                      type={
+                                        section.id === "category"
+                                          ? "radio"
+                                          : "checkbox"
+                                      }
                                       defaultChecked={option.checked}
                                       className="h-4 w-4 rounded"
-                                      onChange={() =>
-                                        handleFilter(section, option)
+                                      onChange={(e) =>
+                                        handleFilter(e, section, option)
                                       }
                                     />
                                     <label
@@ -250,7 +274,7 @@ const ProductHome = () => {
           </Dialog>
         </Transition>
 
-        <main className="mx-auto max-w-7xl px-0 sm:px-6 lg:px-8 bg-gray-900">
+        <main className="mx-auto max-w-7xl px-0 sm:px-0 lg:px-0 bg-gray-900">
           <div className="flex items-baseline justify-evenly lg:justify-between border-b border-gray-200 pb-6 pt-12">
             <h1 className="text-4xl font-bold tracking-tight text-white">
               Products
@@ -367,10 +391,16 @@ const ProductHome = () => {
                                   id={`filter-${section.id}-${optionIdx}`}
                                   name={`${section.id}[]`}
                                   defaultValue={option.value}
-                                  type="radio"
+                                  type={
+                                    section.id === "category"
+                                      ? "radio"
+                                      : "checkbox"
+                                  }
                                   defaultChecked={option.checked}
                                   className="h-4 w-4 rounded "
-                                  onChange={() => handleFilter(section, option)}
+                                  onChange={(e) =>
+                                    handleFilter(e, section, option)
+                                  }
                                 />
                                 <label
                                   htmlFor={`filter-${section.id}-${optionIdx}`}
