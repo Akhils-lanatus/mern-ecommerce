@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchSingleProductAsync, getSingleProduct } from "../ProductSlice";
 import { useParams } from "react-router-dom";
 import NoImageFound from "../../../assets/No_Image_Found.jpg";
+import ReviewsPage from "../../../pages/ReviewsPage";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -19,9 +20,7 @@ const SingleProduct = () => {
     }
   }, []);
 
-  console.log(selectedProduct);
-
-  useEffect(() => {
+    useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
   let firstBreadCrumb_Category = selectedProduct?.category;
@@ -336,8 +335,8 @@ const SingleProduct = () => {
 
               <div className="mt-4">
                 <ul className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight) => (
-                    <li key={highlight} className="text-gray-400">
+                  {product.highlights.map((highlight, i) => (
+                    <li key={i} className="text-gray-400">
                       <span className="text-slate-300">{highlight.name}</span>
                     </li>
                   ))}
@@ -346,6 +345,9 @@ const SingleProduct = () => {
             </div>
           </div>
         </div>
+
+        {/* Product Review */}
+        <ReviewsPage selectedProduct={selectedProduct} />
       </div>
     </div>
   );
