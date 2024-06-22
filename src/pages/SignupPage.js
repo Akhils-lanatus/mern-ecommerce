@@ -1,10 +1,11 @@
+import Navbar from "../features/Navbar/Navbar";
 import Signup from "../features/auth/components/Signup";
 
 const SignupPage = () => {
   return (
-    <div>
+    <Navbar>
       <Signup />
-    </div>
+    </Navbar>
   );
 };
 

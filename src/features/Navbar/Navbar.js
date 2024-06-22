@@ -13,7 +13,7 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const user = {
   name: "Tom Cook",
@@ -56,19 +56,21 @@ const Navbar = ({ children }) => {
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
                         {navigation.map((item) => (
-                          <Link
+                          <NavLink
                             key={item.name}
                             to={item.to}
-                            className={classNames(
-                              item.current
-                                ? "bg-gray-900 text-white"
-                                : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                              "rounded-md px-3 py-2 text-sm font-medium"
-                            )}
+                            className={({ isActive }) =>
+                              classNames(
+                                isActive
+                                  ? "bg-gray-900 text-white"
+                                  : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                                "rounded-md px-3 py-2 text-sm font-medium"
+                              )
+                            }
                             aria-current={item.current ? "page" : undefined}
                           >
                             {item.name}
-                          </Link>
+                          </NavLink>
                         ))}
                       </div>
                     </div>
@@ -157,19 +159,21 @@ const Navbar = ({ children }) => {
               <DisclosurePanel className="md:hidden">
                 <div className="space-y-1 px-2 pb-3 pt-2 sm:px-3">
                   {navigation.map((item) => (
-                    <Link key={item.name} to={item.to}>
-                      <DisclosureButton
-                        className={classNames(
-                          item.current
+                    <NavLink
+                      key={item.name}
+                      to={item.to}
+                      className={({ isActive }) =>
+                        classNames(
+                          isActive
                             ? "bg-gray-900 text-white"
                             : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "block rounded-md px-3 py-2 text-base font-medium"
-                        )}
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </DisclosureButton>
-                    </Link>
+                        )
+                      }
+                      aria-current={item.current ? "page" : undefined}
+                    >
+                      {item.name}
+                    </NavLink>
                   ))}
                 </div>
                 <div className="border-t border-gray-700 pb-3 pt-4">

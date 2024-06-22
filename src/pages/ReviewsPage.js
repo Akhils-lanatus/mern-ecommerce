@@ -18,8 +18,8 @@ const Star = ({ variant }) => {
 
   return (
     <svg
-      width="20"
-      height="19"
+      width="16"
+      height="15"
       viewBox="0 0 20 19"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -84,7 +84,7 @@ const ReviewsPage = ({ selectedProduct }) => {
       <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
           <div className="flex items-center gap-2">
-            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
               Reviews
             </h2>
             <div className="mt-2 flex items-center gap-2 sm:mt-0">

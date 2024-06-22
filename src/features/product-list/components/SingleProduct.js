@@ -3,13 +3,32 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchSingleProductAsync, getSingleProduct } from "../ProductSlice";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import NoImageFound from "../../../assets/No_Image_Found.jpg";
 import ReviewsPage from "../../../pages/ReviewsPage";
+
+const product = {
+  colors: [
+    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
+    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
+    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
+  ],
+  sizes: [
+    { name: "XXS", inStock: false },
+    { name: "XS", inStock: true },
+    { name: "S", inStock: true },
+    { name: "M", inStock: true },
+    { name: "L", inStock: true },
+    { name: "XL", inStock: true },
+    { name: "2XL", inStock: true },
+    { name: "3XL", inStock: true },
+  ],
+};
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
 const SingleProduct = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -20,7 +39,7 @@ const SingleProduct = () => {
     }
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
   }, []);
   let firstBreadCrumb_Category = selectedProduct?.category;
@@ -36,47 +55,35 @@ const SingleProduct = () => {
   ];
 
   const isImageLoadedCheck = Array.isArray(selectedProduct.images);
-  const product = {
-    colors: [
-      { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-      { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-      { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" },
-    ],
-    sizes: [
-      { name: "XXS", inStock: false },
-      { name: "XS", inStock: true },
-      { name: "S", inStock: true },
-      { name: "M", inStock: true },
-      { name: "L", inStock: true },
-      { name: "XL", inStock: true },
-      { name: "2XL", inStock: true },
-      { name: "3XL", inStock: true },
-    ],
-    highlights: [
-      {
-        name:
-          `Minimum Order Quantity : ${selectedProduct.minimumOrderQuantity}` ||
-          3,
-      },
-      {
-        name:
-          `Return Policy : ${selectedProduct.returnPolicy}` ||
-          "7 days return policy",
-      },
-      {
-        name:
-          `Shipping Information : ${selectedProduct.shippingInformation}` ||
-          "Ships in 1 week",
-      },
-      {
-        name:
-          `Availability Status : ${selectedProduct.availabilityStatus}` ||
-          "In Stock",
-      },
-    ],
-  };
+
+  const highlights = [
+    {
+      name:
+        `Minimum Order Quantity : ${selectedProduct.minimumOrderQuantity}` || 3,
+    },
+    {
+      name:
+        `Return Policy : ${selectedProduct.returnPolicy}` ||
+        "7 days return policy",
+    },
+    {
+      name:
+        `Shipping Information : ${selectedProduct.shippingInformation}` ||
+        "Ships in 1 week",
+    },
+    {
+      name:
+        `Availability Status : ${selectedProduct.availabilityStatus}` ||
+        "In Stock",
+    },
+  ];
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+
+  if (Object.keys(selectedProduct).length === 0) {
+    return <Navigate to="/" />;
+  }
+
   return (
     <div className="bg-gray-950 rounded-lg">
       <div className="pt-6">
@@ -335,7 +342,7 @@ const SingleProduct = () => {
 
               <div className="mt-4">
                 <ul className="list-disc space-y-2 pl-4 text-sm">
-                  {product.highlights.map((highlight, i) => (
+                  {highlights.map((highlight, i) => (
                     <li key={i} className="text-gray-400">
                       <span className="text-slate-300">{highlight.name}</span>
                     </li>
