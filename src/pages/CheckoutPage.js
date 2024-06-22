@@ -10,7 +10,7 @@ const CheckoutPage = () => {
       <h1 className="text-4xl text-white mx-auto max-w-screen-xl px-4 2xl:px-0">
         Checkout
       </h1>
-      <form action="#" className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <form className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
           <div className="min-w-0 flex-1 space-y-8">
             <div className="space-y-4">

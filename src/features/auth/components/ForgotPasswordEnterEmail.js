@@ -1,8 +1,9 @@
 import React from "react";
-
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Formik, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 const ForgotPasswordEnterEmail = () => {
+  const navigate = useNavigate();
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -22,41 +23,59 @@ const ForgotPasswordEnterEmail = () => {
             <div className="text-sm text-gray-300 text-center my-3">
               OTP will be sent to entered Email
             </div>
-            <form className="space-y-4 md:space-y-6" action="#">
-              <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Your email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  placeholder="name@service.com"
-                  required={true}
-                />
-              </div>
+            <Formik
+              initialValues={{
+                email: "",
+              }}
+              validationSchema={Yup.object({
+                email: Yup.string()
+                  .required("Email is required")
+                  .email("Invalid email format"),
+              })}
+              onSubmit={(values, { resetForm }) => {
+                console.log(values);
+                resetForm();
+                navigate("/forgot-password-auth-1");
+              }}
+            >
+              <Form className="space-y-4 md:space-y-6">
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Your email
+                  </label>
+                  <Field
+                    type="email"
+                    name="email"
+                    id="email"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="name@service.com"
+                    required=""
+                  />
+                  <p className="text-sm text-red-600 mt-2">
+                    <ErrorMessage name="email" />
+                  </p>
+                </div>
 
-              <Link
-                to="/forgot-password-auth-1"
-                type="submit"
-                className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-              >
-                Send Otp
-              </Link>
-              <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                Remembered Password ?{" "}
-                <Link
-                  to="/login"
-                  className="font-medium text-white hover:underline"
+                <button
+                  type="submit"
+                  className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
-                  Login
-                </Link>
-              </p>
-            </form>
+                  Send Otp
+                </button>
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Remembered Password ?{" "}
+                  <Link
+                    to="/login"
+                    className="font-medium text-white hover:underline"
+                  >
+                    Login
+                  </Link>
+                </p>
+              </Form>
+            </Formik>
           </div>
         </div>
       </div>
