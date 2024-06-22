@@ -301,7 +301,7 @@ const ReviewsPage = ({ selectedProduct }) => {
                     name="title"
                     id="title"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    required=""
+                    required={true}
                   />
                 </div>
                 <div className="col-span-2">
@@ -315,7 +315,7 @@ const ReviewsPage = ({ selectedProduct }) => {
                     id="description"
                     rows={6}
                     className="mb-2 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    required=""
+                    required={true}
                     defaultValue={""}
                   />
                   <p className="ms-auto text-xs text-gray-500 dark:text-gray-400">
@@ -339,7 +339,7 @@ const ReviewsPage = ({ selectedProduct }) => {
                     min={0}
                     max={5}
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-600 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    required=""
+                    required={true}
                   />
                 </div>
                 <div className="col-span-2">

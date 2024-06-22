@@ -239,7 +239,7 @@ const ProductHome = () => {
 
         <main className="mx-auto max-w-7xl px-0 sm:px-0 lg:px-0 bg-gray-900">
           <div className="flex items-baseline justify-evenly lg:justify-between border-b border-gray-200 pb-6 pt-12">
-            <h1 className="text-4xl font-bold tracking-tight text-white">
+            <h1 className="text-3xl font-bold tracking-tight text-white">
               Products
             </h1>
 
