@@ -1,11 +1,56 @@
 import { Country, State, City } from "country-state-city";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
+import * as Yup from "yup";
+import { Form, Formik, Field, ErrorMessage } from "formik";
+import {
+  getLoggedInUser,
+  updateUserFromCheckoutAsync,
+} from "../features/auth/AuthSlice";
+
+const paymentMethods = [
+  {
+    name: "payment-method",
+    value: "Credit Card",
+    subText: "Pay with your credit card",
+  },
+  {
+    name: "payment-method",
+    value: "Payment on delivery",
+    subText: "+$15 payment processing fee",
+  },
+  {
+    name: "payment-method",
+    value: "Paypal account",
+    subText: "Connect to your account",
+  },
+];
+const deliveryMethods = [
+  {
+    name: "delivery-method",
+    value: "Free Delivery",
+    subText: "Get it by Friday, 13 Dec 2023",
+  },
+  {
+    name: "delivery-method",
+    value: "$15 - Fast Delivery",
+    subText: "Get it by Tomorrow",
+  },
+  {
+    name: "delivery-method",
+    value: "$49 - Express Delivery",
+    subText: "Get it today",
+  },
+];
+
 const CheckoutPage = () => {
-  const [selectedCountry, setSelectedCountry] = useState("");
-  const [selectedState, setSelectedState] = useState("");
-  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
   const location = useLocation();
+  const dispatch = useDispatch();
+
   const {
     savings,
     tax_amount,
@@ -13,12 +58,17 @@ const CheckoutPage = () => {
     final_amount,
     totalAmountBeforeDiscount,
   } = location.state;
+  const cartItems = useSelector(getLoggedInUserCartItems);
+  const loggedInUser = useSelector(getLoggedInUser);
+
+  useEffect(() => {}, []);
+  if (cartItems?.length === 0) return <Navigate to={"/"} replace={true} />;
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-8">
       <h1 className="text-4xl text-white mx-auto max-w-screen-xl px-4 2xl:px-0">
         Checkout
       </h1>
-      <form className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
           <div className="min-w-0 flex-1 space-y-8">
             <div className="space-y-4">
@@ -26,224 +76,294 @@ const CheckoutPage = () => {
                 Delivery Details
               </h2>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <div>
-                  <label
-                    htmlFor="your_name"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    {" "}
-                    Your name{" "}
-                  </label>
-                  <input
-                    type="text"
-                    id="your_name"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder="Bonnie Green"
-                    required
-                  />
-                </div>
+              <div>
+                <Formik
+                  initialValues={{
+                    fullName: "",
+                    email: "",
+                    phone: "",
+                    country: "",
+                    state: "",
+                    city: "",
+                    pinCode: "",
+                    address: "",
+                  }}
+                  validationSchema={Yup.object({
+                    fullName: Yup.string()
+                      .required("Name is required")
+                      .max(40, "Max 40 characters allowed"),
+                    email: Yup.string()
+                      .required("Email is required")
+                      .email("Invalid email format"),
+                    phone: Yup.string()
+                      .required("Phone Number is required")
+                      .min(10, "Min 10 digits required")
+                      .max(10, "Max 10 digits allowed"),
+                    country: Yup.string().required("Country is required"),
+                    state: Yup.string().required("State is required"),
+                    city: Yup.string().required("City is required"),
+                    pinCode: Yup.string()
+                      .required("Pin Code is required")
+                      .min(4, "Pin code must be at least of 4 digits")
+                      .max(12, "Pin can't be greater than 12 digits"),
+                    address: Yup.string()
+                      .required("Address is required")
+                      .max(100, "Max 100 characters are allowed"),
+                  })}
+                  onSubmit={(values, { resetForm }) => {
+                    dispatch(
+                      updateUserFromCheckoutAsync({
+                        address: {
+                          ...values,
+                          country: Country.getCountryByCode(values.country)
+                            .name,
+                          state: State.getStateByCodeAndCountry(
+                            values.state,
+                            values.country
+                          ).name,
+                        },
+                        user: loggedInUser.data,
+                      })
+                    );
+                  }}
+                >
+                  {({ values }) => (
+                    <Form className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div>
+                        <label
+                          htmlFor="your_name"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Your name{" "}
+                        </label>
+                        <Field
+                          type="text"
+                          id="your_name"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                          placeholder="Bonnie Green"
+                          name="fullName"
+                        />
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="fullName" />
+                        </p>
+                      </div>
 
-                <div>
-                  <label
-                    htmlFor="your_email"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    {" "}
-                    Your email*{" "}
-                  </label>
-                  <input
-                    type="email"
-                    id="your_email"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder="name@flowbite.com"
-                    required
-                  />
-                </div>
+                      <div>
+                        <label
+                          htmlFor="your_email"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Your email*{" "}
+                        </label>
+                        <Field
+                          type="email"
+                          id="your_email"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                          placeholder="name@service.com"
+                          name="email"
+                        />
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="email" />
+                        </p>
+                      </div>
 
-                <div>
-                  <label
-                    htmlFor="your_number"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    {" "}
-                    Phone Number*{" "}
-                  </label>
-                  <input
-                    type="text"
-                    id="your_email"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder="9876543210"
-                    required
-                    pattern="[0-9]{10}"
-                  />
-                </div>
+                      <div>
+                        <label
+                          htmlFor="your_number"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Phone Number*{" "}
+                        </label>
+                        <Field
+                          type="tel"
+                          id="your_email"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                          placeholder="9876543210"
+                          pattern="[0-9]{10}"
+                          name="phone"
+                        />
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="phone" />
+                        </p>
+                      </div>
 
-                <div>
-                  <div className="mb-2 flex items-center gap-2">
-                    <label
-                      htmlFor="select-country-input-3"
-                      className="block text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      {" "}
-                      Country*{" "}
-                    </label>
-                  </div>
-                  <select
-                    id="select-country-input-3"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    value={selectedCountry}
-                    onChange={(item) => {
-                      item.target.value !== 0 &&
-                        setSelectedCountry(item.target.value);
-                    }}
-                  >
-                    <option value={0}>Select Country</option>
-                    {Country.getAllCountries().map((item) => (
-                      <option key={item.isoCode} value={item.isoCode}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                      <div>
+                        <div className="mb-2 flex items-center gap-2">
+                          <label
+                            htmlFor="select-country-input-3"
+                            className="block text-sm font-medium text-gray-900 dark:text-white"
+                          >
+                            {" "}
+                            Country*{" "}
+                          </label>
+                        </div>
+                        <Field
+                          as={"select"}
+                          name="country"
+                          id="select-country-input-3"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                        >
+                          <option disabled>Select Country</option>
+                          {Country.getAllCountries().map((item) => (
+                            <option key={item.isoCode} value={item.isoCode}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </Field>
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="country" />
+                        </p>
+                      </div>
 
-                <div>
-                  <div className="mb-2 flex items-center gap-2">
-                    <label
-                      htmlFor="select-state-input-3"
-                      className="block text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      {" "}
-                      State*{" "}
-                    </label>
-                  </div>
-                  <select
-                    id="select-state-input-3"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    value={selectedState}
-                    onChange={(item) => {
-                      item.target.value !== 0 &&
-                        setSelectedState(item.target.value);
-                    }}
-                  >
-                    {!selectedCountry && (
-                      <option value={0}>Select Country First</option>
-                    )}
+                      <div>
+                        <div className="mb-2 flex items-center gap-2">
+                          <label
+                            htmlFor="select-state-input-3"
+                            className="block text-sm font-medium text-gray-900 dark:text-white"
+                          >
+                            {" "}
+                            State*{" "}
+                          </label>
+                        </div>
+                        <Field
+                          as={"select"}
+                          name="state"
+                          id="select-state-input-3"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                        >
+                          {!values.country && (
+                            <option value={0}>Select Country First</option>
+                          )}
 
-                    {selectedState === null && selectedCountry !== null && (
-                      <option value={0}>Select A State</option>
-                    )}
-                    {State?.getStatesOfCountry(selectedCountry).map((item) => (
-                      <option key={item.name} value={item.isoCode}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+                          {State?.getStatesOfCountry(values.country).map(
+                            (item) => (
+                              <option key={item.name} value={item.isoCode}>
+                                {item.name}
+                              </option>
+                            )
+                          )}
+                        </Field>
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="state" />
+                        </p>
+                      </div>
 
-                <div>
-                  <div className="mb-2 flex items-center gap-2">
-                    <label
-                      htmlFor="select-City-input-3"
-                      className="block text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      {" "}
-                      City*{" "}
-                    </label>
-                  </div>
-                  <select
-                    id="select-City-input-3"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    value={selectedCity}
-                    onChange={(item) => {
-                      item.target.value !== 0 &&
-                        setSelectedCity(item.target.value);
-                    }}
-                  >
-                    {!selectedState && (
-                      <option value={0}>Select State First</option>
-                    )}
+                      <div>
+                        <div className="mb-2 flex items-center gap-2">
+                          <label
+                            htmlFor="select-City-input-3"
+                            className="block text-sm font-medium text-gray-900 dark:text-white"
+                          >
+                            {" "}
+                            City*{" "}
+                          </label>
+                        </div>
+                        <Field
+                          as="select"
+                          name="city"
+                          id="select-City-input-3"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                        >
+                          {!values.state && (
+                            <option value={0}>Select State First</option>
+                          )}
 
-                    {City?.getCitiesOfState(selectedCountry, selectedState).map(
-                      (item) => (
-                        <option key={item.name} value={item.name}>
-                          {item.name}
-                        </option>
-                      )
-                    )}
-                  </select>
-                </div>
+                          {City?.getCitiesOfState(
+                            values.country,
+                            values.state
+                          ).map((item) => (
+                            <option key={item.name} value={item.name}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </Field>
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="city" />
+                        </p>
+                      </div>
 
-                <div>
-                  <label
-                    htmlFor="your_pinCode"
-                    className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    {" "}
-                    Pin Code{" "}
-                  </label>
-                  <input
-                    type="text"
-                    id="your_pinCode"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder="380050"
-                    required
-                  />
-                </div>
+                      <div>
+                        <label
+                          htmlFor="your_pinCode"
+                          className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                          {" "}
+                          Pin Code{" "}
+                        </label>
+                        <Field
+                          type="text"
+                          id="your_pinCode"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                          placeholder="380050"
+                          name="pinCode"
+                        />
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="pinCode" />
+                        </p>
+                      </div>
 
-                <div>
-                  <div className="mb-2 flex items-center gap-2 sm:grid-cols-1">
-                    <label
-                      htmlFor="select-City-input-3"
-                      className="block text-sm font-medium text-gray-900 dark:text-white"
-                    >
-                      {" "}
-                      Address*{" "}
-                    </label>
-                  </div>
-                  <textarea
-                    id="your_address"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
-                    placeholder="Enter your address"
-                    required
-                    maxLength={80}
-                    style={{ height: "calc(2.5rem + 2px)" }}
-                  />
-                </div>
+                      <div>
+                        <div className="mb-2 flex items-center gap-2 sm:grid-cols-1">
+                          <label
+                            htmlFor="select-City-input-3"
+                            className="block text-sm font-medium text-gray-900 dark:text-white"
+                          >
+                            {" "}
+                            Address*{" "}
+                          </label>
+                        </div>
+                        <Field
+                          as="textarea"
+                          name="address"
+                          id="your_address"
+                          className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                          placeholder="Enter your address"
+                          style={{ height: "calc(2.5rem + 2px)" }}
+                        />
+                        <p className="text-sm text-red-600 mt-2">
+                          <ErrorMessage name="address" />
+                        </p>
+                      </div>
 
-                <div>
-                  <button
-                    type="reset"
-                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-                  >
-                    Reset
-                  </button>
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-                  >
-                    <svg
-                      className="h-5 w-5"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 12h14m-7 7V5"
-                      />
-                    </svg>
-                    Add new address
-                  </button>
-                </div>
+                      <div>
+                        <button
+                          type="reset"
+                          className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                        >
+                          Reset
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          type="submit"
+                          className="flex w-full items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+                        >
+                          <svg
+                            className="h-5 w-5"
+                            aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke="currentColor"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M5 12h14m-7 7V5"
+                            />
+                          </svg>
+                          Add address
+                        </button>
+                      </div>
+                    </Form>
+                  )}
+                </Formik>
               </div>
             </div>
 
@@ -253,99 +373,43 @@ const CheckoutPage = () => {
               </h3>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                  <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                      <input
-                        id="credit-card"
-                        aria-describedby="credit-card-text"
-                        type="radio"
-                        name="payment-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                        defaultChecked
-                      />
-                    </div>
+                {paymentMethods.map((elem, i) => (
+                  <div key={i}>
+                    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="credit-card"
+                            aria-describedby="credit-card-text"
+                            type="radio"
+                            name={elem.name}
+                            value={elem.value}
+                            className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                            onClick={(e) =>
+                              setSelectedPaymentMethod(e.target.value)
+                            }
+                            required
+                          />
+                        </div>
 
-                    <div className="ms-4 text-sm">
-                      <label
-                        htmlFor="credit-card"
-                        className="font-medium leading-none text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Credit Card{" "}
-                      </label>
-                      <p
-                        id="credit-card-text"
-                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                      >
-                        Pay with your credit card
-                      </p>
+                        <div className="ms-4 text-sm">
+                          <label
+                            htmlFor="credit-card"
+                            className="font-medium leading-none text-gray-900 dark:text-white"
+                          >
+                            {elem.value}
+                          </label>
+                          <p
+                            id="credit-card-text"
+                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                          >
+                            {elem.subText}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                  <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                      <input
-                        id="pay-on-delivery"
-                        aria-describedby="pay-on-delivery-text"
-                        type="radio"
-                        name="payment-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                      />
-                    </div>
-
-                    <div className="ms-4 text-sm">
-                      <label
-                        htmlFor="pay-on-delivery"
-                        className="font-medium leading-none text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Payment on delivery{" "}
-                      </label>
-                      <p
-                        id="pay-on-delivery-text"
-                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                      >
-                        +$15 payment processing fee
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                  <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                      <input
-                        id="paypal-2"
-                        aria-describedby="paypal-text"
-                        type="radio"
-                        name="payment-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                      />
-                    </div>
-
-                    <div className="ms-4 text-sm">
-                      <label
-                        htmlFor="paypal-2"
-                        className="font-medium leading-none text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Paypal account{" "}
-                      </label>
-                      <p
-                        id="paypal-text"
-                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                      >
-                        Connect to your account
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -355,99 +419,43 @@ const CheckoutPage = () => {
               </h3>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                  <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                      <input
-                        id="fedex"
-                        aria-describedby="fedex-text"
-                        type="radio"
-                        name="delivery-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                      />
-                    </div>
+                {deliveryMethods.map((elem, i) => (
+                  <div key={i}>
+                    <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                      <div className="flex items-start">
+                        <div className="flex h-5 items-center">
+                          <input
+                            id="credit-card"
+                            aria-describedby="credit-card-text"
+                            type="radio"
+                            name={elem.name}
+                            value={elem.value}
+                            className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                            onClick={(e) =>
+                              setSelectedDeliveryMethod(e.target.value)
+                            }
+                            required
+                          />
+                        </div>
 
-                    <div className="ms-4 text-sm">
-                      <label
-                        htmlFor="fedex"
-                        className="font-medium leading-none text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        Free Delivery
-                      </label>
-                      <p
-                        id="fedex-text"
-                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                      >
-                        Get it by Friday, 13 Dec 2023
-                      </p>
+                        <div className="ms-4 text-sm">
+                          <label
+                            htmlFor="credit-card"
+                            className="font-medium leading-none text-gray-900 dark:text-white"
+                          >
+                            {elem.value}
+                          </label>
+                          <p
+                            id="credit-card-text"
+                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                          >
+                            {elem.subText}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                  <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                      <input
-                        id="dhl"
-                        aria-describedby="dhl-text"
-                        type="radio"
-                        name="delivery-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                        defaultChecked
-                      />
-                    </div>
-
-                    <div className="ms-4 text-sm">
-                      <label
-                        htmlFor="dhl"
-                        className="font-medium leading-none text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        $15 - Fast Delivery{" "}
-                      </label>
-                      <p
-                        id="dhl-text"
-                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                      >
-                        Get it by Tommorow
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                  <div className="flex items-start">
-                    <div className="flex h-5 items-center">
-                      <input
-                        id="express"
-                        aria-describedby="express-text"
-                        type="radio"
-                        name="delivery-method"
-                        value=""
-                        className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
-                      />
-                    </div>
-
-                    <div className="ms-4 text-sm">
-                      <label
-                        htmlFor="express"
-                        className="font-medium leading-none text-gray-900 dark:text-white"
-                      >
-                        {" "}
-                        $49 - Express Delivery{" "}
-                      </label>
-                      <p
-                        id="express-text"
-                        className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                      >
-                        Get it today
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
 
@@ -484,7 +492,7 @@ const CheckoutPage = () => {
                     Subtotal
                   </dt>
                   <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    $ {totalAmountBeforeDiscount}
+                    $ {totalAmountBeforeDiscount?.toFixed(2)}
                   </dd>
                 </dl>
 
@@ -493,7 +501,7 @@ const CheckoutPage = () => {
                     Savings
                   </dt>
                   <dd className="text-base font-medium text-green-500">
-                    ${savings}
+                    -${savings}
                   </dd>
                 </dl>
 
@@ -528,26 +536,51 @@ const CheckoutPage = () => {
 
             <div className="space-y-3">
               <button
-                type="submit"
-                className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                type="button"
+                className={`flex w-full items-center justify-center rounded-lg  px-5 py-2.5 text-sm font-medium text-white ${
+                  selectedPaymentMethod === "" || selectedDeliveryMethod === ""
+                    ? "bg-slate-600 cursor-not-allowed"
+                    : "bg-primary-700 hover:bg-primary-800"
+                } focus:outline-none focus:ring-4  focus:ring-primary-300 `}
+                disabled={
+                  selectedPaymentMethod === "" || selectedDeliveryMethod === ""
+                }
               >
                 Proceed to Payment
               </button>
+              {(selectedPaymentMethod === "" ||
+                selectedDeliveryMethod === "") && (
+                <p className="text-sm text-center text-slate-300">
+                  Please select payment method, delivery method to{" "}
+                  <strong>Proceed</strong>
+                </p>
+              )}
 
-              <p className="text-sm font-normal text-center text-gray-500 dark:text-gray-400">
-                Or{" "}
-                <Link
-                  to="/"
-                  className="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
-                >
-                  Continue Shopping
-                </Link>
-                .
-              </p>
+              <div className="flex justify-between">
+                <p className="text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                  <Link
+                    to="/"
+                    className="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
+                  >
+                    Continue Shopping
+                  </Link>
+                </p>
+                <p className="text-sm font-normal text-center  dark:text-white">
+                  OR
+                </p>
+                <p className="text-sm font-normal text-center text-gray-500 dark:text-gray-400">
+                  <Link
+                    to="/cart"
+                    className="font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"
+                  >
+                    Go To Cart
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </section>
   );
 };

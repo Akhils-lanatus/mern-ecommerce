@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import * as Yup from "yup";
 import { checkUserAsync } from "../AuthSlice";
 
 const Login = () => {

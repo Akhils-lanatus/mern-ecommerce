@@ -41,3 +41,22 @@ export async function logoutUser(id) {
     console.log(`Error :: ${error}`);
   }
 }
+
+export async function updateUserFromCheckout(data) {
+  try {
+    const { user, address } = data;
+    console.log({ address, user });
+    const updatedAddresses = [...user.addresses, address];
+    const tempUser = { ...user, addresses: updatedAddresses };
+    console.log(tempUser);
+    // const response = await fetch(`http://localhost:8000/cart/${product.id}`, {
+    //   method: "PATCH",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify(pdt),
+    // });
+    // const data = await response.json();
+    // return data;
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+}

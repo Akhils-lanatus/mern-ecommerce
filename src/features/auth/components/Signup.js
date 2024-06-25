@@ -31,6 +31,7 @@ const Signup = () => {
                 email: "",
                 password: "",
                 confirmPassword: "",
+                addresses: [],
               }}
               validationSchema={Yup.object({
                 name: Yup.string()
@@ -46,6 +47,7 @@ const Signup = () => {
                 confirmPassword: Yup.string()
                   .required("Confirm Password is required")
                   .oneOf([Yup.ref("password"), null], "Passwords didn't match"),
+                addresses: Yup.array(),
               })}
               onSubmit={(values, { resetForm }) => {
                 try {
