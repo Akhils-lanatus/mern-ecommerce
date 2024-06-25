@@ -5,8 +5,8 @@ export async function createUser(userData) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userData),
     });
-    const data = response.json();
-    return data;
+    const data = await response.json();
+    return { data };
   } catch (error) {
     console.log(`Error :: ${error}`);
   }

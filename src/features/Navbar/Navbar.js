@@ -16,15 +16,10 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getLoggedInUser, logoutUserAsync } from "../auth/AuthSlice";
+import { getLoggedInUserCartItems } from "../cart/cartSlice";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
-  { name: "Dashboard", to: "/", current: true },
+  { name: "Home", to: "/", current: true },
   { name: "Login", to: "/auth/login", current: false },
   { name: "Register", to: "/auth/register", current: false },
 ];
@@ -42,6 +37,8 @@ const Navbar = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(getLoggedInUser);
+  const cartItems = useSelector(getLoggedInUserCartItems);
+  const totalItemsInCart = cartItems?.length;
   const isUserNotLoggedIn = loggedInUser?.length === 0;
   const handleLogout = () => {
     dispatch(logoutUserAsync(loggedInUser?.data?.id))
@@ -51,6 +48,12 @@ const Navbar = ({ children }) => {
           navigate("/auth/login");
         }
       });
+  };
+  const user = {
+    name: loggedInUser?.data?.name || "Tom Cook",
+    email: loggedInUser?.data?.email || "tom@example.com",
+    imageUrl:
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   };
   return (
     <>
@@ -105,12 +108,13 @@ const Navbar = ({ children }) => {
                               }`}
                               aria-hidden="true"
                             />
+
                             <span
                               className={`absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black ${
                                 isUserNotLoggedIn && "cursor-not-allowed"
                               }`}
                             >
-                              1
+                              {totalItemsInCart}
                             </span>
                           </span>
                         </button>
@@ -237,7 +241,7 @@ const Navbar = ({ children }) => {
                               isUserNotLoggedIn && "cursor-not-allowed"
                             }`}
                           >
-                            1
+                            {totalItemsInCart}
                           </span>
                         </span>
                       </button>

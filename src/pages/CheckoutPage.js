@@ -1,10 +1,18 @@
 import { Country, State, City } from "country-state-city";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const CheckoutPage = () => {
   const [selectedCountry, setSelectedCountry] = useState("");
   const [selectedState, setSelectedState] = useState("");
   const [selectedCity, setSelectedCity] = useState("");
+  const location = useLocation();
+  const {
+    savings,
+    tax_amount,
+    store_pickup_price,
+    final_amount,
+    totalAmountBeforeDiscount,
+  } = location.state;
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-8">
       <h1 className="text-4xl text-white mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -476,7 +484,7 @@ const CheckoutPage = () => {
                     Subtotal
                   </dt>
                   <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    $8,094.00
+                    $ {totalAmountBeforeDiscount}
                   </dd>
                 </dl>
 
@@ -484,7 +492,9 @@ const CheckoutPage = () => {
                   <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
                     Savings
                   </dt>
-                  <dd className="text-base font-medium text-green-500">0</dd>
+                  <dd className="text-base font-medium text-green-500">
+                    ${savings}
+                  </dd>
                 </dl>
 
                 <dl className="flex items-center justify-between gap-4 py-3">
@@ -492,7 +502,7 @@ const CheckoutPage = () => {
                     Store Pickup
                   </dt>
                   <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    $99
+                    ${store_pickup_price}
                   </dd>
                 </dl>
 
@@ -501,7 +511,7 @@ const CheckoutPage = () => {
                     Tax
                   </dt>
                   <dd className="text-base font-medium text-gray-900 dark:text-white">
-                    $199
+                    ${tax_amount}
                   </dd>
                 </dl>
 
@@ -510,7 +520,7 @@ const CheckoutPage = () => {
                     Total
                   </dt>
                   <dd className="text-base font-bold text-gray-900 dark:text-white">
-                    $8,392.00
+                    ${final_amount}
                   </dd>
                 </dl>
               </div>

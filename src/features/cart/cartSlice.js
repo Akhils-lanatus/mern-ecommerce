@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addToCart, getCartItems, removeFromCart } from "./cartAPI";
+import {
+  addItemQuantity,
+  addToCart,
+  getCartItems,
+  removeFromCart,
+  removeItemQuantity,
+} from "./cartAPI";
 
 const initialState = {
   item: [],
@@ -26,6 +32,20 @@ export const removeFromCartAsync = createAsyncThunk(
     return response;
   }
 );
+export const addItemQuantityAsync = createAsyncThunk(
+  "cart/addItemQuantity",
+  async (product) => {
+    const response = await addItemQuantity(product);
+    return response;
+  }
+);
+export const removeItemQuantityAsync = createAsyncThunk(
+  "cart/removeItemQuantity",
+  async (product) => {
+    const response = await removeItemQuantity(product);
+    return response;
+  }
+);
 
 export const cartSlice = createSlice({
   name: "cart",
@@ -40,6 +60,18 @@ export const cartSlice = createSlice({
     });
     builder.addCase(removeFromCartAsync.fulfilled, (state, action) => {
       state.item = action.payload;
+    });
+    builder.addCase(addItemQuantityAsync.fulfilled, (state, action) => {
+      const index = state.item.findIndex(
+        (elem) => elem.id === action.payload.id
+      );
+      state.item[index] = action.payload;
+    });
+    builder.addCase(removeItemQuantityAsync.fulfilled, (state, action) => {
+      const index = state.item.findIndex(
+        (elem) => elem.id === action.payload.id
+      );
+      state.item[index] = action.payload;
     });
   },
 });

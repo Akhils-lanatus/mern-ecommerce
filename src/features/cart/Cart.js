@@ -2,8 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
+  addItemQuantityAsync,
   getLoggedInUserCartItems,
   removeFromCartAsync,
+  removeItemQuantityAsync,
 } from "../cart/cartSlice";
 const Cart = () => {
   const dispatch = useDispatch();
@@ -17,7 +19,7 @@ const Cart = () => {
     let d = 1 - (item.item.discountPercentage / 100 || 0.25);
     const priceBeforeDiscount = (P / d).toFixed(2);
 
-    return amount + parseFloat(priceBeforeDiscount);
+    return amount + parseFloat(priceBeforeDiscount * item.quantity);
   }, 0);
 
   const totalItems = cartItems.reduce(
@@ -29,9 +31,9 @@ const Cart = () => {
     (totalAmountBeforeDiscount - totalAmount)?.toFixed(2)
   );
   const store_pickup_price = parseFloat(
-    (totalAmountBeforeDiscount * 0.2)?.toFixed(2)
+    (totalAmountBeforeDiscount * 0.05)?.toFixed(2)
   );
-  const tax_amount = parseFloat((totalAmount * (totalItems / 100))?.toFixed(2));
+  const tax_amount = parseFloat((totalAmount * 0.01)?.toFixed(2));
   const final_amount = (
     totalAmountBeforeDiscount +
     store_pickup_price +
@@ -39,7 +41,12 @@ const Cart = () => {
     savings
   )?.toFixed(2);
 
-  const handleAddItemQuantity = () => {};
+  const handleAddItemQuantity = (product) => {
+    dispatch(addItemQuantityAsync(product));
+  };
+  const handleRemoveItemQuantity = (product) => {
+    dispatch(removeItemQuantityAsync(product));
+  };
 
   const handleRemoveFromCart = (product) => {
     const loggedInUserId = cartItems[0].user;
@@ -119,7 +126,10 @@ const Cart = () => {
                                     ? "border-gray-600 bg-gray-800 opacity-50 cursor-not-allowed"
                                     : "border-gray-600 bg-gray-700 hover:bg-gray-600 focus:ring-gray-700"
                                 }`}
-                                disabled={value.quantity === 1}
+                                disabled={
+                                  value.quantity === 1 || value.stock === 0
+                                }
+                                onClick={() => handleRemoveItemQuantity(value)}
                               >
                                 <svg
                                   className="h-2.5 w-2.5 text-gray-900 dark:text-white"
@@ -155,8 +165,11 @@ const Cart = () => {
                                     ? "border-gray-600 bg-gray-800 opacity-50 cursor-not-allowed"
                                     : "border-gray-600 bg-gray-700 hover:bg-gray-600 focus:ring-gray-700"
                                 }`}
-                                onClick={handleAddItemQuantity}
-                                disabled={value.quantity >= item.stock}
+                                onClick={() => handleAddItemQuantity(value)}
+                                disabled={
+                                  value.quantity >= item.stock ||
+                                  value.stock === 0
+                                }
                               >
                                 <svg
                                   className="h-2.5 w-2.5 text-gray-900 dark:text-white"
@@ -177,7 +190,7 @@ const Cart = () => {
                             </div>
                             <div className="text-end md:order-4 md:w-32">
                               <p className="text-base font-bold text-gray-900 dark:text-white">
-                                $ {item.price}
+                                $ {(item.price * value.quantity)?.toFixed(2)}
                               </p>
                             </div>
                           </div>
@@ -527,13 +540,20 @@ const Cart = () => {
                     <div className="space-y-2">
                       <dl className="flex items-center justify-between gap-4">
                         <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
+                          Total Items
+                        </dt>
+                        <dd className="text-base font-medium text-gray-900 dark:text-white">
+                          {totalItems}
+                        </dd>
+                      </dl>
+                      <dl className="flex items-center justify-between gap-4">
+                        <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
                           Original price
                         </dt>
                         <dd className="text-base font-medium text-gray-900 dark:text-white">
                           $ {totalAmountBeforeDiscount?.toFixed(2)}
                         </dd>
                       </dl>
-
                       <dl className="flex items-center justify-between gap-4">
                         <dt className="text-base font-normal text-gray-500 dark:text-gray-400">
                           Savings
@@ -575,6 +595,13 @@ const Cart = () => {
                   <Link
                     to="/checkout"
                     className="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    state={{
+                      savings,
+                      tax_amount,
+                      store_pickup_price,
+                      final_amount,
+                      totalAmountBeforeDiscount,
+                    }}
                   >
                     Proceed to Checkout
                   </Link>

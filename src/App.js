@@ -18,7 +18,7 @@ const App = () => {
   const user = useSelector(getLoggedInUser);
   useEffect(() => {
     if (user.length !== 0) {
-      dispatch(getCartItemsAsync(user.data.id));
+      dispatch(getCartItemsAsync(user?.data?.id));
     }
   }, [dispatch, user]);
 

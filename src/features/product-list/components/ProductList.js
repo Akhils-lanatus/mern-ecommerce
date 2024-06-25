@@ -117,7 +117,7 @@ export function ProductList() {
                   </button>
                   {cartItems?.some(
                     (elem) =>
-                      loggedInUser.data.id === elem.user &&
+                      loggedInUser?.data?.id === elem.user &&
                       product.id === elem.item.id
                   ) ? (
                     <button
