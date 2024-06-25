@@ -6,7 +6,12 @@ import { fetchSingleProductAsync, getSingleProduct } from "../ProductSlice";
 import { Navigate, useParams } from "react-router-dom";
 import NoImageFound from "../../../assets/No_Image_Found.jpg";
 import ReviewsPage from "../../../pages/ReviewsPage";
-
+import {
+  addToCartAsync,
+  getLoggedInUserCartItems,
+  removeFromCartAsync,
+} from "../../cart/cartSlice";
+import { getLoggedInUser } from "../../auth/AuthSlice";
 const product = {
   colors: [
     { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -30,8 +35,11 @@ function classNames(...classes) {
 }
 
 const SingleProduct = () => {
-  const { id } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const loggedInUser = useSelector(getLoggedInUser);
+  const isUserNotLoggedIn = loggedInUser?.length === 0;
+  const cartItems = useSelector(getLoggedInUserCartItems);
   let selectedProduct = useSelector(getSingleProduct);
   useEffect(() => {
     if (selectedProduct && Object.keys(selectedProduct)?.length === 0 && id) {
@@ -59,7 +67,11 @@ const SingleProduct = () => {
   const highlights = [
     {
       name:
-        `Minimum Order Quantity : ${selectedProduct.minimumOrderQuantity}` || 3,
+        `Minimum Order Quantity : ${
+          selectedProduct.minimumOrderQuantity > selectedProduct.stock
+            ? selectedProduct.stock
+            : selectedProduct.minimumOrderQuantity
+        }` || 3,
     },
     {
       name:
@@ -76,9 +88,34 @@ const SingleProduct = () => {
         `Availability Status : ${selectedProduct.availabilityStatus}` ||
         "In Stock",
     },
+    {
+      name: `Stock Available : ${selectedProduct.stock}`,
+    },
   ];
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+
+  const handleCart = (product) => {
+    dispatch(
+      addToCartAsync({
+        item: product,
+        quantity: 1,
+        user: loggedInUser.data.id,
+      })
+    );
+  };
+  const handleRemoveFromCart = (product) => {
+    const cartItem = cartItems.find(
+      (elem) =>
+        elem.user === loggedInUser.data.id && product.id === elem.item.id
+    );
+    if (cartItem) {
+      const cartItemID = cartItem.id;
+      dispatch(removeFromCartAsync(cartItemID));
+    } else {
+      console.log("NOT FOUND");
+    }
+  };
 
   if (Object.keys(selectedProduct).length === 0) {
     return <Navigate to="/" />;
@@ -316,12 +353,47 @@ const SingleProduct = () => {
                 </fieldset>
               </div>
 
-              <button
-                type="submit"
-                className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Add to bag
-              </button>
+              {cartItems?.some(
+                (elem) =>
+                  loggedInUser.data.id === elem.user &&
+                  selectedProduct.id === elem.item.id
+              ) ? (
+                <button
+                  type="button"
+                  className={`mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 hover:bg-red-700 bg-red-600`}
+                  onClick={() => handleRemoveFromCart(selectedProduct)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="-ms-2 me-1 h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                    />
+                  </svg>
+                  Remove From Cart
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  className={`mt-10 flex w-full items-center justify-center rounded-md border border-transparent  px-8 py-3 text-base font-medium text-white  focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${
+                    isUserNotLoggedIn
+                      ? "bg-slate-800 cursor-not-allowed"
+                      : "hover:bg-indigo-700 bg-indigo-600"
+                  }`}
+                  onClick={() => handleCart(selectedProduct)}
+                  disabled={isUserNotLoggedIn}
+                >
+                  Add to bag
+                </button>
+              )}
             </form>
           </div>
 
@@ -354,7 +426,10 @@ const SingleProduct = () => {
         </div>
 
         {/* Product Review */}
-        <ReviewsPage selectedProduct={selectedProduct} />
+        <ReviewsPage
+          selectedProduct={selectedProduct}
+          isUserNotLoggedIn={isUserNotLoggedIn}
+        />
       </div>
     </div>
   );

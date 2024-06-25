@@ -70,7 +70,7 @@ const getRatingData = (reviews) => {
     .reverse();
 };
 
-const ReviewsPage = ({ selectedProduct }) => {
+const ReviewsPage = ({ selectedProduct, isUserNotLoggedIn }) => {
   const ratingData = getRatingData(
     selectedProduct?.reviews && selectedProduct?.reviews
   );
@@ -109,7 +109,12 @@ const ReviewsPage = ({ selectedProduct }) => {
                 type="button"
                 data-modal-target="review-modal"
                 data-modal-toggle="review-modal"
-                className="mb-2 me-2 rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                className={`mb-2 me-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-primary-300  ${
+                  isUserNotLoggedIn
+                    ? "bg-slate-800 cursor-not-allowed"
+                    : "bg-primary-600 hover:bg-primary-700"
+                }`}
+                disabled={isUserNotLoggedIn}
                 onClick={openModal}
               >
                 Write a review

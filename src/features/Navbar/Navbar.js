@@ -13,7 +13,9 @@ import {
   ShoppingBagIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { getLoggedInUser, logoutUserAsync } from "../auth/AuthSlice";
 
 const user = {
   name: "Tom Cook",
@@ -23,13 +25,13 @@ const user = {
 };
 const navigation = [
   { name: "Dashboard", to: "/", current: true },
-  { name: "Login", to: "/login", current: false },
-  { name: "Register", to: "/register", current: false },
+  { name: "Login", to: "/auth/login", current: false },
+  { name: "Register", to: "/auth/register", current: false },
 ];
 const userNavigation = [
-  { name: "Your Profile", href: "#" },
-  { name: "Settings", href: "#" },
-  { name: "Sign out", href: "#" },
+  { name: "Your Profile", linkTo: "/" },
+  { name: "Settings", linkTo: "/" },
+  { name: "Sign out", linkTo: "/auth/login" },
 ];
 
 function classNames(...classes) {
@@ -37,6 +39,19 @@ function classNames(...classes) {
 }
 
 const Navbar = ({ children }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const loggedInUser = useSelector(getLoggedInUser);
+  const isUserNotLoggedIn = loggedInUser?.length === 0;
+  const handleLogout = () => {
+    dispatch(logoutUserAsync(loggedInUser?.data?.id))
+      .unwrap()
+      .then((res) => {
+        if (res === 200) {
+          navigate("/auth/login");
+        }
+      });
+  };
   return (
     <>
       <div className="sticky min-h-full">
@@ -85,10 +100,16 @@ const Navbar = ({ children }) => {
                           <span className="sr-only">View notifications</span>
                           <span className="relative inline-flex items-center justify-center">
                             <ShoppingBagIcon
-                              className="h-6 w-6"
+                              className={`h-6 w-6 ${
+                                isUserNotLoggedIn && "cursor-not-allowed"
+                              }`}
                               aria-hidden="true"
                             />
-                            <span className="absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black">
+                            <span
+                              className={`absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black ${
+                                isUserNotLoggedIn && "cursor-not-allowed"
+                              }`}
+                            >
                               1
                             </span>
                           </span>
@@ -124,6 +145,11 @@ const Navbar = ({ children }) => {
                                       focus ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700"
                                     )}
+                                    onClick={() => {
+                                      item.name === "Sign out" &&
+                                        loggedInUser?.length !== 0 &&
+                                        handleLogout();
+                                    }}
                                   >
                                     {item.name}
                                   </div>
@@ -201,10 +227,16 @@ const Navbar = ({ children }) => {
                         <span className="sr-only">View notifications</span>
                         <span className="relative inline-flex items-center justify-center">
                           <ShoppingBagIcon
-                            className="h-6 w-6"
+                            className={`h-6 w-6 ${
+                              isUserNotLoggedIn && "cursor-not-allowed"
+                            }`}
                             aria-hidden="true"
                           />
-                          <span className="absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black">
+                          <span
+                            className={`absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black ${
+                              isUserNotLoggedIn && "cursor-not-allowed"
+                            }`}
+                          >
                             1
                           </span>
                         </span>
@@ -216,6 +248,12 @@ const Navbar = ({ children }) => {
                       <DisclosureButton
                         key={item.name}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                        onClick={() => {
+                          item.name === "Sign out" &&
+                            loggedInUser?.length !== 0 &&
+                            loggedInUser?.length !== 0 &&
+                            handleLogout();
+                        }}
                       >
                         {item.name}
                       </DisclosureButton>

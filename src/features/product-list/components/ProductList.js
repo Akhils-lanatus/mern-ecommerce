@@ -7,11 +7,27 @@ import {
 } from "../ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
-
+import { getLoggedInUser } from "../../auth/AuthSlice";
+import {
+  addToCartAsync,
+  getLoggedInUserCartItems,
+  removeFromCartAsync,
+} from "../../cart/cartSlice";
 export function ProductList() {
   const products = useSelector(selectAllProducts);
+  const loggedInUser = useSelector(getLoggedInUser);
+  const isUserNotLoggedIn = loggedInUser?.length === 0;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector(getLoggedInUserCartItems);
+  function classNames(...classes) {
+    return classes.filter(Boolean).join(" ");
+  }
+
+  useEffect(() => {
+    dispatch(fetchAllProductsAsync());
+  }, [dispatch]);
+
   const handleFetchSingleProduct = (id) => {
     dispatch(fetchSingleProductAsync(id))
       .unwrap()
@@ -24,12 +40,23 @@ export function ProductList() {
       });
   };
 
-  useEffect(() => {
-    dispatch(fetchAllProductsAsync());
-  }, [dispatch]);
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(" ");
-  }
+  const handleCart = (product) => {
+    dispatch(
+      addToCartAsync({ item: product, quantity: 1, user: loggedInUser.data.id })
+    );
+  };
+  const handleRemoveFromCart = (product) => {
+    const cartItem = cartItems.find(
+      (elem) =>
+        elem.user === loggedInUser.data.id && product.id === elem.item.id
+    );
+    if (cartItem) {
+      const cartItemID = cartItem.id;
+      dispatch(removeFromCartAsync(cartItemID));
+    } else {
+      console.log("NOT FOUND");
+    }
+  };
 
   return (
     <div>
@@ -86,46 +113,66 @@ export function ProductList() {
                     className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     onClick={() => handleFetchSingleProduct(product.id)}
                   >
-                    <svg
-                      className="-ms-2 me-1 h-5 w-5"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25"
-                      />
-                    </svg>
                     View
                   </button>
-                  <button
-                    type="button"
-                    className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                  >
-                    <svg
-                      className="-ms-2 me-1 h-5 w-5"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
+                  {cartItems?.some(
+                    (elem) =>
+                      loggedInUser.data.id === elem.user &&
+                      product.id === elem.item.id
+                  ) ? (
+                    <button
+                      type="button"
+                      className={`inline-flex w-full items-center justify-center rounded-lg px-2 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4 hover:bg-red-700 bg-red-600`}
+                      onClick={() => handleRemoveFromCart(product)}
                     >
-                      <path
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth="1.5"
                         stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4"
-                      />
-                    </svg>
-                    Add to cart
-                  </button>
+                        className="-ms-2 me-1 h-4 w-4"
+                        aria-hidden="true"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"
+                        />
+                      </svg>
+                      Remove
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className={`inline-flex w-full items-center justify-center rounded-lg px-2 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4 ${
+                        isUserNotLoggedIn
+                          ? "bg-slate-800 cursor-not-allowed"
+                          : "hover:bg-primary-800 bg-primary-700"
+                      } `}
+                      onClick={() => handleCart(product)}
+                      disabled={isUserNotLoggedIn}
+                    >
+                      <svg
+                        className="-ms-2 me-1 h-5 w-5"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke="currentColor"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4"
+                        />
+                      </svg>
+                      Add
+                    </button>
+                  )}
                 </div>
               </div>
             );

@@ -1,9 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import * as Yup from "yup";
+import { checkUserAsync } from "../AuthSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -35,13 +40,24 @@ const Login = () => {
                   .email("Invalid email format"),
                 password: Yup.string()
                   .required("Password is required")
-                  .min(6, "Enter atleast 8 characters")
+                  .min(6, "Enter at least 8 characters")
                   .max(16, "Max 16 characters are allowed"),
                 rememberMe: Yup.boolean(),
               })}
               onSubmit={(values, { resetForm }) => {
-                console.log(values);
-                resetForm();
+                try {
+                  dispatch(checkUserAsync(values))
+                    .unwrap()
+                    .then((res) => {
+                      navigate("/");
+                      resetForm();
+                    })
+                    .catch((err) => {
+                      //
+                    });
+                } catch (error) {
+                  console.log(`Error in login :: ${error}`);
+                }
               }}
             >
               <Form className="space-y-4 md:space-y-6">
@@ -103,7 +119,7 @@ const Login = () => {
                     </div>
                   </div>
                   <Link
-                    to={"/forgot-password-auth-0"}
+                    to={"/auth/forgot-password-auth-0"}
                     className="text-sm font-medium text-white hover:underline "
                   >
                     Forgot password?
@@ -118,7 +134,7 @@ const Login = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Don’t have an account yet?{" "}
                   <Link
-                    to="/register"
+                    to="/auth/register"
                     className="font-medium text-white hover:underline"
                   >
                     Register

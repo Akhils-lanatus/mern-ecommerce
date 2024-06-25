@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik, Field, ErrorMessage } from "formik";
+import { useDispatch } from "react-redux";
+import { createUserAsync } from "../AuthSlice";
 import * as Yup from "yup";
 const Signup = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -40,8 +44,16 @@ const Signup = () => {
                   .oneOf([Yup.ref("password"), null], "Passwords didn't match"),
               })}
               onSubmit={(values, { resetForm }) => {
-                console.log(values);
-                resetForm();
+                try {
+                  dispatch(createUserAsync(values))
+                    .unwrap()
+                    .then((res) => {
+                      resetForm();
+                      navigate("/auth/login");
+                    });
+                } catch (error) {
+                  console.log(`Error while registering user :: ${error} `);
+                }
               }}
             >
               <Form className="space-y-4 md:space-y-6">
@@ -111,7 +123,7 @@ const Signup = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have an account?{" "}
                   <Link
-                    to="/login"
+                    to="/auth/login"
                     className="font-medium text-white hover:underline"
                   >
                     Login

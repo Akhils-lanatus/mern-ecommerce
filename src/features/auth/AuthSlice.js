@@ -1,58 +1,58 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchCount } from "./AuthAPI";
+import { createUser, checkUser, logoutUser } from "./AuthAPI";
 
 const initialState = {
-  value: 0,
-  status: "idle",
+  loggedInUser: [],
+  error: "",
 };
 
-export const incrementAsync = createAsyncThunk(
-  "counter/fetchCount",
-  async (amount) => {
-    const response = await fetchCount(amount);
-
-    return response.data;
+export const createUserAsync = createAsyncThunk(
+  "auth/createUser",
+  async (userData) => {
+    const response = await createUser(userData);
+    return response;
   }
 );
 
-export const counterSlice = createSlice({
-  name: "counter",
+export const checkUserAsync = createAsyncThunk(
+  "auth/checkUser",
+  async (loginInfo) => {
+    const response = await checkUser(loginInfo);
+    return response;
+  }
+);
+
+export const logoutUserAsync = createAsyncThunk(
+  "auth/logoutUser",
+  async (id) => {
+    const response = await logoutUser(id);
+    return response;
+  }
+);
+
+export const authSlice = createSlice({
+  name: "auth",
   initialState,
-
-  reducers: {
-    increment: (state) => {
-      state.value += 1;
-    },
-    decrement: (state) => {
-      state.value -= 1;
-    },
-
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
-    },
-  },
-
+  reducers: {},
   extraReducers: (builder) => {
-    builder
-      .addCase(incrementAsync.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(incrementAsync.fulfilled, (state, action) => {
-        state.status = "idle";
-        state.value += action.payload;
-      });
+    builder.addCase(createUserAsync.fulfilled, (state, action) => {
+      state.loggedInUser = action.payload;
+      state.error = null;
+    });
+    builder.addCase(checkUserAsync.fulfilled, (state, action) => {
+      state.loggedInUser = action.payload;
+      state.error = null;
+    });
+    builder.addCase(checkUserAsync.rejected, (state, action) => {
+      state.error = action.error.message;
+    });
+    builder.addCase(logoutUserAsync.fulfilled, (state) => {
+      state.error = null;
+      state.loggedInUser = [];
+    });
   },
 });
 
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const getLoggedInUser = (state) => state.auth.loggedInUser;
 
-export const selectCount = (state) => state.product.value;
-
-export const incrementIfOdd = (amount) => (dispatch, getState) => {
-  const currentValue = selectCount(getState());
-  if (currentValue % 2 === 1) {
-    dispatch(incrementByAmount(amount));
-  }
-};
-
-export default counterSlice.reducer;
+export default authSlice.reducer;

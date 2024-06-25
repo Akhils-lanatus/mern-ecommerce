@@ -33,7 +33,7 @@ const ForgotPasswordEnterOTP = () => {
               onSubmit={(values, { resetForm }) => {
                 console.log(values);
                 resetForm();
-                navigate("/login");
+                navigate("/auth/login");
               }}
             >
               <Form className="space-y-4 md:space-y-6">
@@ -65,7 +65,7 @@ const ForgotPasswordEnterOTP = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Remembered Password ?{" "}
                   <Link
-                    to="/login"
+                    to="/auth/login"
                     className="font-medium text-white hover:underline"
                   >
                     Login

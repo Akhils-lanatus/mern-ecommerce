@@ -35,7 +35,7 @@ const ForgotPasswordEnterEmail = () => {
               onSubmit={(values, { resetForm }) => {
                 console.log(values);
                 resetForm();
-                navigate("/forgot-password-auth-1");
+                navigate("/auth/forgot-password-auth-1");
               }}
             >
               <Form className="space-y-4 md:space-y-6">
@@ -68,7 +68,7 @@ const ForgotPasswordEnterEmail = () => {
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Remembered Password ?{" "}
                   <Link
-                    to="/login"
+                    to="/auth/login"
                     className="font-medium text-white hover:underline"
                   >
                     Login
