@@ -42,21 +42,40 @@ export async function logoutUser(id) {
   }
 }
 
-export async function updateUserFromCheckout(data) {
+export async function updateUserFromCheckout(userData) {
   try {
-    const { user, address } = data;
-    console.log({ address, user });
-    const updatedAddresses = [...user.addresses, address];
-    const tempUser = { ...user, addresses: updatedAddresses };
-    console.log(tempUser);
-    // const response = await fetch(`http://localhost:8000/cart/${product.id}`, {
-    //   method: "PATCH",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify(pdt),
-    // });
-    // const data = await response.json();
-    // return data;
+    const { user, address } = userData;
+    const { country, state, city, email, phone } = address;
+    let doAddressExist = false;
+    if (user.addresses.length > 0) {
+      user.addresses.map((elem) => {
+        if (elem.email === email || elem.phone === phone) {
+          if (
+            elem.country === country &&
+            elem.state === state &&
+            elem.city === city &&
+            elem.address.trim().toLowerCase() ===
+              address.address.trim().toLowerCase()
+          ) {
+            doAddressExist = true;
+          }
+        }
+      });
+    }
+    if (!doAddressExist) {
+      const updatedAddresses = [...user.addresses, address];
+      const tempUser = { ...user, addresses: updatedAddresses };
+      const response = await fetch(`http://localhost:8000/users/${user.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(tempUser),
+      });
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error("Address Already Added");
+    }
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    throw new Error(error.message);
   }
 }

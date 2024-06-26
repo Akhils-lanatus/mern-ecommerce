@@ -63,6 +63,13 @@ export const authSlice = createSlice({
       state.error = null;
       state.loggedInUser = [];
     });
+    builder.addCase(updateUserFromCheckoutAsync.fulfilled, (state, action) => {
+      state.loggedInUser.data = action.payload;
+      state.error = null;
+    });
+    builder.addCase(updateUserFromCheckoutAsync.rejected, (state, action) => {
+      state.error = action.error.message;
+    });
   },
 });
 

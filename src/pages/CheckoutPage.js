@@ -1,5 +1,5 @@
 import { Country, State, City } from "country-state-city";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
@@ -48,6 +48,7 @@ const deliveryMethods = [
 const CheckoutPage = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
+
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -60,8 +61,21 @@ const CheckoutPage = () => {
   } = location.state;
   const cartItems = useSelector(getLoggedInUserCartItems);
   const loggedInUser = useSelector(getLoggedInUser);
+  const [selectedAddress, setSelectedAddress] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    country: "",
+    state: "",
+    city: "",
+    pinCode: "",
+    address: "",
+  });
 
-  useEffect(() => {}, []);
+  const allAddressOfUser = useMemo(() => {
+    return loggedInUser.data.addresses;
+  }, [loggedInUser]);
+
   if (cartItems?.length === 0) return <Navigate to={"/"} replace={true} />;
   return (
     <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-8">
@@ -110,7 +124,7 @@ const CheckoutPage = () => {
                       .required("Address is required")
                       .max(100, "Max 100 characters are allowed"),
                   })}
-                  onSubmit={(values, { resetForm }) => {
+                  onSubmit={(values) => {
                     dispatch(
                       updateUserFromCheckoutAsync({
                         address: {
@@ -367,6 +381,80 @@ const CheckoutPage = () => {
               </div>
             </div>
 
+            {allAddressOfUser.length > 0 && (
+              <>
+                <div className="space-y-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Select Address
+                  </h3>
+
+                  <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    {allAddressOfUser.map((elem, i) => (
+                      <div key={i}>
+                        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
+                          <div className="flex items-center">
+                            <div className="flex h-5 items-center">
+                              <input
+                                id="credit-card"
+                                aria-describedby="credit-card-text"
+                                type="radio"
+                                name={"user-address"}
+                                value={JSON.stringify(elem)}
+                                className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
+                                onClick={(e) =>
+                                  setSelectedAddress(JSON.parse(e.target.value))
+                                }
+                                required
+                              />
+                            </div>
+
+                            <div className="ms-4 text-xs">
+                              <label
+                                htmlFor="credit-card"
+                                className="font-medium leading-none text-gray-900 dark:text-white"
+                              >
+                                Email: {elem.email} <br /> Phone: {elem.phone}
+                              </label>
+                              <p
+                                id="credit-card-text"
+                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                              >
+                                Country: {elem.country}
+                              </p>
+                              <p
+                                id="credit-card-text"
+                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                              >
+                                State: {elem.state}
+                              </p>
+                              <p
+                                id="credit-card-text"
+                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                              >
+                                City: {elem.city}
+                              </p>
+                              <p
+                                id="credit-card-text"
+                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                              >
+                                Pin Code: {elem.pinCode}
+                              </p>
+                              <p
+                                id="credit-card-text"
+                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
+                              >
+                                Address: {elem.address}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
             <div className="space-y-4">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 Payment
@@ -538,21 +626,46 @@ const CheckoutPage = () => {
               <button
                 type="button"
                 className={`flex w-full items-center justify-center rounded-lg  px-5 py-2.5 text-sm font-medium text-white ${
-                  selectedPaymentMethod === "" || selectedDeliveryMethod === ""
+                  selectedPaymentMethod === "" ||
+                  selectedDeliveryMethod === "" ||
+                  Object.values(selectedAddress).some((value) => value === "")
                     ? "bg-slate-600 cursor-not-allowed"
                     : "bg-primary-700 hover:bg-primary-800"
                 } focus:outline-none focus:ring-4  focus:ring-primary-300 `}
                 disabled={
-                  selectedPaymentMethod === "" || selectedDeliveryMethod === ""
+                  selectedPaymentMethod === "" ||
+                  selectedDeliveryMethod === "" ||
+                  Object.values(selectedAddress).some((value) => value === "")
                 }
               >
                 Proceed to Payment
               </button>
               {(selectedPaymentMethod === "" ||
+                Object.values(selectedAddress).some((value) => value === "") ||
                 selectedDeliveryMethod === "") && (
                 <p className="text-sm text-center text-slate-300">
-                  Please select payment method, delivery method to{" "}
-                  <strong>Proceed</strong>
+                  Please complete the following to <strong>Proceed</strong>:
+                  <br />
+                  {selectedPaymentMethod === "" && (
+                    <>
+                      - Select a payment method
+                      <br />
+                    </>
+                  )}
+                  {selectedDeliveryMethod === "" && (
+                    <>
+                      - Select a delivery method
+                      <br />
+                    </>
+                  )}
+                  {Object.values(selectedAddress).some(
+                    (value) => value === ""
+                  ) && (
+                    <>
+                      - Select an address
+                      <br />
+                    </>
+                  )}
                 </p>
               )}
 

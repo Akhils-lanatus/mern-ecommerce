@@ -6219,7 +6219,18 @@
       "email": "akhil.s@lanatussystems.com",
       "password": "11111111",
       "confirmPassword": "11111111",
-      "addresses": [],
+      "addresses": [
+        {
+          "fullName": "Akhil",
+          "email": "akhil.s@lanatussystems.com",
+          "phone": "9876543210",
+          "country": "India",
+          "state": "Gujarat",
+          "city": "Ahmedabad",
+          "pinCode": "380050",
+          "address": "India"
+        }
+      ],
       "id": 1
     }
   ],
@@ -6287,7 +6298,23 @@
       },
       "quantity": 5,
       "user": 1,
-      "id": 1
+      "id": 1,
+      "name": "Akhil",
+      "email": "akhil.s@lanatussystems.com",
+      "password": "11111111",
+      "confirmPassword": "11111111",
+      "addresses": [
+        {
+          "fullName": "Akhil",
+          "email": "akhil.s@lanatussystems.com",
+          "phone": "9876543210",
+          "country": "India",
+          "state": "Gujarat",
+          "city": "Ahmedabad",
+          "pinCode": "380050",
+          "address": "India"
+        }
+      ]
     },
     {
       "item": {
