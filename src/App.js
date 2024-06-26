@@ -9,6 +9,7 @@ import SingleProductPage from "./pages/SingleProductPage";
 import ForgotPasswordEnterEmail from "./features/auth/components/ForgotPasswordEnterEmail";
 import ForgotPasswordEnterOTP from "./features/auth/components/ForgotPasswordEnterOTP";
 import Protected from "../src/features/auth/components/Protected";
+import PageNotFound from "./pages/PageNotFound";
 import UnProtected from "./utils/checkIsLoggedIn";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoggedInUser } from "./features/auth/AuthSlice";
@@ -43,6 +44,7 @@ const App = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
         </Route>
         <Route path="/selected-product/:id" element={<SingleProductPage />} />
+        <Route path="*" element={<PageNotFound />} />
       </Routes>
     </BrowserRouter>
   );

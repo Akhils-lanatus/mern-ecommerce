@@ -22,6 +22,7 @@ const navigation = [
   { name: "Home", to: "/", current: true },
   { name: "Login", to: "/auth/login", current: false },
   { name: "Register", to: "/auth/register", current: false },
+  { name: "404 Page", to: "error", current: false },
 ];
 const userNavigation = [
   { name: "Your Profile", linkTo: "/" },
