@@ -9,6 +9,7 @@ import {
   getLoggedInUser,
   updateUserFromCheckoutAsync,
 } from "../features/auth/AuthSlice";
+import { createOrderAsync } from "../features/Order/orderSlice";
 
 const paymentMethods = [
   {
@@ -30,16 +31,19 @@ const paymentMethods = [
 const deliveryMethods = [
   {
     name: "delivery-method",
+    label: "Free Delivery",
     value: "Free Delivery",
     subText: "Get it by Friday, 13 Dec 2023",
   },
   {
     name: "delivery-method",
+    label: "Fast Delivery",
     value: "$15 - Fast Delivery",
     subText: "Get it by Tomorrow",
   },
   {
     name: "delivery-method",
+    label: "Express Delivery",
     value: "$49 - Express Delivery",
     subText: "Get it today",
   },
@@ -75,6 +79,21 @@ const CheckoutPage = () => {
   const allAddressOfUser = useMemo(() => {
     return loggedInUser.data.addresses;
   }, [loggedInUser]);
+
+  const handleOrders = () => {
+    const order = {
+      user: loggedInUser.data,
+      cartItems,
+      selectedAddress,
+      selectedDeliveryMethod,
+      selectedPaymentMethod,
+    };
+    dispatch(createOrderAsync(order));
+
+    //TODO: redirect to order success page
+    //TODO: clear cart after success order
+    //TODO: change stock
+  };
 
   if (cartItems?.length === 0) return <Navigate to={"/"} replace={true} />;
   return (
@@ -124,7 +143,7 @@ const CheckoutPage = () => {
                       .required("Address is required")
                       .max(100, "Max 100 characters are allowed"),
                   })}
-                  onSubmit={(values) => {
+                  onSubmit={(values, { resetForm }) => {
                     dispatch(
                       updateUserFromCheckoutAsync({
                         address: {
@@ -139,6 +158,7 @@ const CheckoutPage = () => {
                         user: loggedInUser.data,
                       })
                     );
+                    resetForm();
                   }}
                 >
                   {({ values }) => (
@@ -520,7 +540,7 @@ const CheckoutPage = () => {
                             value={elem.value}
                             className="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-primary-600"
                             onClick={(e) =>
-                              setSelectedDeliveryMethod(e.target.value)
+                              setSelectedDeliveryMethod(elem.label)
                             }
                             required
                           />
@@ -637,6 +657,7 @@ const CheckoutPage = () => {
                   selectedDeliveryMethod === "" ||
                   Object.values(selectedAddress).some((value) => value === "")
                 }
+                onClick={handleOrders}
               >
                 Proceed to Payment
               </button>
