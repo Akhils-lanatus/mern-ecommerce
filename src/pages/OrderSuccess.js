@@ -1,123 +1,140 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getCurrentOrders } from "../features/Order/orderSlice";
-import { fetchCurrentOrdersAsync } from "../features/Order/orderSlice";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  clearCurrentOrder,
+  getCurrentOrders,
+} from "../features/Order/orderSlice";
 import { getLoggedInUser } from "../features/auth/AuthSlice";
-
-const OrderSuccess = () => {
-  const user = useSelector(getLoggedInUser);
+import { emptyCartOnSuccessOrderAsync } from "../features/cart/cartSlice";
+import { Dialog, DialogPanel, DialogTitle } from "@headlessui/react";
+const OrderSuccess = ({ open = false, setOpen = () => {} }) => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(fetchCurrentOrdersAsync(user.data.id));
-  }, [dispatch, user]);
+  const navigate = useNavigate();
+  const user = useSelector(getLoggedInUser);
   const CurrentOrders = useSelector(getCurrentOrders);
-
+  useEffect(() => {
+    return () => {
+      dispatch(emptyCartOnSuccessOrderAsync(user.data.id));
+      dispatch(clearCurrentOrder());
+    };
+  }, [dispatch, user]);
   return (
-    <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16">
-      {CurrentOrders.length === 0 && (
-        <section className="bg-white dark:bg-gray-900">
-          <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-            <div className="mx-auto max-w-screen-sm text-center">
-              <h1 className="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600 dark:text-primary-500">
-                404
-              </h1>
-              <p className="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">
-                You haven't order till now 🥺
-              </p>
-              <p className="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">
-                No problem, Shop Now 👇
-              </p>
-              <Link
-                to="/"
-                className="inline-flex text-white bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4"
-              >
-                Shop Shop Shop
-              </Link>
+    <section className=" py-8 antialiased bg-gray-900 md:py-16">
+      {
+        <Dialog
+          className="relative z-10 "
+          open={open}
+          onClose={() => {
+            setOpen(false);
+            navigate("/");
+          }}
+        >
+          <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+              <DialogPanel className="relative transform overflow-hidden rounded-lg bg-gray-900 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-lg data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95">
+                <div className="bg-gray-800 px-4 pb-2 pt-5 sm:p-4 sm:pb-2">
+                  <div className="sm:flex sm:items-start">
+                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                      <DialogTitle
+                        as="h1"
+                        className="text-2xl font-semibold leading-6 text-white"
+                      >
+                        Thanks for your order!
+                      </DialogTitle>
+
+                      <div key={CurrentOrders.id}>
+                        <p className=" dark:text-slate-300 font-medium mt-4 md:mt-4 mb-4 md:mb-4">
+                          Your order ID{" "}
+                          <span className="font-medium text-white dark:text-white hover:underline">
+                            # {CurrentOrders.id}
+                          </span>{" "}
+                          You can check your orders in My Account {">"} My
+                          Orders
+                        </p>
+
+                        <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100  p-6  mb-6 md:mb-8">
+                          <dl className="sm:flex items-center justify-between gap-4">
+                            <dt className="font-bold mb-1 sm:mb-0 text-white ">
+                              Date
+                            </dt>
+                            <dd className="font-medium text-yellow-200 sm:text-end">
+                              {new Date(
+                                CurrentOrders?.orderDate
+                              )?.toLocaleDateString("en-IN", {
+                                day: "numeric",
+                                month: "long",
+                                year: "numeric",
+                              })}{" "}
+                              at{" "}
+                              {new Date(
+                                CurrentOrders?.orderDate
+                              )?.toLocaleTimeString("en-IN", {
+                                hourCycle: "h24",
+                              })}
+                            </dd>
+                          </dl>
+                          <dl className="sm:flex items-center justify-between gap-4">
+                            <dt className="font-bold mb-1 sm:mb-0 text-white ">
+                              Payment Method
+                            </dt>
+                            <dd className="font-medium text-yellow-200 sm:text-end">
+                              {CurrentOrders.selectedPaymentMethod}
+                            </dd>
+                          </dl>
+                          <dl className="sm:flex items-center justify-between gap-4">
+                            <dt className="font-bold mb-1 sm:mb-0 text-white ">
+                              Name
+                            </dt>
+                            <dd className="font-medium text-yellow-200 sm:text-end">
+                              {CurrentOrders?.user?.name}
+                            </dd>
+                          </dl>
+                          <dl className="sm:flex items-center justify-between gap-4">
+                            <dt className="font-bold mb-1 sm:mb-0 text-white ">
+                              Address
+                            </dt>
+                            <dd className="font-medium text-yellow-200 sm:text-end">
+                              {CurrentOrders?.selectedAddress?.address}
+                            </dd>
+                          </dl>
+                          <dl className="sm:flex items-center justify-between gap-4">
+                            <dt className="font-bold mb-1 sm:mb-0 text-white ">
+                              Phone
+                            </dt>
+                            <dd className="font-medium text-yellow-200 sm:text-end">
+                              {CurrentOrders?.selectedAddress?.phone}
+                            </dd>
+                          </dl>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-gray-500 px-4 py-2 sm:flex sm:flex-row-reverse sm:px-4">
+                  <div className="flex items-center space-x-4 my-2">
+                    <button
+                      className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                      onClick={() => {
+                        setOpen(false);
+                        navigate("/");
+                      }}
+                    >
+                      Track your order
+                    </button>
+                    <Link
+                      to="/"
+                      className="py-2.5 px-5 text-sm font-medium  focus:outline-none rounded-lg border focus:z-10 focus:ring-4  dark:focus:ring-gray-700 dark:bg-slate-900 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                    >
+                      Return to shopping
+                    </Link>
+                  </div>
+                </div>
+              </DialogPanel>
             </div>
           </div>
-        </section>
-      )}
-      {CurrentOrders.length > 0 && (
-        <div className="mx-auto max-w-2xl px-4 2xl:px-0">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl mb-2">
-            Thanks for your order!
-          </h2>
-          {CurrentOrders?.map((elem) => (
-            <div key={elem.id}>
-              <p className="text-gray-500 dark:text-gray-400 mb-6 md:mb-8">
-                Your order ID{" "}
-                <span className="font-medium text-gray-900 dark:text-white hover:underline">
-                  # {elem.id}
-                </span>{" "}
-                will be processed within 24 hours during working days. We will
-                notify you by email once your order has been shipped.
-              </p>
-              <div className="space-y-4 sm:space-y-2 rounded-lg border border-gray-100 bg-gray-50 p-6 dark:border-gray-700 dark:bg-gray-800 mb-6 md:mb-8">
-                <dl className="sm:flex items-center justify-between gap-4">
-                  <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-                    Date
-                  </dt>
-                  <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                    {new Date(elem?.orderDate).toLocaleDateString("en-IN", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    })}{" "}
-                    at{" "}
-                    {new Date(elem?.orderDate).toLocaleTimeString("en-IN", {
-                      hourCycle: "h24",
-                    })}
-                  </dd>
-                </dl>
-                <dl className="sm:flex items-center justify-between gap-4">
-                  <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-                    Payment Method
-                  </dt>
-                  <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                    {elem.selectedPaymentMethod}
-                  </dd>
-                </dl>
-                <dl className="sm:flex items-center justify-between gap-4">
-                  <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-                    Name
-                  </dt>
-                  <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                    {elem.user.name}
-                  </dd>
-                </dl>
-                <dl className="sm:flex items-center justify-between gap-4">
-                  <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-                    Address
-                  </dt>
-                  <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                    {elem.selectedAddress.address}
-                  </dd>
-                </dl>
-                <dl className="sm:flex items-center justify-between gap-4">
-                  <dt className="font-normal mb-1 sm:mb-0 text-gray-500 dark:text-gray-400">
-                    Phone
-                  </dt>
-                  <dd className="font-medium text-gray-900 dark:text-white sm:text-end">
-                    {elem.selectedAddress.phone}
-                  </dd>
-                </dl>
-              </div>
-              <div className="flex items-center space-x-4 mb-4">
-                <Link className="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                  Track your order
-                </Link>
-                <Link
-                  to="/"
-                  className="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                >
-                  Return to shopping
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+        </Dialog>
+      }
     </section>
   );
 };

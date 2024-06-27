@@ -1,11 +1,8 @@
 import { Country, State, City } from "country-state-city";
 import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import {
-  emptyCartOnSuccessOrderAsync,
-  getLoggedInUserCartItems,
-} from "../features/cart/cartSlice";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import {
@@ -13,6 +10,7 @@ import {
   updateUserFromCheckoutAsync,
 } from "../features/auth/AuthSlice";
 import { createOrderAsync } from "../features/Order/orderSlice";
+import OrderSuccess from "./OrderSuccess";
 
 const paymentMethods = [
   {
@@ -53,19 +51,9 @@ const deliveryMethods = [
 ];
 
 const CheckoutPage = () => {
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
-
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const {
-    savings,
-    tax_amount,
-    store_pickup_price,
-    final_amount,
-    totalAmountBeforeDiscount,
-  } = location.state;
   const cartItems = useSelector(getLoggedInUserCartItems);
   const loggedInUser = useSelector(getLoggedInUser);
   const [selectedAddress, setSelectedAddress] = useState({
@@ -78,7 +66,18 @@ const CheckoutPage = () => {
     pinCode: "",
     address: "",
   });
-  const navigate = useNavigate();
+
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
+  const [open, setOpen] = useState(false);
+
+  const {
+    savings,
+    tax_amount,
+    store_pickup_price,
+    final_amount,
+    totalAmountBeforeDiscount,
+  } = location.state;
 
   const allAddressOfUser = useMemo(() => {
     return loggedInUser.data.addresses;
@@ -96,21 +95,24 @@ const CheckoutPage = () => {
         status: "pending",
       };
       dispatch(createOrderAsync(order));
-      dispatch(emptyCartOnSuccessOrderAsync(loggedInUser.data.id));
-      navigate("/your-orders");
+      setOpen(true);
     } catch (error) {
+      setOpen(false);
       console.log(`Error while ordering :: ${error}`);
     }
-    //TODO: clear cart after success order
-    //TODO: change stock
   };
 
   if (cartItems?.length === 0) return <Navigate to={"/"} replace={true} />;
   return (
-    <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-8">
+    <section
+      className={`bg-white py-8 antialiased dark:bg-gray-900 md:py-8 ${
+        open && "blur-md"
+      } `}
+    >
       <h1 className="text-4xl text-white mx-auto max-w-screen-xl px-4 2xl:px-0">
         Checkout
       </h1>
+      {open && <OrderSuccess open={open} setOpen={setOpen} />}
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mt-6 sm:mt-8 lg:flex lg:items-start lg:gap-12 xl:gap-16">
           <div className="min-w-0 flex-1 space-y-8">

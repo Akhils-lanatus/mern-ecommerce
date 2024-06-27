@@ -15,6 +15,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getLoggedInUser } from "./features/auth/AuthSlice";
 import { getCartItemsAsync } from "./features/cart/cartSlice";
 import OrderSuccess from "./pages/OrderSuccess";
+import UserProfile from "./features/user/components/UserProfile";
+import UserOrders from "./features/user/components/UserOrders";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -43,7 +45,8 @@ const App = () => {
         <Route path="" element={<Protected />}>
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/your-orders" element={<OrderSuccess />} />
+          <Route path="/profile" element={<UserProfile />} />
+          <Route path="/your-orders" element={<UserOrders />} />
         </Route>
         <Route path="/selected-product/:id" element={<SingleProductPage />} />
         <Route path="*" element={<PageNotFound />} />
