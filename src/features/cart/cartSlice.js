@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   addItemQuantity,
   addToCart,
+  emptyCartOnSuccessOrder,
   getCartItems,
   removeFromCart,
   removeItemQuantity,
@@ -32,6 +33,13 @@ export const removeFromCartAsync = createAsyncThunk(
     return response;
   }
 );
+export const emptyCartOnSuccessOrderAsync = createAsyncThunk(
+  "cart/emptyCartOnSuccessOrder",
+  async (userId, { getState }) => {
+    const response = await emptyCartOnSuccessOrder(userId, getState);
+    return response.success;
+  }
+);
 export const addItemQuantityAsync = createAsyncThunk(
   "cart/addItemQuantity",
   async (product) => {
@@ -60,6 +68,9 @@ export const cartSlice = createSlice({
     });
     builder.addCase(removeFromCartAsync.fulfilled, (state, action) => {
       state.item = action.payload;
+    });
+    builder.addCase(emptyCartOnSuccessOrderAsync.fulfilled, (state, action) => {
+      state.item = [];
     });
     builder.addCase(addItemQuantityAsync.fulfilled, (state, action) => {
       const index = state.item.findIndex(

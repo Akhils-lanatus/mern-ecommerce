@@ -1,8 +1,11 @@
 import { Country, State, City } from "country-state-city";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import {
+  emptyCartOnSuccessOrderAsync,
+  getLoggedInUserCartItems,
+} from "../features/cart/cartSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import {
@@ -75,22 +78,29 @@ const CheckoutPage = () => {
     pinCode: "",
     address: "",
   });
+  const navigate = useNavigate();
 
   const allAddressOfUser = useMemo(() => {
     return loggedInUser.data.addresses;
   }, [loggedInUser]);
 
   const handleOrders = () => {
-    const order = {
-      user: loggedInUser.data,
-      cartItems,
-      selectedAddress,
-      selectedDeliveryMethod,
-      selectedPaymentMethod,
-    };
-    dispatch(createOrderAsync(order));
-
-    //TODO: redirect to order success page
+    try {
+      const order = {
+        user: loggedInUser.data,
+        cartItems,
+        selectedAddress,
+        selectedDeliveryMethod,
+        selectedPaymentMethod,
+        orderDate: new Date(),
+        status: "pending",
+      };
+      dispatch(createOrderAsync(order));
+      dispatch(emptyCartOnSuccessOrderAsync(loggedInUser.data.id));
+      navigate("/your-orders");
+    } catch (error) {
+      console.log(`Error while ordering :: ${error}`);
+    }
     //TODO: clear cart after success order
     //TODO: change stock
   };
@@ -659,7 +669,7 @@ const CheckoutPage = () => {
                 }
                 onClick={handleOrders}
               >
-                Proceed to Payment
+                Order Now
               </button>
               {(selectedPaymentMethod === "" ||
                 Object.values(selectedAddress).some((value) => value === "") ||

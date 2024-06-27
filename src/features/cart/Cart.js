@@ -9,12 +9,12 @@ import {
 } from "../cart/cartSlice";
 const Cart = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector(getLoggedInUserCartItems);
-  const totalAmount = cartItems.reduce(
+  const cartItems = useSelector(getLoggedInUserCartItems || []);
+  const totalAmount = cartItems?.reduce(
     (amount, item) => parseFloat(item.item.price * item.quantity + amount),
     0
   );
-  const totalAmountBeforeDiscount = cartItems.reduce((amount, item) => {
+  const totalAmountBeforeDiscount = cartItems?.reduce((amount, item) => {
     let P = item.item.price || 100;
     let d = 1 - (item.item.discountPercentage / 100 || 0.25);
     const priceBeforeDiscount = (P / d).toFixed(2);
@@ -22,7 +22,7 @@ const Cart = () => {
     return amount + parseFloat(priceBeforeDiscount * item.quantity);
   }, 0);
 
-  const totalItems = cartItems.reduce(
+  const totalItems = cartItems?.reduce(
     (amount, item) => item.quantity + amount,
     0
   );
@@ -30,10 +30,8 @@ const Cart = () => {
   const savings = parseFloat(
     (totalAmountBeforeDiscount - totalAmount)?.toFixed(2)
   );
-  const store_pickup_price = parseFloat(
-    (totalAmountBeforeDiscount * 0.05)?.toFixed(2)
-  );
-  const tax_amount = parseFloat((totalAmount * 0.01)?.toFixed(2));
+  const store_pickup_price = 10.0;
+  const tax_amount = parseFloat((totalAmount * 0.05)?.toFixed(2));
   const final_amount = (
     totalAmountBeforeDiscount +
     store_pickup_price +
@@ -64,7 +62,7 @@ const Cart = () => {
   return (
     <section className="py-4 antialiased md:py-4">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
-        {cartItems.length === 0 && (
+        {cartItems?.length === 0 && (
           <section className="bg-white dark:bg-gray-900">
             <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
               <div className="mx-auto max-w-screen-sm text-center">
@@ -88,7 +86,7 @@ const Cart = () => {
           </section>
         )}
 
-        {cartItems.length > 0 && (
+        {cartItems?.length > 0 && (
           <>
             <h2 className="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
               Shopping Cart

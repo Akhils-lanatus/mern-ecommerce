@@ -23,7 +23,7 @@ export const getCartItems = async (userId) => {
   }
 };
 
-export const removeFromCart = async (cartItemID, getState) => {
+export const removeFromCart = async (cartItemID, getState = () => {}) => {
   try {
     const response = await fetch(`http://localhost:8000/cart/${cartItemID}`, {
       method: "DELETE",
@@ -36,6 +36,18 @@ export const removeFromCart = async (cartItemID, getState) => {
     }
   } catch (error) {
     console.log(`Error while removing from cart :: ${error} `);
+  }
+};
+
+export const emptyCartOnSuccessOrder = async (userId, getState) => {
+  try {
+    const response = await getCartItems(userId);
+    for (let items in response) {
+      await removeFromCart(response[items].id, getState);
+    }
+    return { success: "success" };
+  } catch (error) {
+    console.log(`Error while getCartItems :: ${error} `);
   }
 };
 

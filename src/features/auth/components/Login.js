@@ -2,13 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { checkUserAsync } from "../AuthSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { state } = useLocation();
+
   return (
     <section>
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -40,7 +42,7 @@ const Login = () => {
                   .email("Invalid email format"),
                 password: Yup.string()
                   .required("Password is required")
-                  .min(6, "Enter at least 8 characters")
+                  .min(6, "Enter at least 6 characters")
                   .max(16, "Max 16 characters are allowed"),
                 rememberMe: Yup.boolean(),
               })}
@@ -49,7 +51,7 @@ const Login = () => {
                   dispatch(checkUserAsync(values))
                     .unwrap()
                     .then((res) => {
-                      navigate("/");
+                      navigate(Boolean(state) ? state.prev : "/");
                       resetForm();
                     })
                     .catch((err) => {
