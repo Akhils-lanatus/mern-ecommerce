@@ -77,7 +77,7 @@ const CheckoutPage = () => {
     store_pickup_price,
     final_amount,
     totalAmountBeforeDiscount,
-  } = location.state;
+  } = location.state !== null && location.state;
 
   const allAddressOfUser = useMemo(() => {
     return loggedInUser.data.addresses;
