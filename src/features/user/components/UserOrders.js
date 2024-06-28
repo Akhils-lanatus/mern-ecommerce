@@ -6,6 +6,8 @@ import {
   getLoggedInUserAllOrders,
 } from "../userSlice";
 import { getLoggedInUser } from "../../auth/AuthSlice";
+import { Link } from "react-router-dom";
+import NoDetailsFound from "../../../pages/NoDetailsFound";
 const UserOrders = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -46,11 +48,16 @@ const UserOrders = () => {
     },
   ];
 
-  console.log(allOrders);
-
   return (
     <Navbar>
       <section className="bg-white py-4 antialiased dark:bg-gray-900 md:py-4">
+        {allOrders?.length === 0 && (
+          <NoDetailsFound
+            subText={"Place your first order and get................Nothing 😁"}
+            centerText={"No orders found 😒"}
+            buttonText={"Let's Shop"}
+          />
+        )}
         {allOrders?.length > 0 &&
           allOrders.map((orderItem) => {
             const shippingDetails = orderItem.selectedAddress;
