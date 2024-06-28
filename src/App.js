@@ -16,12 +16,14 @@ import { getLoggedInUser } from "./features/auth/AuthSlice";
 import { getCartItemsAsync } from "./features/cart/cartSlice";
 import UserProfile from "./features/user/components/UserProfile";
 import UserOrders from "./features/user/components/UserOrders";
+import { fetchLoggedInUserAsync } from "./features/user/userSlice";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
   useEffect(() => {
     if (user.length !== 0) {
       dispatch(getCartItemsAsync(user?.data?.id));
+      dispatch(fetchLoggedInUserAsync(user?.data?.id));
     }
   }, [dispatch, user]);
 

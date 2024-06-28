@@ -6,9 +6,9 @@ import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import {
-  getLoggedInUser,
   updateUserFromCheckoutAsync,
-} from "../features/auth/AuthSlice";
+  getLoggedInUserInfo,
+} from "../features/user/userSlice";
 import { createOrderAsync } from "../features/Order/orderSlice";
 import OrderSuccess from "./OrderSuccess";
 
@@ -55,7 +55,7 @@ const CheckoutPage = () => {
   const dispatch = useDispatch();
 
   const cartItems = useSelector(getLoggedInUserCartItems);
-  const loggedInUser = useSelector(getLoggedInUser);
+  const loggedInUser = useSelector(getLoggedInUserInfo);
   const [selectedAddress, setSelectedAddress] = useState({
     fullName: "",
     email: "",
@@ -80,7 +80,7 @@ const CheckoutPage = () => {
   } = location.state !== null && location.state;
 
   const allAddressOfUser = useMemo(() => {
-    return loggedInUser.data.addresses;
+    return loggedInUser?.data?.addresses || [];
   }, [loggedInUser]);
 
   const handleOrders = () => {
