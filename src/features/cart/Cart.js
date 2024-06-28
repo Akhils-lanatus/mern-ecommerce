@@ -30,7 +30,7 @@ const Cart = () => {
   const savings =
     parseFloat((totalAmountBeforeDiscount - totalAmount)?.toFixed(2)) || 0;
   const store_pickup_price = 10.0;
-  const tax_amount = parseFloat((totalAmount * 0.05)?.toFixed(2));
+  const tax_amount = parseFloat((totalAmount * 0.02)?.toFixed(2));
   const final_amount = (
     totalAmountBeforeDiscount +
     store_pickup_price +
