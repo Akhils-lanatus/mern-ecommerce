@@ -84,6 +84,14 @@ const OrderSuccess = ({ open = false, setOpen = () => {} }) => {
                           </dl>
                           <dl className="sm:flex items-center justify-between gap-4">
                             <dt className="font-bold mb-1 sm:mb-0 text-white ">
+                              Delivery Method
+                            </dt>
+                            <dd className="font-medium text-yellow-200 sm:text-end">
+                              {CurrentOrders.selectedDeliveryMethod}
+                            </dd>
+                          </dl>
+                          <dl className="sm:flex items-center justify-between gap-4">
+                            <dt className="font-bold mb-1 sm:mb-0 text-white ">
                               Name
                             </dt>
                             <dd className="font-medium text-yellow-200 sm:text-end">

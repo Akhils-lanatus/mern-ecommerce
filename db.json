@@ -6263,7 +6263,73 @@
       "id": 2
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "item": {
+        "id": 2,
+        "title": "Eyeshadow Palette with Mirror",
+        "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+        "category": "beauty",
+        "price": 19.99,
+        "discountPercentage": 5.5,
+        "rating": 3.28,
+        "stock": 44,
+        "tags": [
+          "beauty",
+          "eyeshadow"
+        ],
+        "brand": "Glamour Beauty",
+        "sku": "MVCFH27F",
+        "weight": 3,
+        "dimensions": {
+          "width": 12.42,
+          "height": 8.63,
+          "depth": 29.13
+        },
+        "warrantyInformation": "1 year warranty",
+        "shippingInformation": "Ships in 2 weeks",
+        "availabilityStatus": "In Stock",
+        "reviews": [
+          {
+            "rating": 4,
+            "comment": "Very satisfied!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Liam Garcia",
+            "reviewerEmail": "liam.garcia@x.dummyjson.com"
+          },
+          {
+            "rating": 1,
+            "comment": "Very disappointed!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Nora Russell",
+            "reviewerEmail": "nora.russell@x.dummyjson.com"
+          },
+          {
+            "rating": 5,
+            "comment": "Highly impressed!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Elena Baker",
+            "reviewerEmail": "elena.baker@x.dummyjson.com"
+          }
+        ],
+        "returnPolicy": "30 days return policy",
+        "minimumOrderQuantity": 32,
+        "meta": {
+          "createdAt": "2024-05-23T08:56:21.618Z",
+          "updatedAt": "2024-05-23T08:56:21.618Z",
+          "barcode": "2817839095220",
+          "qrCode": "https://dummyjson.com/public/qr-code.png"
+        },
+        "images": [
+          "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+        ],
+        "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+      },
+      "quantity": 1,
+      "user": 1,
+      "id": 1
+    }
+  ],
   "orders": [
     {
       "user": {
@@ -6490,6 +6556,203 @@
           "quantity": 1,
           "user": 1,
           "id": 3
+        },
+        {
+          "item": {
+            "id": 4,
+            "title": "Red Lipstick",
+            "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
+            "category": "beauty",
+            "price": 12.99,
+            "discountPercentage": 19.03,
+            "rating": 2.51,
+            "stock": 68,
+            "tags": [
+              "beauty",
+              "lipstick"
+            ],
+            "brand": "Chic Cosmetics",
+            "sku": "O5IF1NTA",
+            "weight": 5,
+            "dimensions": {
+              "width": 14.37,
+              "height": 13.94,
+              "depth": 14.6
+            },
+            "warrantyInformation": "Lifetime warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "leo.rivera@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Oscar Powers",
+                "reviewerEmail": "oscar.powers@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Carter Rivera",
+                "reviewerEmail": "carter.rivera@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 6,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.619Z",
+              "updatedAt": "2024-05-23T08:56:21.619Z",
+              "barcode": "9444582199406",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 4
+        },
+        {
+          "item": {
+            "id": 5,
+            "title": "Red Nail Polish",
+            "description": "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home.",
+            "category": "beauty",
+            "price": 8.99,
+            "discountPercentage": 2.46,
+            "rating": 3.91,
+            "stock": 71,
+            "tags": [
+              "beauty",
+              "nail polish"
+            ],
+            "brand": "Nail Couture",
+            "sku": "YUIIIP4W",
+            "weight": 9,
+            "dimensions": {
+              "width": 8.11,
+              "height": 10.89,
+              "depth": 29.06
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 1 week",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "leo.rivera@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Evan Reed",
+                "reviewerEmail": "evan.reed@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Evelyn Sanchez",
+                "reviewerEmail": "evelyn.sanchez@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "No return policy",
+            "minimumOrderQuantity": 46,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.619Z",
+              "updatedAt": "2024-05-23T08:56:21.619Z",
+              "barcode": "3212847902461",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 5
+        },
+        {
+          "item": {
+            "id": 6,
+            "title": "Calvin Klein CK One",
+            "description": "CK One by Calvin Klein is a classic unisex fragrance, known for its fresh and clean scent. It's a versatile fragrance suitable for everyday wear.",
+            "category": "fragrances",
+            "price": 49.99,
+            "discountPercentage": 0.32,
+            "rating": 4.85,
+            "stock": 17,
+            "tags": [
+              "fragrances",
+              "perfumes"
+            ],
+            "brand": "Calvin Klein",
+            "sku": "DZM2JQZE",
+            "weight": 5,
+            "dimensions": {
+              "width": 11.53,
+              "height": 14.44,
+              "depth": 6.81
+            },
+            "warrantyInformation": "5 year warranty",
+            "shippingInformation": "Ships overnight",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Sophia Brown",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+              },
+              {
+                "rating": 3,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Madison Collins",
+                "reviewerEmail": "madison.collins@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Maya Reed",
+                "reviewerEmail": "maya.reed@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "No return policy",
+            "minimumOrderQuantity": 20,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.619Z",
+              "updatedAt": "2024-05-23T08:56:21.619Z",
+              "barcode": "2210136215089",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/1.png",
+              "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/2.png",
+              "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 6
         }
       ],
       "selectedAddress": {
@@ -6502,10 +6765,17 @@
         "pinCode": "380050",
         "address": "Bharat"
       },
-      "selectedDeliveryMethod": "Fast Delivery",
-      "selectedPaymentMethod": "Payment on delivery",
-      "orderDate": "2024-06-27T11:13:21.135Z",
+      "selectedDeliveryMethod": "Free Delivery",
+      "selectedPaymentMethod": "Credit Card",
+      "orderDate": "2024-06-28T03:59:43.562Z",
       "status": "pending",
+      "pricing": {
+        "savings": 8.69,
+        "tax_amount": 5.85,
+        "store_pickup_price": 10,
+        "final_amount": "132.79",
+        "totalAmountBeforeDiscount": 125.63
+      },
       "id": 1
     },
     {
@@ -6541,67 +6811,66 @@
       "cartItems": [
         {
           "item": {
-            "id": 86,
-            "title": "Man Short Sleeve Shirt",
-            "description": "The Man Short Sleeve Shirt is a breezy and stylish option for warm days. With a comfortable fit and short sleeves, it's perfect for a laid-back yet polished look.",
-            "category": "mens-shirts",
-            "price": 19.99,
-            "discountPercentage": 8.65,
-            "rating": 4.62,
-            "stock": 20,
+            "id": 78,
+            "title": "Apple MacBook Pro 14 Inch Space Grey",
+            "description": "The MacBook Pro 14 Inch in Space Grey is a powerful and sleek laptop, featuring Apple's M1 Pro chip for exceptional performance and a stunning Retina display.",
+            "category": "laptops",
+            "price": 1999.99,
+            "discountPercentage": 9.25,
+            "rating": 3.13,
+            "stock": 39,
             "tags": [
-              "clothing",
-              "men's shirts"
+              "laptops",
+              "apple"
             ],
-            "brand": "Casual Comfort",
-            "sku": "KEVGVDTV",
-            "weight": 2,
+            "brand": "Apple",
+            "sku": "QDKO6NRJ",
+            "weight": 4,
             "dimensions": {
-              "width": 7.11,
-              "height": 28.63,
-              "depth": 27.54
+              "width": 12.38,
+              "height": 21.55,
+              "depth": 27.95
             },
-            "warrantyInformation": "5 year warranty",
-            "shippingInformation": "Ships in 2 weeks",
+            "warrantyInformation": "1 month warranty",
+            "shippingInformation": "Ships in 1 week",
             "availabilityStatus": "In Stock",
             "reviews": [
               {
                 "rating": 5,
-                "comment": "Great value for money!",
-                "date": "2024-05-23T08:56:21.623Z",
-                "reviewerName": "Caleb Nelson",
-                "reviewerEmail": "caleb.nelson@x.dummyjson.com"
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Hunter Gordon",
+                "reviewerEmail": "hunter.gordon@x.dummyjson.com"
               },
               {
-                "rating": 1,
-                "comment": "Disappointing product!",
-                "date": "2024-05-23T08:56:21.623Z",
-                "reviewerName": "Emily Johnson",
-                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+                "rating": 5,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Emma Wilson",
+                "reviewerEmail": "emma.wilson@x.dummyjson.com"
               },
               {
-                "rating": 4,
-                "comment": "Great product!",
-                "date": "2024-05-23T08:56:21.623Z",
-                "reviewerName": "Mila Hernandez",
-                "reviewerEmail": "mila.hernandez@x.dummyjson.com"
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "David Martinez",
+                "reviewerEmail": "david.martinez@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "7 days return policy",
+            "returnPolicy": "30 days return policy",
             "minimumOrderQuantity": 1,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.623Z",
-              "updatedAt": "2024-05-23T08:56:21.623Z",
-              "barcode": "8162805546713",
+              "createdAt": "2024-05-23T08:56:21.622Z",
+              "updatedAt": "2024-05-23T08:56:21.622Z",
+              "barcode": "3883623063065",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/1.png",
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/2.png",
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/3.png",
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/4.png"
+              "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/1.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/2.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/3.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/thumbnail.png"
           },
           "quantity": 1,
           "user": 1,
@@ -6609,87 +6878,158 @@
         },
         {
           "item": {
-            "id": 87,
-            "title": "Men Check Shirt",
-            "description": "The Men Check Shirt is a classic and versatile shirt featuring a stylish check pattern. Suitable for various occasions, it adds a smart and polished touch to your wardrobe.",
-            "category": "mens-shirts",
-            "price": 27.99,
-            "discountPercentage": 14.21,
-            "rating": 2.9,
-            "stock": 69,
+            "id": 79,
+            "title": "Asus Zenbook Pro Dual Screen Laptop",
+            "description": "The Asus Zenbook Pro Dual Screen Laptop is a high-performance device with dual screens, providing productivity and versatility for creative professionals.",
+            "category": "laptops",
+            "price": 1799.99,
+            "discountPercentage": 9.21,
+            "rating": 3.14,
+            "stock": 38,
             "tags": [
-              "clothing",
-              "men's shirts"
+              "laptops"
             ],
-            "brand": "Urban Chic",
-            "sku": "L902AU9L",
-            "weight": 1,
+            "brand": "Asus",
+            "sku": "4A9KFMBG",
+            "weight": 8,
             "dimensions": {
-              "width": 18.43,
-              "height": 6.96,
-              "depth": 20.73
+              "width": 19.67,
+              "height": 11.05,
+              "depth": 14.32
             },
-            "warrantyInformation": "3 year warranty",
-            "shippingInformation": "Ships in 1 month",
+            "warrantyInformation": "No warranty",
+            "shippingInformation": "Ships in 3-5 business days",
             "availabilityStatus": "In Stock",
             "reviews": [
               {
-                "rating": 1,
-                "comment": "Would not buy again!",
-                "date": "2024-05-23T08:56:21.623Z",
-                "reviewerName": "Elena Long",
-                "reviewerEmail": "elena.long@x.dummyjson.com"
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Jack Ward",
+                "reviewerEmail": "jack.ward@x.dummyjson.com"
               },
               {
                 "rating": 1,
-                "comment": "Very dissatisfied!",
-                "date": "2024-05-23T08:56:21.623Z",
-                "reviewerName": "Mason Parker",
-                "reviewerEmail": "mason.parker@x.dummyjson.com"
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Ava Harris",
+                "reviewerEmail": "ava.harris@x.dummyjson.com"
               },
               {
-                "rating": 4,
-                "comment": "Great product!",
-                "date": "2024-05-23T08:56:21.623Z",
-                "reviewerName": "Sofia Mitchell",
-                "reviewerEmail": "sofia.mitchell@x.dummyjson.com"
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Brayden Fleming",
+                "reviewerEmail": "brayden.fleming@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "90 days return policy",
-            "minimumOrderQuantity": 8,
+            "returnPolicy": "No return policy",
+            "minimumOrderQuantity": 1,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.623Z",
-              "updatedAt": "2024-05-23T08:56:21.623Z",
-              "barcode": "1360512025227",
+              "createdAt": "2024-05-23T08:56:21.622Z",
+              "updatedAt": "2024-05-23T08:56:21.622Z",
+              "barcode": "2899455033799",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Men%20Check%20Shirt/1.png",
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Men%20Check%20Shirt/2.png",
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Men%20Check%20Shirt/3.png",
-              "https://cdn.dummyjson.com/products/images/mens-shirts/Men%20Check%20Shirt/4.png"
+              "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/1.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/2.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/3.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-shirts/Men%20Check%20Shirt/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/thumbnail.png"
           },
           "quantity": 1,
           "user": 1,
           "id": 2
+        },
+        {
+          "item": {
+            "id": 80,
+            "title": "Huawei Matebook X Pro",
+            "description": "The Huawei Matebook X Pro is a slim and stylish laptop with a high-resolution touchscreen display, offering a premium experience for users on the go.",
+            "category": "laptops",
+            "price": 1399.99,
+            "discountPercentage": 15.25,
+            "rating": 4.62,
+            "stock": 34,
+            "tags": [
+              "laptops"
+            ],
+            "brand": "Huawei",
+            "sku": "U2CBNNB0",
+            "weight": 9,
+            "dimensions": {
+              "width": 22.11,
+              "height": 11.11,
+              "depth": 23.07
+            },
+            "warrantyInformation": "2 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Samantha Howard",
+                "reviewerEmail": "samantha.howard@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Would not buy again!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Daniel Cook",
+                "reviewerEmail": "daniel.cook@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Brayden Fleming",
+                "reviewerEmail": "brayden.fleming@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "60 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.622Z",
+              "updatedAt": "2024-05-23T08:56:21.622Z",
+              "barcode": "1232723732298",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/1.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/2.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 3
         }
       ],
       "selectedAddress": {
         "fullName": "Akhil",
-        "email": "akhil.s@lanatussystems.com",
-        "phone": "9876543210",
+        "email": "akhilshah1902@gmail.com",
+        "phone": "9879733657",
         "country": "India",
         "state": "Gujarat",
         "city": "Ahmedabad",
         "pinCode": "380050",
-        "address": "INDIA"
+        "address": "Bharat"
       },
-      "selectedDeliveryMethod": "Free Delivery",
-      "selectedPaymentMethod": "Credit Card",
-      "orderDate": "2024-06-27T11:16:09.646Z",
-      "status": "pending",
+      "selectedDeliveryMethod": "Express Delivery",
+      "selectedPaymentMethod": "Paypal account",
+      "orderDate": "2024-06-28T04:00:19.129Z",
+      "status": "dispatched",
+      "pricing": {
+        "savings": 638.38,
+        "tax_amount": 260,
+        "store_pickup_price": 10,
+        "final_amount": "5469.97",
+        "totalAmountBeforeDiscount": 5838.349999999999
+      },
       "id": 2
     },
     {
@@ -6725,129 +7065,374 @@
       "cartItems": [
         {
           "item": {
-            "id": 1,
-            "title": "Essence Mascara Lash Princess",
-            "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
-            "category": "beauty",
-            "price": 9.99,
-            "discountPercentage": 7.17,
-            "rating": 4.94,
-            "stock": 5,
+            "id": 17,
+            "title": "Beef Steak",
+            "description": "High-quality beef steak, great for grilling or cooking to your preferred level of doneness.",
+            "category": "groceries",
+            "price": 12.99,
+            "discountPercentage": 17.99,
+            "rating": 2.83,
+            "stock": 96,
             "tags": [
-              "beauty",
-              "mascara"
+              "meat"
             ],
-            "brand": "Essence",
-            "sku": "RCH45Q1A",
-            "weight": 2,
+            "sku": "BWWA2MSO",
+            "weight": 9,
             "dimensions": {
-              "width": 23.17,
-              "height": 14.43,
-              "depth": 28.01
+              "width": 23.35,
+              "height": 13.48,
+              "depth": 26.4
             },
             "warrantyInformation": "1 month warranty",
-            "shippingInformation": "Ships in 1 month",
-            "availabilityStatus": "Low Stock",
+            "shippingInformation": "Ships overnight",
+            "availabilityStatus": "In Stock",
             "reviews": [
               {
-                "rating": 2,
-                "comment": "Very unhappy with my purchase!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "John Doe",
-                "reviewerEmail": "john.doe@x.dummyjson.com"
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Ethan Martinez",
+                "reviewerEmail": "ethan.martinez@x.dummyjson.com"
               },
               {
-                "rating": 2,
-                "comment": "Not as described!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Nolan Gonzalez",
-                "reviewerEmail": "nolan.gonzalez@x.dummyjson.com"
+                "rating": 3,
+                "comment": "Disappointing product!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Owen Fisher",
+                "reviewerEmail": "owen.fisher@x.dummyjson.com"
               },
               {
-                "rating": 5,
-                "comment": "Very satisfied!",
-                "date": "2024-05-23T08:56:21.618Z",
+                "rating": 4,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.620Z",
                 "reviewerName": "Scarlett Wright",
                 "reviewerEmail": "scarlett.wright@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "30 days return policy",
-            "minimumOrderQuantity": 24,
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 21,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.618Z",
-              "updatedAt": "2024-05-23T08:56:21.618Z",
-              "barcode": "9164035109868",
+              "createdAt": "2024-05-23T08:56:21.620Z",
+              "updatedAt": "2024-05-23T08:56:21.620Z",
+              "barcode": "8335515097879",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
+              "https://cdn.dummyjson.com/products/images/groceries/Beef%20Steak/1.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Beef%20Steak/thumbnail.png"
           },
-          "quantity": 1,
+          "quantity": 3,
           "user": 1,
           "id": 1
         },
         {
           "item": {
-            "id": 2,
-            "title": "Eyeshadow Palette with Mirror",
-            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
-            "category": "beauty",
-            "price": 19.99,
-            "discountPercentage": 5.5,
-            "rating": 3.28,
-            "stock": 44,
+            "id": 19,
+            "title": "Chicken Meat",
+            "description": "Fresh and tender chicken meat, suitable for various culinary preparations.",
+            "category": "groceries",
+            "price": 9.99,
+            "discountPercentage": 10.46,
+            "rating": 4.61,
+            "stock": 69,
             "tags": [
-              "beauty",
-              "eyeshadow"
+              "meat"
             ],
-            "brand": "Glamour Beauty",
-            "sku": "MVCFH27F",
-            "weight": 3,
+            "sku": "G5YEHW7B",
+            "weight": 7,
             "dimensions": {
-              "width": 12.42,
-              "height": 8.63,
-              "depth": 29.13
+              "width": 15.96,
+              "height": 29.24,
+              "depth": 26.25
             },
-            "warrantyInformation": "1 year warranty",
-            "shippingInformation": "Ships in 2 weeks",
+            "warrantyInformation": "Lifetime warranty",
+            "shippingInformation": "Ships in 1 month",
             "availabilityStatus": "In Stock",
             "reviews": [
               {
-                "rating": 4,
+                "rating": 5,
                 "comment": "Very satisfied!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Liam Garcia",
-                "reviewerEmail": "liam.garcia@x.dummyjson.com"
-              },
-              {
-                "rating": 1,
-                "comment": "Very disappointed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Nora Russell",
-                "reviewerEmail": "nora.russell@x.dummyjson.com"
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Sophia Jones",
+                "reviewerEmail": "sophia.jones@x.dummyjson.com"
               },
               {
                 "rating": 5,
-                "comment": "Highly impressed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Elena Baker",
-                "reviewerEmail": "elena.baker@x.dummyjson.com"
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Maya Reed",
+                "reviewerEmail": "maya.reed@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Harper Turner",
+                "reviewerEmail": "harper.turner@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "30 days return policy",
-            "minimumOrderQuantity": 32,
+            "returnPolicy": "7 days return policy",
+            "minimumOrderQuantity": 46,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.618Z",
-              "updatedAt": "2024-05-23T08:56:21.618Z",
-              "barcode": "2817839095220",
+              "createdAt": "2024-05-23T08:56:21.620Z",
+              "updatedAt": "2024-05-23T08:56:21.620Z",
+              "barcode": "0966223559510",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+              "https://cdn.dummyjson.com/products/images/groceries/Chicken%20Meat/1.png",
+              "https://cdn.dummyjson.com/products/images/groceries/Chicken%20Meat/2.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Chicken%20Meat/thumbnail.png"
+          },
+          "quantity": 4,
+          "user": 1,
+          "id": 2
+        },
+        {
+          "item": {
+            "id": 23,
+            "title": "Eggs",
+            "description": "Fresh eggs, a versatile ingredient for baking, cooking, or breakfast.",
+            "category": "groceries",
+            "price": 2.99,
+            "discountPercentage": 5.8,
+            "rating": 4.46,
+            "stock": 10,
+            "tags": [
+              "dairy"
+            ],
+            "sku": "YA617RI7",
+            "weight": 4,
+            "dimensions": {
+              "width": 12.3,
+              "height": 10.99,
+              "depth": 15.53
+            },
+            "warrantyInformation": "3 year warranty",
+            "shippingInformation": "Ships overnight",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 2,
+                "comment": "Very unhappy with my purchase!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Mateo Perez",
+                "reviewerEmail": "mateo.perez@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Cameron Perez",
+                "reviewerEmail": "cameron.perez@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Aurora Barnes",
+                "reviewerEmail": "aurora.barnes@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 43,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.620Z",
+              "updatedAt": "2024-05-23T08:56:21.620Z",
+              "barcode": "7095702028776",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/groceries/Eggs/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Eggs/thumbnail.png"
+          },
+          "quantity": 6,
+          "user": 1,
+          "id": 3
+        },
+        {
+          "item": {
+            "id": 24,
+            "title": "Fish Steak",
+            "description": "Quality fish steak, suitable for grilling, baking, or pan-searing.",
+            "category": "groceries",
+            "price": 14.99,
+            "discountPercentage": 7,
+            "rating": 4.83,
+            "stock": 99,
+            "tags": [
+              "seafood"
+            ],
+            "sku": "XNIH1MTA",
+            "weight": 8,
+            "dimensions": {
+              "width": 20.14,
+              "height": 8.4,
+              "depth": 10.01
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 1 month",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Michael Johnson",
+                "reviewerEmail": "michael.johnson@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Julian Newton",
+                "reviewerEmail": "julian.newton@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Lila Hudson",
+                "reviewerEmail": "lila.hudson@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 49,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.620Z",
+              "updatedAt": "2024-05-23T08:56:21.620Z",
+              "barcode": "4250692197342",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/groceries/Fish%20Steak/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/groceries/Fish%20Steak/thumbnail.png"
+          },
+          "quantity": 10,
+          "user": 1,
+          "id": 4
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "phone": "9876543210",
+        "country": "India",
+        "state": "Gujarat",
+        "city": "Ahmedabad",
+        "pinCode": "380050",
+        "address": "INDIA"
+      },
+      "selectedDeliveryMethod": "Fast Delivery",
+      "selectedPaymentMethod": "Payment on delivery",
+      "orderDate": "2024-06-28T04:01:02.890Z",
+      "status": "cancelled",
+      "pricing": {
+        "savings": 25.61,
+        "tax_amount": 12.34,
+        "store_pickup_price": 10,
+        "final_amount": "269.11",
+        "totalAmountBeforeDiscount": 272.38
+      },
+      "id": 3
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "password": "11111111",
+        "confirmPassword": "11111111",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhil.s@lanatussystems.com",
+            "phone": "9876543210",
+            "country": "India",
+            "state": "Gujarat",
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "INDIA"
+          },
+          {
+            "fullName": "Akhil",
+            "email": "akhilshah1902@gmail.com",
+            "phone": "9879733657",
+            "country": "India",
+            "state": "Gujarat",
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "Bharat"
+          }
+        ],
+        "id": 1
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 95,
+            "title": "Rolex Cellini Date Black Dial",
+            "description": "The Rolex Cellini Date with Black Dial is a classic and prestigious watch. With a black dial and date complication, it exudes sophistication and is a symbol of Rolex's heritage.",
+            "category": "mens-watches",
+            "price": 8999.99,
+            "discountPercentage": 14.28,
+            "rating": 3.61,
+            "stock": 84,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "J3GPKQW0",
+            "weight": 6,
+            "dimensions": {
+              "width": 12.17,
+              "height": 27.99,
+              "depth": 10.36
+            },
+            "warrantyInformation": "5 year warranty",
+            "shippingInformation": "Ships in 1 month",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Gavin Stanley",
+                "reviewerEmail": "gavin.stanley@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Stella Hughes",
+                "reviewerEmail": "stella.hughes@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Paisley Bell",
+                "reviewerEmail": "paisley.bell@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "8917585155737",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/thumbnail.png"
           },
           "quantity": 1,
           "user": 1,
@@ -6855,85 +7440,228 @@
         },
         {
           "item": {
-            "id": 3,
-            "title": "Powder Canister",
-            "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
-            "category": "beauty",
-            "price": 14.99,
-            "discountPercentage": 18.14,
-            "rating": 3.82,
-            "stock": 59,
+            "id": 98,
+            "title": "Rolex Submariner Watch",
+            "description": "The Rolex Submariner is a legendary dive watch with a rich history. Known for its durability and water resistance, it's a symbol of adventure and exploration.",
+            "category": "mens-watches",
+            "price": 13999.99,
+            "discountPercentage": 0.82,
+            "rating": 2.97,
+            "stock": 35,
             "tags": [
-              "beauty",
-              "face powder"
+              "watches",
+              "luxury watches"
             ],
-            "brand": "Velvet Touch",
-            "sku": "9EN8WLT2",
-            "weight": 8,
+            "brand": "Rolex",
+            "sku": "XFGRO0O5",
+            "weight": 5,
             "dimensions": {
-              "width": 24.16,
-              "height": 10.7,
-              "depth": 11.07
+              "width": 5.22,
+              "height": 27.59,
+              "depth": 16.93
             },
-            "warrantyInformation": "2 year warranty",
+            "warrantyInformation": "No warranty",
             "shippingInformation": "Ships in 1-2 business days",
             "availabilityStatus": "In Stock",
             "reviews": [
               {
-                "rating": 5,
-                "comment": "Very happy with my purchase!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Ethan Thompson",
-                "reviewerEmail": "ethan.thompson@x.dummyjson.com"
-              },
-              {
-                "rating": 4,
-                "comment": "Great value for money!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Levi Hicks",
-                "reviewerEmail": "levi.hicks@x.dummyjson.com"
+                "rating": 2,
+                "comment": "Very dissatisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Emily Brown",
+                "reviewerEmail": "emily.brown@x.dummyjson.com"
               },
               {
                 "rating": 5,
                 "comment": "Highly impressed!",
-                "date": "2024-05-23T08:56:21.618Z",
-                "reviewerName": "Hazel Gardner",
-                "reviewerEmail": "hazel.gardner@x.dummyjson.com"
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Nova Cooper",
+                "reviewerEmail": "nova.cooper@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Julian James",
+                "reviewerEmail": "julian.james@x.dummyjson.com"
               }
             ],
-            "returnPolicy": "60 days return policy",
-            "minimumOrderQuantity": 25,
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 1,
             "meta": {
-              "createdAt": "2024-05-23T08:56:21.618Z",
-              "updatedAt": "2024-05-23T08:56:21.618Z",
-              "barcode": "0516267971277",
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "6567997358364",
               "qrCode": "https://dummyjson.com/public/qr-code.png"
             },
             "images": [
-              "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/3.png"
             ],
-            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png"
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/thumbnail.png"
+          },
+          "quantity": 4,
+          "user": 1,
+          "id": 3
+        },
+        {
+          "item": {
+            "id": 96,
+            "title": "Rolex Cellini Moonphase",
+            "description": "The Rolex Cellini Moonphase is a masterpiece of horology, featuring a moon phase complication and exquisite design. It reflects Rolex's commitment to precision and elegance.",
+            "category": "mens-watches",
+            "price": 12999.99,
+            "discountPercentage": 5.7,
+            "rating": 4.52,
+            "stock": 33,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "LUZDIKKR",
+            "weight": 5,
+            "dimensions": {
+              "width": 28.07,
+              "height": 13.43,
+              "depth": 10.81
+            },
+            "warrantyInformation": "3 year warranty",
+            "shippingInformation": "Ships overnight",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Sophia Jones",
+                "reviewerEmail": "sophia.jones@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Jacob Cooper",
+                "reviewerEmail": "jacob.cooper@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Elijah Cruz",
+                "reviewerEmail": "elijah.cruz@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "No return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "0330714338454",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/thumbnail.png"
           },
           "quantity": 1,
           "user": 1,
-          "id": 3
+          "id": 4
+        },
+        {
+          "item": {
+            "id": 97,
+            "title": "Rolex Datejust",
+            "description": "The Rolex Datejust is an iconic and versatile timepiece with a date window. Known for its timeless design and reliability, it's a symbol of Rolex's watchmaking excellence.",
+            "category": "mens-watches",
+            "price": 10999.99,
+            "discountPercentage": 9.69,
+            "rating": 4.94,
+            "stock": 11,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "86V20NWJ",
+            "weight": 5,
+            "dimensions": {
+              "width": 9.68,
+              "height": 7.29,
+              "depth": 5.67
+            },
+            "warrantyInformation": "6 months warranty",
+            "shippingInformation": "Ships in 3-5 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Max Russell",
+                "reviewerEmail": "max.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Jonathan Pierce",
+                "reviewerEmail": "jonathan.pierce@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Asher Scott",
+                "reviewerEmail": "asher.scott@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "4957618378388",
+              "qrCode": "https://dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 5
         }
       ],
       "selectedAddress": {
         "fullName": "Akhil",
-        "email": "akhilshah1902@gmail.com",
-        "phone": "9879733657",
+        "email": "akhil.s@lanatussystems.com",
+        "phone": "9876543210",
         "country": "India",
         "state": "Gujarat",
         "city": "Ahmedabad",
         "pinCode": "380050",
-        "address": "Bharat"
+        "address": "INDIA"
       },
-      "selectedDeliveryMethod": "Fast Delivery",
-      "selectedPaymentMethod": "Payment on delivery",
-      "orderDate": "2024-06-27T11:16:39.062Z",
-      "status": "pending",
-      "id": 3
+      "selectedDeliveryMethod": "Express Delivery",
+      "selectedPaymentMethod": "Credit Card",
+      "orderDate": "2024-06-28T04:01:45.312Z",
+      "status": "confirmed",
+      "pricing": {
+        "savings": 3928.36,
+        "tax_amount": 4450,
+        "store_pickup_price": 10,
+        "final_amount": "93459.93",
+        "totalAmountBeforeDiscount": 92928.29
+      },
+      "id": 4
     }
   ]
 }

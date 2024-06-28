@@ -92,7 +92,14 @@ const CheckoutPage = () => {
         selectedDeliveryMethod,
         selectedPaymentMethod,
         orderDate: new Date(),
-        status: "pending",
+        status: "confirmed",
+        pricing: {
+          savings,
+          tax_amount,
+          store_pickup_price,
+          final_amount,
+          totalAmountBeforeDiscount,
+        },
       };
       dispatch(createOrderAsync(order));
       setOpen(true);
