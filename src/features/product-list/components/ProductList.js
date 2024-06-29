@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import LoadingPage from "../../../pages/Loading";
 import {
   fetchAllProductsAsync,
   fetchSingleProductAsync,
   selectAllProducts,
+  checkIsLoading as productLoader,
 } from "../ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +17,7 @@ import {
 } from "../../cart/cartSlice";
 export function ProductList() {
   const products = useSelector(selectAllProducts);
+  const productLoading = useSelector(productLoader);
   const loggedInUser = useSelector(getLoggedInUser);
   const isUserNotLoggedIn = loggedInUser?.length === 0;
   const dispatch = useDispatch();
@@ -60,6 +63,7 @@ export function ProductList() {
 
   return (
     <div>
+      {productLoading && <LoadingPage loadingMessage="Fetching product..." />}
       <div className="mx-auto max-w-2xl px-4 py-0 sm:px-6 sm:py-0 lg:max-w-7xl lg:px-8">
         <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8 ">
           {products.map((product) => {

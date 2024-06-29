@@ -91,12 +91,8 @@ export const productsSlice = createSlice({
         state.totalProducts = action.payload.totalItems;
         state.isLoading = false;
       })
-      .addCase(fetchSingleProductAsync.pending, (state, action) => {
-        state.isLoading = true;
-      })
       .addCase(fetchSingleProductAsync.fulfilled, (state, action) => {
         state.singleProduct = action.payload;
-        state.isLoading = false;
       });
   },
 });

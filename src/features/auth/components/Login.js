@@ -1,18 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import LoadingPage from "../../../pages/Loading";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { checkUserAsync } from "../AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUserAsync, checkIsLoading } from "../AuthSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const isLoading = useSelector(checkIsLoading);
 
   return (
     <section>
+      {isLoading && (
+        <LoadingPage loadingMessage={"Verifying, Please Wait..."} />
+      )}
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <Link
           to="/"

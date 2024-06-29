@@ -6,10 +6,13 @@ import {
   getLoggedInUserCartItems,
   removeFromCartAsync,
   removeItemQuantityAsync,
+  checkIsLoading,
 } from "../cart/cartSlice";
+import LoadingPage from "../../pages/Loading";
 import NoDetailsFound from "../../pages/NoDetailsFound";
 const Cart = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(checkIsLoading);
   const cartItems = useSelector(getLoggedInUserCartItems || []);
   const totalAmount = cartItems?.reduce(
     (amount, item) => parseFloat(item.item.price * item.quantity + amount),
@@ -60,6 +63,7 @@ const Cart = () => {
 
   return (
     <section className="py-4 antialiased md:py-4">
+      {isLoading && <LoadingPage loadingMessage="Loading Cart..." />}
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         {cartItems?.length === 0 && (
           <NoDetailsFound

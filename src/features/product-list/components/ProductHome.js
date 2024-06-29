@@ -29,8 +29,10 @@ import {
   fetchAllFilteredProductsAsync,
   getAllBrands,
   getAllCategories,
+  checkIsLoading,
 } from "../ProductSlice";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
+import LoadingPage from "../../../pages/Loading";
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
   { name: "Price: Low to High", sort: "price", order: "asc", current: false },
@@ -48,6 +50,7 @@ const ProductHome = () => {
   const dispatch = useDispatch();
   const categories = useSelector(getAllCategories);
   const brands = useSelector(getAllBrands);
+  const isLoading = useSelector(checkIsLoading);
 
   const handleFilter = (e, section, option) => {
     const newFilter = { ...selectedFilters };
@@ -124,6 +127,7 @@ const ProductHome = () => {
 
   return (
     <div>
+      {isLoading && <LoadingPage loadingMessage={"Loading..."} />}
       <div>
         {/* Mobile filter dialog */}
         <Transition show={mobileFiltersOpen}>

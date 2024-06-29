@@ -1,13 +1,20 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Formik, Field, ErrorMessage } from "formik";
-import { useDispatch } from "react-redux";
-import { createUserAsync } from "../AuthSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { createUserAsync, checkIsLoading } from "../AuthSlice";
+import LoadingPage from "../../../pages/Loading";
+
 import * as Yup from "yup";
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isLoading = useSelector(checkIsLoading);
+
   return (
     <section>
+      {isLoading && (
+        <LoadingPage loadingMessage={"Verifying, Please Wait..."} />
+      )}
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <Link
           to="/"
