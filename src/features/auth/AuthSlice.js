@@ -4,6 +4,7 @@ import { createUser, checkUser, logoutUser } from "./AuthAPI";
 const initialState = {
   loggedInUser: [],
   error: "",
+  isLoading: false,
 };
 
 export const createUserAsync = createAsyncThunk(
@@ -35,24 +36,37 @@ export const authSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(createUserAsync.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(createUserAsync.fulfilled, (state, action) => {
       state.loggedInUser = action.payload;
       state.error = null;
+      state.isLoading = false;
+    });
+    builder.addCase(checkUserAsync.pending, (state) => {
+      state.isLoading = true;
     });
     builder.addCase(checkUserAsync.fulfilled, (state, action) => {
       state.loggedInUser = action.payload;
       state.error = null;
+      state.isLoading = false;
     });
     builder.addCase(checkUserAsync.rejected, (state, action) => {
       state.error = action.error.message;
     });
+    builder.addCase(logoutUserAsync.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(logoutUserAsync.fulfilled, (state) => {
       state.error = null;
       state.loggedInUser = [];
+      state.isLoading = false;
     });
   },
 });
 
 export const getLoggedInUser = (state) => state.auth.loggedInUser;
+export const checkIsLoading = (state) => state.auth.isLoading;
 
 export default authSlice.reducer;

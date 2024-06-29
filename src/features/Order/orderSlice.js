@@ -4,6 +4,7 @@ import { createOrder } from "./orderAPI";
 const initialState = {
   orders: [],
   currentOrders: [],
+  isLoading: false,
 };
 
 export const createOrderAsync = createAsyncThunk(
@@ -23,14 +24,20 @@ export const orderSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(createOrderAsync.pending, (state, action) => {
+      state.isLoading = true;
+    });
     builder.addCase(createOrderAsync.fulfilled, (state, action) => {
       state.orders.push(action.payload);
       state.currentOrders = action.payload;
+      state.isLoading = false;
     });
   },
 });
 const { clearCurrentOrder } = orderSlice.actions;
 export { clearCurrentOrder };
 const getCurrentOrders = (state) => state.order.currentOrders;
-export { getCurrentOrders };
+const checkIsLoading = (state) => state.order.isLoading;
+
+export { getCurrentOrders, checkIsLoading };
 export default orderSlice.reducer;

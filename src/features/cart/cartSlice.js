@@ -10,6 +10,7 @@ import {
 
 const initialState = {
   item: [],
+  isLoading: false,
 };
 
 export const addToCartAsync = createAsyncThunk(
@@ -60,34 +61,60 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(addToCartAsync.pending, (state, action) => {
+      state.isLoading = true;
+    });
     builder.addCase(addToCartAsync.fulfilled, (state, action) => {
       state.item = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(getCartItemsAsync.pending, (state, action) => {
+      state.isLoading = true;
     });
     builder.addCase(getCartItemsAsync.fulfilled, (state, action) => {
       state.item = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(removeFromCartAsync.pending, (state, action) => {
+      state.isLoading = true;
     });
     builder.addCase(removeFromCartAsync.fulfilled, (state, action) => {
       state.item = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(emptyCartOnSuccessOrderAsync.pending, (state, action) => {
+      state.isLoading = true;
     });
     builder.addCase(emptyCartOnSuccessOrderAsync.fulfilled, (state, action) => {
       state.item = [];
+      state.isLoading = false;
+    });
+    builder.addCase(addItemQuantityAsync.pending, (state, action) => {
+      state.isLoading = true;
     });
     builder.addCase(addItemQuantityAsync.fulfilled, (state, action) => {
       const index = state.item.findIndex(
         (elem) => elem.id === action.payload.id
       );
       state.item[index] = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(removeItemQuantityAsync.pending, (state, action) => {
+      state.isLoading = true;
     });
     builder.addCase(removeItemQuantityAsync.fulfilled, (state, action) => {
       const index = state.item.findIndex(
         (elem) => elem.id === action.payload.id
       );
       state.item[index] = action.payload;
+      state.isLoading = false;
     });
   },
 });
 
 const getLoggedInUserCartItems = (state) => state.cart.item;
-export { getLoggedInUserCartItems };
+const checkIsLoading = (state) => state.cart.isLoading;
+
+export { getLoggedInUserCartItems, checkIsLoading };
 
 export default cartSlice.reducer;

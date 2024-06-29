@@ -13,6 +13,7 @@ const initialState = {
   categories: [],
   brands: [],
   singleProduct: {},
+  isLoading: false,
 };
 
 export const fetchAllProductsAsync = createAsyncThunk(
@@ -61,21 +62,41 @@ export const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addCase(fetchAllProductsAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
       .addCase(fetchAllProductsAsync.fulfilled, (state, action) => {
         state.products = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchAllCategoriesAsync.pending, (state, action) => {
+        state.isLoading = true;
       })
       .addCase(fetchAllCategoriesAsync.fulfilled, (state, action) => {
         state.categories = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchAllBrandsAsync.pending, (state, action) => {
+        state.isLoading = true;
       })
       .addCase(fetchAllBrandsAsync.fulfilled, (state, action) => {
         state.brands = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchAllFilteredProductsAsync.pending, (state, action) => {
+        state.isLoading = true;
       })
       .addCase(fetchAllFilteredProductsAsync.fulfilled, (state, action) => {
         state.products = action.payload.products;
         state.totalProducts = action.payload.totalItems;
+        state.isLoading = false;
+      })
+      .addCase(fetchSingleProductAsync.pending, (state, action) => {
+        state.isLoading = true;
       })
       .addCase(fetchSingleProductAsync.fulfilled, (state, action) => {
         state.singleProduct = action.payload;
+        state.isLoading = false;
       });
   },
 });
@@ -85,12 +106,15 @@ const getProductsLength = (state) => state.product.totalProducts;
 const getAllCategories = (state) => state.product.categories;
 const getAllBrands = (state) => state.product.brands;
 const getSingleProduct = (state) => state.product.singleProduct;
+const checkIsLoading = (state) => state.product.isLoading;
+
 export {
   selectAllProducts,
   getProductsLength,
   getAllCategories,
   getAllBrands,
   getSingleProduct,
+  checkIsLoading,
 };
 
 export default productsSlice.reducer;

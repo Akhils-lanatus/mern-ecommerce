@@ -6,7 +6,6 @@ import {
   getLoggedInUserAllOrders,
 } from "../userSlice";
 import { getLoggedInUser } from "../../auth/AuthSlice";
-import { Link } from "react-router-dom";
 import NoDetailsFound from "../../../pages/NoDetailsFound";
 const UserOrders = () => {
   const dispatch = useDispatch();
@@ -63,7 +62,10 @@ const UserOrders = () => {
             const shippingDetails = orderItem.selectedAddress;
             const pricingDetails = orderItem.pricing;
             return (
-              <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
+              <div
+                key={orderItem.id}
+                className="mx-auto max-w-screen-xl px-4 2xl:px-0"
+              >
                 <div className="mx-auto max-w-3xl">
                   <div className="inline-flex items-end gap-8 w-full">
                     <h2 className="text-3xl font-semibold text-gray-900 dark:text-white sm:text-3 xl mt-4">
@@ -193,7 +195,7 @@ const UserOrders = () => {
                           {orderItem.cartItems.map((cartItem) => {
                             const item = cartItem.item;
                             return (
-                              <tr>
+                              <tr key={cartItem.id}>
                                 <td className="whitespace-nowrap py-4 md:w-[384px]">
                                   <div className="flex items-center gap-4">
                                     <div className="flex items-center aspect-square w-10 h-10 shrink-0">

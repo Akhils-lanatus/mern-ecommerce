@@ -8,6 +8,7 @@ import {
 const initialState = {
   loggedInUserAllOrders: null,
   userInfo: [],
+  isLoading: false,
 };
 
 export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
@@ -38,25 +39,39 @@ export const userSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
+    builder.addCase(fetchLoggedInUserOrdersAsync.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchLoggedInUserOrdersAsync.fulfilled, (state, action) => {
       state.loggedInUserAllOrders = action.payload;
+      state.isLoading = false;
+    });
+    builder.addCase(updateUserFromCheckoutAsync.pending, (state, action) => {
+      state.isLoading = true;
     });
     builder.addCase(updateUserFromCheckoutAsync.fulfilled, (state, action) => {
       state.userInfo.data = action.payload;
       state.error = null;
+      state.isLoading = false;
     });
     builder.addCase(updateUserFromCheckoutAsync.rejected, (state, action) => {
       state.error = action.error.message;
     });
+    builder.addCase(fetchLoggedInUserAsync.pending, (state, action) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchLoggedInUserAsync.fulfilled, (state, action) => {
       state.userInfo = action.payload;
       state.error = null;
+      state.isLoading = false;
     });
   },
 });
 
 const getLoggedInUserAllOrders = (state) => state.user.loggedInUserAllOrders;
 const getLoggedInUserInfo = (state) => state.user.userInfo;
-export { getLoggedInUserAllOrders, getLoggedInUserInfo };
+const checkIsLoading = (state) => state.user.isLoading;
+
+export { getLoggedInUserAllOrders, getLoggedInUserInfo, checkIsLoading };
 
 export default userSlice.reducer;
