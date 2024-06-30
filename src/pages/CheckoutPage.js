@@ -6,7 +6,7 @@ import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import {
-  updateUserFromCheckoutAsync,
+  updateUserAddressAsync,
   getLoggedInUserInfo,
 } from "../features/user/userSlice";
 import { createOrderAsync } from "../features/Order/orderSlice";
@@ -164,7 +164,7 @@ const CheckoutPage = () => {
                   })}
                   onSubmit={(values, { resetForm }) => {
                     dispatch(
-                      updateUserFromCheckoutAsync({
+                      updateUserAddressAsync({
                         address: {
                           ...values,
                           country: Country.getCountryByCode(values.country)

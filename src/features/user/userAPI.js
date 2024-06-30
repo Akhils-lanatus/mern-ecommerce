@@ -21,7 +21,7 @@ export async function fetchLoggedInUser(userId) {
   }
 }
 
-export async function updateUserFromCheckout(userData) {
+export async function updateUserAddress(userData) {
   try {
     const { user, address } = userData;
     const { country, state, city, email, phone } = address;
@@ -57,4 +57,16 @@ export async function updateUserFromCheckout(userData) {
   } catch (error) {
     throw new Error(error.message);
   }
+}
+
+export async function removeUserAddress(userData) {
+  try {
+    const response = await fetch(`http://localhost:8000/users/${userData.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userData),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {}
 }

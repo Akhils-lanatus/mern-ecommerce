@@ -1,120 +1,21 @@
 import { Country, State, City } from "country-state-city";
-import { useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import { getLoggedInUserCartItems } from "../../cart/cartSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import {
-  updateUserFromCheckoutAsync,
+  updateUserAddressAsync,
   getLoggedInUserInfo,
 } from "../../user/userSlice";
-import { createOrderAsync } from "../../Order/orderSlice";
-
-const paymentMethods = [
-  {
-    name: "payment-method",
-    value: "Credit Card",
-    subText: "Pay with your credit card",
-  },
-  {
-    name: "payment-method",
-    value: "Payment on delivery",
-    subText: "+$15 payment processing fee",
-  },
-  {
-    name: "payment-method",
-    value: "Paypal account",
-    subText: "Connect to your account",
-  },
-];
-const deliveryMethods = [
-  {
-    name: "delivery-method",
-    label: "Free Delivery",
-    value: "Free Delivery",
-    subText: "Get it by Friday, 13 Dec 2023",
-  },
-  {
-    name: "delivery-method",
-    label: "Fast Delivery",
-    value: "$15 - Fast Delivery",
-    subText: "Get it by Tomorrow",
-  },
-  {
-    name: "delivery-method",
-    label: "Express Delivery",
-    value: "$49 - Express Delivery",
-    subText: "Get it today",
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 const AddAddress = () => {
-  const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const cartItems = useSelector(getLoggedInUserCartItems);
   const loggedInUser = useSelector(getLoggedInUserInfo);
-  const [selectedAddress, setSelectedAddress] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    country: "",
-    state: "",
-    city: "",
-    pinCode: "",
-    address: "",
-  });
 
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
-  const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
-  const [open, setOpen] = useState(false);
-
-  const {
-    savings,
-    tax_amount,
-    store_pickup_price,
-    final_amount,
-    totalAmountBeforeDiscount,
-  } = location.state !== null && location.state;
-
-  const allAddressOfUser = useMemo(() => {
-    return loggedInUser?.data?.addresses || [];
-  }, [loggedInUser]);
-
-  const handleOrders = () => {
-    try {
-      const order = {
-        user: loggedInUser.data,
-        cartItems,
-        selectedAddress,
-        selectedDeliveryMethod,
-        selectedPaymentMethod,
-        orderDate: new Date(),
-        status: "confirmed",
-        pricing: {
-          savings,
-          tax_amount,
-          store_pickup_price,
-          final_amount,
-          totalAmountBeforeDiscount,
-        },
-      };
-      dispatch(createOrderAsync(order));
-      setOpen(true);
-    } catch (error) {
-      setOpen(false);
-      console.log(`Error while ordering :: ${error}`);
-    }
-  };
-
-  if (cartItems?.length === 0) return <Navigate to={"/"} replace={true} />;
   return (
-    <section
-      className={`bg-white py-8 antialiased dark:bg-gray-900 md:py-8 ${
-        open && "blur-md"
-      } `}
-    >
+    <section className={`bg-white py-8 antialiased dark:bg-gray-900 md:py-8`}>
       <h1 className="text-4xl text-white mx-auto max-w-screen-xl px-4 2xl:px-0">
         Add Address
       </h1>
@@ -158,7 +59,7 @@ const AddAddress = () => {
                   })}
                   onSubmit={(values, { resetForm }) => {
                     dispatch(
-                      updateUserFromCheckoutAsync({
+                      updateUserAddressAsync({
                         address: {
                           ...values,
                           country: Country.getCountryByCode(values.country)
@@ -172,6 +73,7 @@ const AddAddress = () => {
                       })
                     );
                     resetForm();
+                    navigate("/profile");
                   }}
                 >
                   {({ values }) => (

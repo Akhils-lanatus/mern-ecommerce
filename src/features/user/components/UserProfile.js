@@ -1,13 +1,29 @@
 import React from "react";
 import LoadingPage from "../../../pages/Loading";
-import { useSelector } from "react-redux";
-import { getLoggedInUserInfo, checkIsLoading } from "../userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getLoggedInUserInfo,
+  checkIsLoading,
+  removeUserAddressAsync,
+} from "../userSlice";
 import Navbar from "../../../features/Navbar/Navbar";
 import { Link } from "react-router-dom";
 const UserProfile = () => {
+  const dispatch = useDispatch();
   const user = useSelector(getLoggedInUserInfo);
   const isLoading = useSelector(checkIsLoading);
   const { name = "", email = "", addresses = [] } = user?.data || {};
+
+  const handleRemoveAddress = (index) => {
+    const updatedUser = { ...user };
+    const addresses = [...user?.data?.addresses];
+    addresses?.splice(index, 1);
+    updatedUser.data = {
+      ...user.data,
+      addresses: addresses,
+    };
+    dispatch(removeUserAddressAsync(updatedUser?.data));
+  };
 
   return (
     <Navbar>
@@ -105,7 +121,10 @@ const UserProfile = () => {
                                 <button className="text-white bg-indigo-600 p-2.5 rounded-lg">
                                   Edit
                                 </button>
-                                <button className="text-white bg-red-600 p-2.5 rounded-lg">
+                                <button
+                                  className="text-white bg-red-600 p-2.5 rounded-lg"
+                                  onClick={() => handleRemoveAddress(i)}
+                                >
                                   Delete
                                 </button>
                               </div>

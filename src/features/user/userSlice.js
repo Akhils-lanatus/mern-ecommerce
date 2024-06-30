@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchLoggedInUserOrders,
-  updateUserFromCheckout,
+  updateUserAddress,
   fetchLoggedInUser,
+  removeUserAddress,
 } from "./userAPI";
 
 const initialState = {
@@ -26,10 +27,17 @@ export const fetchLoggedInUserAsync = createAsyncThunk(
   }
 );
 
-export const updateUserFromCheckoutAsync = createAsyncThunk(
-  "auth/updateUserFromCheckout",
+export const updateUserAddressAsync = createAsyncThunk(
+  "auth/updateUserAddress",
   async (data) => {
-    const response = await updateUserFromCheckout(data);
+    const response = await updateUserAddress(data);
+    return response;
+  }
+);
+export const removeUserAddressAsync = createAsyncThunk(
+  "auth/removeUserAddress",
+  async (data) => {
+    const response = await removeUserAddress(data);
     return response;
   }
 );
@@ -46,15 +54,15 @@ export const userSlice = createSlice({
       state.loggedInUserAllOrders = action.payload;
       state.isLoading = false;
     });
-    builder.addCase(updateUserFromCheckoutAsync.pending, (state, action) => {
+    builder.addCase(updateUserAddressAsync.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(updateUserFromCheckoutAsync.fulfilled, (state, action) => {
+    builder.addCase(updateUserAddressAsync.fulfilled, (state, action) => {
       state.userInfo.data = action.payload;
       state.error = null;
       state.isLoading = false;
     });
-    builder.addCase(updateUserFromCheckoutAsync.rejected, (state, action) => {
+    builder.addCase(updateUserAddressAsync.rejected, (state, action) => {
       state.error = action.error.message;
     });
     builder.addCase(fetchLoggedInUserAsync.pending, (state, action) => {
@@ -64,6 +72,9 @@ export const userSlice = createSlice({
       state.userInfo = action.payload;
       state.error = null;
       state.isLoading = false;
+    });
+    builder.addCase(removeUserAddressAsync.fulfilled, (state, action) => {
+      state.userInfo.data = action.payload;
     });
   },
 });
