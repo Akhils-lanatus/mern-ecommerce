@@ -17,6 +17,7 @@ import { getCartItemsAsync } from "./features/cart/cartSlice";
 import UserProfile from "./features/user/components/UserProfile";
 import UserOrders from "./features/user/components/UserOrders";
 import { fetchLoggedInUserAsync } from "./features/user/userSlice";
+import AddAddress from "./features/user/components/AddAddress";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -48,6 +49,7 @@ const App = () => {
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/profile" element={<UserProfile />} />
           <Route path="/my-orders" element={<UserOrders />} />
+          <Route path="/add-address" element={<AddAddress />} />
         </Route>
         <Route path="/selected-product/:id" element={<SingleProductPage />} />
         <Route path="*" element={<PageNotFound />} />
