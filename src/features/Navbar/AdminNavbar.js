@@ -18,30 +18,22 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getLoggedInUser, logoutUserAsync } from "../auth/AuthSlice";
 import { getLoggedInUserCartItems } from "../cart/cartSlice";
 
-const navigation = [
-  { name: "Home", to: "/", current: true },
-  { name: "Login", to: "/auth/login", current: false },
-  { name: "Register", to: "/auth/register", current: false },
-  { name: "404 Page", to: "/error", current: false },
-];
+const navigation = [{ name: "Home", to: "/admin/home", current: true }];
 const userNavigation = [
-  { name: "Your Profile", linkTo: "/profile" },
-  { name: "Settings", linkTo: "/" },
+  { name: "Your Profile", linkTo: "/admin/profile" },
+  { name: "Settings", linkTo: "/admin/home" },
   { name: "Sign out", linkTo: "/auth/login" },
-  { name: "Your Orders", linkTo: "/my-orders" },
 ];
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const Navbar = ({ children }) => {
+const AdminNavbar = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(getLoggedInUser);
-  const cartItems = useSelector(getLoggedInUserCartItems);
-  const totalItemsInCart = cartItems?.length;
-  const isUserNotLoggedIn = loggedInUser?.length === 0;
+
   const handleLogout = () => {
     dispatch(logoutUserAsync());
     navigate("/auth/login");
@@ -61,12 +53,11 @@ const Navbar = ({ children }) => {
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
-                    <Link to="/" className="flex-shrink-0">
-                      <img
-                        className="h-8 w-8"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="Your Company"
-                      />
+                    <Link
+                      to="/admin/home"
+                      className="flex-shrink-0 text-2xl text-white font-bold"
+                    >
+                      Admin
                     </Link>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
@@ -90,79 +81,7 @@ const Navbar = ({ children }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="hidden md:block">
-                    <div className="ml-4 flex items-center md:ml-6">
-                      <Link to="/cart">
-                        <button
-                          type="button"
-                          className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
-                        >
-                          <span className="sr-only">View notifications</span>
-                          <span className="relative inline-flex items-center justify-center">
-                            <ShoppingBagIcon
-                              className={`h-6 w-6 ${
-                                isUserNotLoggedIn && "cursor-not-allowed"
-                              }`}
-                              aria-hidden="true"
-                            />
 
-                            <span
-                              className={`absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black ${
-                                isUserNotLoggedIn && "cursor-not-allowed"
-                              }`}
-                            >
-                              {totalItemsInCart}
-                            </span>
-                          </span>
-                        </button>
-                      </Link>
-                      {/* Profile dropdown */}
-                      <Menu as="div" className="relative ml-3">
-                        <div>
-                          <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                            <span className="absolute -inset-1.5" />
-                            <span className="sr-only">Open user menu</span>
-                            <img
-                              className="h-8 w-8 rounded-full"
-                              src={user.imageUrl}
-                              alt=""
-                            />
-                          </MenuButton>
-                        </div>
-                        <Transition
-                          enter="transition ease-out duration-100"
-                          enterFrom="transform opacity-0 scale-95"
-                          enterTo="transform opacity-100 scale-100"
-                          leave="transition ease-in duration-75"
-                          leaveFrom="transform opacity-100 scale-100"
-                          leaveTo="transform opacity-0 scale-95"
-                        >
-                          <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none cursor-pointer">
-                            {userNavigation.map((item) => (
-                              <MenuItem key={item.name}>
-                                {({ focus }) => (
-                                  <Link
-                                    to={item.linkTo}
-                                    className={classNames(
-                                      focus ? "bg-gray-100" : "",
-                                      "block px-4 py-2 text-sm text-gray-700"
-                                    )}
-                                    onClick={() => {
-                                      item.name === "Sign out" &&
-                                        loggedInUser?.length !== 0 &&
-                                        handleLogout();
-                                    }}
-                                  >
-                                    {item.name}
-                                  </Link>
-                                )}
-                              </MenuItem>
-                            ))}
-                          </MenuItems>
-                        </Transition>
-                      </Menu>
-                    </div>
-                  </div>
                   <div className="-mr-2 flex md:hidden">
                     {/* Mobile menu button */}
                     <DisclosureButton className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -221,29 +140,6 @@ const Navbar = ({ children }) => {
                         {user.email}
                       </div>
                     </div>
-                    <Link to="/cart">
-                      <button
-                        type="button"
-                        className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none"
-                      >
-                        <span className="sr-only">View notifications</span>
-                        <span className="relative inline-flex items-center justify-center">
-                          <ShoppingBagIcon
-                            className={`h-6 w-6 ${
-                              isUserNotLoggedIn && "cursor-not-allowed"
-                            }`}
-                            aria-hidden="true"
-                          />
-                          <span
-                            className={`absolute bottom-3 -right-2 inline-flex rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-black ${
-                              isUserNotLoggedIn && "cursor-not-allowed"
-                            }`}
-                          >
-                            {totalItemsInCart}
-                          </span>
-                        </span>
-                      </button>
-                    </Link>
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
@@ -278,4 +174,4 @@ const Navbar = ({ children }) => {
   );
 };
 
-export default Navbar;
+export default AdminNavbar;

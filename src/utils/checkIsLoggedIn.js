@@ -20,7 +20,8 @@ const UnProtected = () => {
   if (location.pathname === "/auth") {
     return <PageNotFound />;
   }
-  if (loggedInUser?.length !== 0) return <Navigate to="/" replace={true} />;
+  if (user?.length !== 0 && loggedInUser?.length !== 0)
+    return <Navigate to="/" replace={true} />;
   return <Outlet />;
 };
 

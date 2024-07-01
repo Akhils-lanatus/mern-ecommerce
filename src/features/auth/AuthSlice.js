@@ -23,13 +23,10 @@ export const checkUserAsync = createAsyncThunk(
   }
 );
 
-export const logoutUserAsync = createAsyncThunk(
-  "auth/logoutUser",
-  async (id) => {
-    const response = await logoutUser(id);
-    return response;
-  }
-);
+export const logoutUserAsync = createAsyncThunk("auth/logoutUser", async () => {
+  const response = await logoutUser();
+  return response;
+});
 
 export const authSlice = createSlice({
   name: "auth",

@@ -12,7 +12,6 @@ const Login = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const isLoading = useSelector(checkIsLoading);
-
   return (
     <section>
       {isLoading && (
@@ -57,7 +56,13 @@ const Login = () => {
                   dispatch(checkUserAsync(values))
                     .unwrap()
                     .then((res) => {
-                      navigate(Boolean(state) ? state.prev : "/");
+                      navigate(
+                        res.data.role === "admin"
+                          ? "/admin/home"
+                          : Boolean(state)
+                          ? state.prev
+                          : "/"
+                      );
                       resetForm();
                     })
                     .catch((err) => {

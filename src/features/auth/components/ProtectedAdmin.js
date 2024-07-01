@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getLoggedInUser } from "../AuthSlice";
-const Protected = () => {
+const AdminProtected = () => {
   const location = useLocation();
   const loggedInUser = useSelector(getLoggedInUser);
   if (loggedInUser.length === 0) {
@@ -14,8 +14,7 @@ const Protected = () => {
       />
     );
   }
-  console.log(loggedInUser);
-  if (loggedInUser.length > 0 && loggedInUser.data.role !== "user") {
+  if (loggedInUser.length > 0 && loggedInUser.data.role !== "admin") {
     return (
       <Navigate
         to="/auth/login"
@@ -27,4 +26,4 @@ const Protected = () => {
   return <Outlet />;
 };
 
-export default Protected;
+export default AdminProtected;

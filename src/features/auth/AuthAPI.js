@@ -33,10 +33,11 @@ export async function checkUser(loginInfo) {
 
 export async function logoutUser(id) {
   try {
-    const response = await fetch(`http://localhost:8000/users/${id}`, {
-      method: "DELETE",
-    });
-    return response.status;
+    // const response = await fetch(`http://localhost:8000/users/${id}`, {
+    //   method: "DELETE",
+    // });
+    // return response.status;
+    return true;
   } catch (error) {
     console.log(`Error :: ${error}`);
   }

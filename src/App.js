@@ -8,7 +8,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import SingleProductPage from "./pages/SingleProductPage";
 import ForgotPasswordEnterEmail from "./features/auth/components/ForgotPasswordEnterEmail";
 import ForgotPasswordEnterOTP from "./features/auth/components/ForgotPasswordEnterOTP";
-import Protected from "../src/features/auth/components/Protected";
+import Protected from "./features/auth/components/Protected";
 import PageNotFound from "./pages/PageNotFound";
 import UnProtected from "./utils/checkIsLoggedIn";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,9 @@ import AddAddress from "./features/user/components/AddAddress";
 import UpdateAddress from "./features/user/components/UpdateAddress";
 import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminProtected from "./features/auth/components/ProtectedAdmin";
+import AdminHome from "./pages/AdminHome";
+import AdminSelectedProductPage from "./pages/AdminSelectedProductPage";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -35,6 +38,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          {/* UnProtected */}
           <Route path="/auth" element={<UnProtected />}>
             <Route path="login" element={<LoginPage />} />
             <Route path="register" element={<SignupPage />} />
@@ -47,6 +51,7 @@ const App = () => {
               element={<ForgotPasswordEnterOTP />}
             />
           </Route>
+          {/* Protected */}
           <Route path="" element={<Protected />}>
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
@@ -54,6 +59,14 @@ const App = () => {
             <Route path="/my-orders" element={<UserOrders />} />
             <Route path="/add-address" element={<AddAddress />} />
             <Route path="/update-address/:id" element={<UpdateAddress />} />
+          </Route>
+          {/* Admin Protected */}
+          <Route path="/admin" element={<AdminProtected />}>
+            <Route path="home" element={<AdminHome />} />
+            <Route
+              path="/admin/selected-product/:id"
+              element={<AdminSelectedProductPage />}
+            />
           </Route>
           <Route path="/selected-product/:id" element={<SingleProductPage />} />
           <Route path="*" element={<PageNotFound />} />
