@@ -97,9 +97,7 @@ const Cart = () => {
                             />
                           </div>
 
-                          <label htmlFor="counter-input" className="sr-only">
-                            Choose quantity:
-                          </label>
+                          <label className="sr-only">Choose quantity:</label>
                           <div className="flex items-center justify-between md:order-3 md:justify-end">
                             <div className="flex items-center">
                               <button
@@ -134,7 +132,6 @@ const Cart = () => {
                               </button>
                               <input
                                 type="text"
-                                id="counter-input"
                                 data-input-counter
                                 className="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
                                 placeholder=""
@@ -624,10 +621,7 @@ const Cart = () => {
                 <div className="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
                   <form className="space-y-4">
                     <div>
-                      <label
-                        htmlFor="voucher"
-                        className="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
-                      >
+                      <label className="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
                         {" "}
                         Do you have a voucher or gift card?{" "}
                       </label>

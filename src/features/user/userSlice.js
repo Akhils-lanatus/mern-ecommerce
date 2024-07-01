@@ -1,15 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchLoggedInUserOrders,
-  updateUserAddress,
+  addUserAddress,
   fetchLoggedInUser,
   removeUserAddress,
+  updateUserAddress,
 } from "./userAPI";
 
 const initialState = {
   loggedInUserAllOrders: null,
   userInfo: [],
   isLoading: false,
+  error: "",
 };
 
 export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
@@ -27,10 +29,10 @@ export const fetchLoggedInUserAsync = createAsyncThunk(
   }
 );
 
-export const updateUserAddressAsync = createAsyncThunk(
-  "auth/updateUserAddress",
+export const addUserAddressAsync = createAsyncThunk(
+  "auth/addUserAddress",
   async (data) => {
-    const response = await updateUserAddress(data);
+    const response = await addUserAddress(data);
     return response;
   }
 );
@@ -38,6 +40,13 @@ export const removeUserAddressAsync = createAsyncThunk(
   "auth/removeUserAddress",
   async (data) => {
     const response = await removeUserAddress(data);
+    return response;
+  }
+);
+export const updateUserAddressAsync = createAsyncThunk(
+  "auth/updateUserAddress",
+  async (data) => {
+    const response = await updateUserAddress(data);
     return response;
   }
 );
@@ -53,28 +62,39 @@ export const userSlice = createSlice({
     builder.addCase(fetchLoggedInUserOrdersAsync.fulfilled, (state, action) => {
       state.loggedInUserAllOrders = action.payload;
       state.isLoading = false;
+      state.error = "";
     });
-    builder.addCase(updateUserAddressAsync.pending, (state, action) => {
+    builder.addCase(addUserAddressAsync.pending, (state, action) => {
       state.isLoading = true;
     });
-    builder.addCase(updateUserAddressAsync.fulfilled, (state, action) => {
+    builder.addCase(addUserAddressAsync.fulfilled, (state, action) => {
       state.userInfo.data = action.payload;
-      state.error = null;
+      state.error = "";
       state.isLoading = false;
     });
-    builder.addCase(updateUserAddressAsync.rejected, (state, action) => {
+    builder.addCase(addUserAddressAsync.rejected, (state, action) => {
       state.error = action.error.message;
+      state.isLoading = false;
     });
     builder.addCase(fetchLoggedInUserAsync.pending, (state, action) => {
       state.isLoading = true;
     });
     builder.addCase(fetchLoggedInUserAsync.fulfilled, (state, action) => {
       state.userInfo = action.payload;
-      state.error = null;
+      state.error = "";
       state.isLoading = false;
     });
     builder.addCase(removeUserAddressAsync.fulfilled, (state, action) => {
       state.userInfo.data = action.payload;
+      state.error = "";
+    });
+    builder.addCase(updateUserAddressAsync.fulfilled, (state, action) => {
+      console.log(action.payload);
+      state.userInfo.data = action.payload;
+      state.error = "";
+    });
+    builder.addCase(updateUserAddressAsync.rejected, (state, action) => {
+      state.error = action.error.message;
     });
   },
 });

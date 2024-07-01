@@ -54,6 +54,7 @@ export const authSlice = createSlice({
     });
     builder.addCase(checkUserAsync.rejected, (state, action) => {
       state.error = action.error.message;
+      state.isLoading = false;
     });
     builder.addCase(logoutUserAsync.pending, (state) => {
       state.isLoading = true;
@@ -68,5 +69,6 @@ export const authSlice = createSlice({
 
 export const getLoggedInUser = (state) => state.auth.loggedInUser;
 export const checkIsLoading = (state) => state.auth.isLoading;
+export const getLoginError = (state) => state.auth.error;
 
 export default authSlice.reducer;

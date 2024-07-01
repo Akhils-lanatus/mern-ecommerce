@@ -7,22 +7,30 @@ import {
   removeUserAddressAsync,
 } from "../userSlice";
 import Navbar from "../../../features/Navbar/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector(getLoggedInUserInfo);
   const isLoading = useSelector(checkIsLoading);
   const { name = "", email = "", addresses = [] } = user?.data || {};
 
+  const handleEditAddress = (i) => {
+    navigate(`/update-address/${i}`);
+  };
+
   const handleRemoveAddress = (index) => {
-    const updatedUser = { ...user };
-    const addresses = [...user?.data?.addresses];
-    addresses?.splice(index, 1);
-    updatedUser.data = {
-      ...user.data,
-      addresses: addresses,
-    };
-    dispatch(removeUserAddressAsync(updatedUser?.data));
+    const confirm = window.confirm("Are you sure you want to delete address?");
+    if (confirm) {
+      const updatedUser = { ...user };
+      const addresses = [...user?.data?.addresses];
+      addresses?.splice(index, 1);
+      updatedUser.data = {
+        ...user.data,
+        addresses: addresses,
+      };
+      dispatch(removeUserAddressAsync(updatedUser?.data));
+    }
   };
 
   return (
@@ -71,7 +79,7 @@ const UserProfile = () => {
                     {addresses?.map((elem, i) => (
                       <div key={i}>
                         <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 dark:border-gray-700 dark:bg-gray-800">
-                          <div className="sm:grid sm:grid-cols-12 sm:gap-4 items-start">
+                          <div className="sm:grid lg:grid-cols-12 sm:gap-4 items-start">
                             <div className="sm:col-span-8">
                               <div className="ms-4 text-xs">
                                 <label
@@ -84,41 +92,29 @@ const UserProfile = () => {
                                   <br />
                                   Phone: {elem.phone}
                                 </label>
-                                <p
-                                  id="credit-card-text"
-                                  className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                >
-                                  Country: {elem.country}
+                                <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
+                                  Country: {elem.country?.name}
                                 </p>
-                                <p
-                                  id="credit-card-text"
-                                  className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                >
-                                  State: {elem.state}
+                                <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
+                                  State: {elem.state?.name}
                                 </p>
-                                <p
-                                  id="credit-card-text"
-                                  className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                >
+                                <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                                   City: {elem.city}
                                 </p>
-                                <p
-                                  id="credit-card-text"
-                                  className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                >
+                                <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                                   Pin Code: {elem.pinCode}
                                 </p>
-                                <p
-                                  id="credit-card-text"
-                                  className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                                >
+                                <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                                   Address: {elem.address}
                                 </p>
                               </div>
                             </div>
                             <div className="sm:col-span-4">
                               <div className="flex justify-around sm:flex-col  mt-4 sm:gap-8 sm:mt-0">
-                                <button className="text-white bg-indigo-600 p-2.5 rounded-lg">
+                                <button
+                                  onClick={() => handleEditAddress(i)}
+                                  className="text-white bg-indigo-600 p-2.5 rounded-lg"
+                                >
                                   Edit
                                 </button>
                                 <button

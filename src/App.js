@@ -16,45 +16,50 @@ import { getLoggedInUser } from "./features/auth/AuthSlice";
 import { getCartItemsAsync } from "./features/cart/cartSlice";
 import UserProfile from "./features/user/components/UserProfile";
 import UserOrders from "./features/user/components/UserOrders";
-import { fetchLoggedInUserAsync } from "./features/user/userSlice";
 import AddAddress from "./features/user/components/AddAddress";
+import UpdateAddress from "./features/user/components/UpdateAddress";
+import { ToastContainer, Flip } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
   useEffect(() => {
     if (user.length !== 0) {
       dispatch(getCartItemsAsync(user?.data?.id));
-      dispatch(fetchLoggedInUserAsync(user?.data?.id));
     }
   }, [dispatch, user]);
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<UnProtected />}>
-          <Route path="login" element={<LoginPage />} />
-          <Route path="register" element={<SignupPage />} />
-          <Route
-            path="forgot-password-auth-0"
-            element={<ForgotPasswordEnterEmail />}
-          />
-          <Route
-            path="forgot-password-auth-1"
-            element={<ForgotPasswordEnterOTP />}
-          />
-        </Route>
-        <Route path="" element={<Protected />}>
-          <Route path="/cart" element={<CartPage />} />
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/profile" element={<UserProfile />} />
-          <Route path="/my-orders" element={<UserOrders />} />
-          <Route path="/add-address" element={<AddAddress />} />
-        </Route>
-        <Route path="/selected-product/:id" element={<SingleProductPage />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <ToastContainer transition={Flip} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/auth" element={<UnProtected />}>
+            <Route path="login" element={<LoginPage />} />
+            <Route path="register" element={<SignupPage />} />
+            <Route
+              path="forgot-password-auth-0"
+              element={<ForgotPasswordEnterEmail />}
+            />
+            <Route
+              path="forgot-password-auth-1"
+              element={<ForgotPasswordEnterOTP />}
+            />
+          </Route>
+          <Route path="" element={<Protected />}>
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/profile" element={<UserProfile />} />
+            <Route path="/my-orders" element={<UserOrders />} />
+            <Route path="/add-address" element={<AddAddress />} />
+            <Route path="/update-address/:id" element={<UpdateAddress />} />
+          </Route>
+          <Route path="/selected-product/:id" element={<SingleProductPage />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 };
 

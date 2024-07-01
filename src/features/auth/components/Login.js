@@ -6,7 +6,7 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserAsync, checkIsLoading } from "../AuthSlice";
-
+import { showToast } from "../../../utils/showToast";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,6 +18,7 @@ const Login = () => {
       {isLoading && (
         <LoadingPage loadingMessage={"Verifying, Please Wait..."} />
       )}
+
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         <Link
           to="/"
@@ -60,7 +61,8 @@ const Login = () => {
                       resetForm();
                     })
                     .catch((err) => {
-                      //
+                      console.log(err.message);
+                      showToast("ERROR", err.message);
                     });
                 } catch (error) {
                   console.log(`Error in login :: ${error}`);

@@ -58,12 +58,9 @@ const Signup = () => {
               })}
               onSubmit={(values, { resetForm }) => {
                 try {
-                  dispatch(createUserAsync(values))
-                    .unwrap()
-                    .then((res) => {
-                      resetForm();
-                      navigate("/auth/login");
-                    });
+                  dispatch(createUserAsync(values));
+                  resetForm();
+                  navigate("/auth/login");
                 } catch (error) {
                   console.log(`Error while registering user :: ${error} `);
                 }

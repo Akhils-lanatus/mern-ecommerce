@@ -6,7 +6,7 @@ import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import {
-  updateUserAddressAsync,
+  addUserAddressAsync,
   getLoggedInUserInfo,
 } from "../features/user/userSlice";
 import { createOrderAsync } from "../features/Order/orderSlice";
@@ -164,15 +164,14 @@ const CheckoutPage = () => {
                   })}
                   onSubmit={(values, { resetForm }) => {
                     dispatch(
-                      updateUserAddressAsync({
+                      addUserAddressAsync({
                         address: {
                           ...values,
-                          country: Country.getCountryByCode(values.country)
-                            .name,
+                          country: Country.getCountryByCode(values.country),
                           state: State.getStateByCodeAndCountry(
                             values.state,
                             values.country
-                          ).name,
+                          ),
                         },
                         user: loggedInUser.data,
                       })
@@ -434,7 +433,6 @@ const CheckoutPage = () => {
                           <div className="flex items-center">
                             <div className="flex h-5 items-center">
                               <input
-                                id="credit-card"
                                 aria-describedby="credit-card-text"
                                 type="radio"
                                 name={"user-address"}
@@ -454,34 +452,19 @@ const CheckoutPage = () => {
                               >
                                 Email: {elem.email} <br /> Phone: {elem.phone}
                               </label>
-                              <p
-                                id="credit-card-text"
-                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                              >
-                                Country: {elem.country}
+                              <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
+                                Country: {elem.country?.name}
                               </p>
-                              <p
-                                id="credit-card-text"
-                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                              >
-                                State: {elem.state}
+                              <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
+                                State: {elem.state?.name}
                               </p>
-                              <p
-                                id="credit-card-text"
-                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                              >
+                              <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                                 City: {elem.city}
                               </p>
-                              <p
-                                id="credit-card-text"
-                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                              >
+                              <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                                 Pin Code: {elem.pinCode}
                               </p>
-                              <p
-                                id="credit-card-text"
-                                className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                              >
+                              <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                                 Address: {elem.address}
                               </p>
                             </div>
@@ -526,10 +509,7 @@ const CheckoutPage = () => {
                           >
                             {elem.value}
                           </label>
-                          <p
-                            id="credit-card-text"
-                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                          >
+                          <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                             {elem.subText}
                           </p>
                         </div>
@@ -552,8 +532,8 @@ const CheckoutPage = () => {
                       <div className="flex items-start">
                         <div className="flex h-5 items-center">
                           <input
-                            id="credit-card"
-                            aria-describedby="credit-card-text"
+                            id="delivery-method"
+                            aria-describedby="delivery-method-text"
                             type="radio"
                             name={elem.name}
                             value={elem.value}
@@ -572,10 +552,7 @@ const CheckoutPage = () => {
                           >
                             {elem.value}
                           </label>
-                          <p
-                            id="credit-card-text"
-                            className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400"
-                          >
+                          <p className="mt-1 text-xs font-normal text-gray-500 dark:text-gray-400">
                             {elem.subText}
                           </p>
                         </div>
