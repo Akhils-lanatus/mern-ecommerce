@@ -1,14 +1,22 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
 import { ITEMS_PER_PAGE } from "../../app/constants";
 import { useSelector } from "react-redux";
-import { getProductsLength } from "../product-list/ProductSlice";
+import {
+  getProductsLength,
+  selectAllProducts,
+} from "../product-list/ProductSlice";
 import { useEffect } from "react";
 
 const Pagination = ({ page, handlePagination, setPage }) => {
   const totalProducts = useSelector(getProductsLength);
+  const products = useSelector(selectAllProducts);
   const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
   useEffect(() => {
-    setPage(1);
+    if (products.length === 0) {
+      if (page > 1) {
+        setPage(totalPages);
+      } else setPage(1);
+    }
   }, [totalProducts]);
 
   return (

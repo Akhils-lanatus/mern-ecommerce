@@ -7,6 +7,7 @@ import {
   getAllCategories,
 } from "../../product-list/ProductSlice";
 import * as Yup from "yup";
+import axios from "axios";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 const AddNewProduct = () => {
@@ -38,7 +39,7 @@ const AddNewProduct = () => {
               stock: "",
               availabilityStatus: "",
               thumbnail: null,
-              images: [],
+              images: null,
               description: "",
             }}
             validationSchema={Yup.object({
@@ -101,12 +102,45 @@ const AddNewProduct = () => {
                   return true;
                 }),
             })}
-            onSubmit={(values, action) => {
-              const product = { ...values };
-              dispatch(createNewProductAsync(product));
-              action.resetForm();
-              if (thumbnailRef.current) thumbnailRef.current.value = "";
-              navigate("/admin/home");
+            onSubmit={async (values, actions) => {
+              const formData = new FormData();
+              for (const key in values) {
+                if (key === "images") {
+                  Array.from(values.images).forEach((file) => {
+                    formData.append("images", file);
+                  });
+                } else {
+                  formData.append(key, values[key]);
+                }
+              }
+
+              try {
+                const res = await axios.post(
+                  "http://localhost:8080/api/products/add",
+                  formData,
+                  {
+                    headers: {
+                      "Content-Type": "multipart/form-data",
+                    },
+                  }
+                );
+                const images = res.data.images.map(
+                  (file) => `http://localhost:8080/${file.path}`
+                );
+                const thumbnailUrl = `http://localhost:8080/${res.data.thumbnail.path}`;
+                const productData = {
+                  ...res.data,
+                  thumbnail: thumbnailUrl,
+                  images,
+                };
+
+                dispatch(createNewProductAsync(productData));
+                actions.resetForm();
+                if (thumbnailRef.current) thumbnailRef.current.value = "";
+                navigate("/admin/home");
+              } catch (error) {
+                console.error("Error adding product:", error);
+              }
             }}
           >
             {({ setFieldValue }) => (
@@ -387,7 +421,7 @@ const AddNewProduct = () => {
                       Add Images
                     </label>
                     <Field
-                      as="input"
+                      name="images"
                       accept="image/png,image/jpg,image/jpeg"
                       multiple
                       id="images"
@@ -397,7 +431,6 @@ const AddNewProduct = () => {
                         setFieldValue("images", event.currentTarget.files);
                       }}
                       value={undefined}
-                      name="images"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-1.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                     />
                     <p className="text-sm text-red-600 mt-2">

@@ -193,6 +193,7 @@ const ReviewsPage = ({ selectedProduct, isUserNotLoggedIn }) => {
                     <p className="text-base font-normal text-gray-500 dark:text-gray-400">
                       {review?.comment}
                     </p>
+
                     <div className="flex items-center gap-4">
                       <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
                         Was it helpful to you?

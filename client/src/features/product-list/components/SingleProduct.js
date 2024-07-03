@@ -166,7 +166,7 @@ const SingleProduct = () => {
                 NoImageFound
               }
               alt={selectedProduct.title}
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-contain object-center"
             />
           </div>
           <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
@@ -177,7 +177,7 @@ const SingleProduct = () => {
                   NoImageFound
                 }
                 alt={selectedProduct.title}
-                className="h-full w-full object-cover object-center"
+                className="h-full w-full object-contain object-center"
               />
             </div>
             <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg">
@@ -187,7 +187,7 @@ const SingleProduct = () => {
                   NoImageFound
                 }
                 alt={selectedProduct.title}
-                className="h-full w-full object-cover object-center"
+                className="h-full w-full object-contain object-center"
               />
             </div>
           </div>
@@ -195,7 +195,7 @@ const SingleProduct = () => {
             <img
               src={selectedProduct.thumbnail}
               alt={selectedProduct.title}
-              className="h-full w-full object-cover object-center"
+              className="h-full w-full object-contain object-center"
             />
           </div>
         </div>
@@ -212,7 +212,7 @@ const SingleProduct = () => {
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-white">
-              $ {selectedProduct?.price?.toFixed(2)}
+              $ {parseFloat(selectedProduct?.price)?.toFixed(2)}
             </p>
 
             {/* Reviews */}

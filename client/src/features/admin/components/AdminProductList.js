@@ -6,6 +6,7 @@ import {
   fetchSingleProductAsync,
   selectAllProducts,
   checkIsLoading as productLoader,
+  removeProductAsync,
 } from "../../product-list/ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
@@ -85,7 +86,7 @@ export function ProductList() {
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 pt-2">
+                  <div className="grid grid-cols-3 gap-4 sm:grid-cols-3 pt-2">
                     <button
                       type="button"
                       className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 "
@@ -101,6 +102,13 @@ export function ProductList() {
                       }
                     >
                       Edit
+                    </button>
+                    <button
+                      type="button"
+                      className="inline-flex w-full items-center justify-center rounded-lg bg-red-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-primary-300 "
+                      onClick={() => dispatch(removeProductAsync(product.id))}
+                    >
+                      Remove
                     </button>
                   </div>
                 </div>

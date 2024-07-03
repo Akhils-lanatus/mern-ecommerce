@@ -28,6 +28,7 @@ import {
   getAllBrands,
   getAllCategories,
   checkIsLoading,
+  getProductsLength,
 } from "../../product-list/ProductSlice";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
 import LoadingPage from "../../../pages/Loading";
@@ -49,6 +50,7 @@ const ProductHome = () => {
   const categories = useSelector(getAllCategories);
   const brands = useSelector(getAllBrands);
   const isLoading = useSelector(checkIsLoading);
+  const totalProducts = useSelector(getProductsLength);
 
   const handleFilter = (e, section, option) => {
     const newFilter = { ...selectedFilters };

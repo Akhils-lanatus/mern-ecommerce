@@ -80,3 +80,31 @@ export const createNewProduct = async (productData) => {
     console.log(`Error :: ${error}`);
   }
 };
+export const updateProduct = async (productData) => {
+  try {
+    const response = await fetch(
+      `http://localhost:8000/products/${productData.id}`,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(productData),
+      }
+    );
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+};
+export const removeProduct = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:8000/products/${id}`, {
+      method: "DELETE",
+    });
+    if (response.ok) {
+      return id;
+    }
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+};

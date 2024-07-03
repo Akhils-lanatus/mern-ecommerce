@@ -6,6 +6,8 @@ import {
   fetchAllBrands,
   fetchSingleProduct,
   createNewProduct,
+  updateProduct,
+  removeProduct,
 } from "./ProductAPI";
 
 const initialState = {
@@ -56,10 +58,26 @@ export const fetchSingleProductAsync = createAsyncThunk(
     return response;
   }
 );
+
+//ADMIN-WORKING
 export const createNewProductAsync = createAsyncThunk(
   "product/createNewProduct",
   async (productData) => {
     const response = await createNewProduct(productData);
+    return response;
+  }
+);
+export const updateProductAsync = createAsyncThunk(
+  "product/updateProduct",
+  async (productData) => {
+    const response = await updateProduct(productData);
+    return response;
+  }
+);
+export const removeProductAsync = createAsyncThunk(
+  "product/removeProduct",
+  async (id) => {
+    const response = await removeProduct(id);
     return response;
   }
 );
@@ -112,6 +130,19 @@ export const productsSlice = createSlice({
       })
       .addCase(createNewProductAsync.fulfilled, (state, action) => {
         state.products.push(action.payload);
+      })
+      .addCase(updateProductAsync.fulfilled, (state, action) => {
+        const index = state.products.findIndex(
+          (elem) => elem.id === action.payload.id
+        );
+        state.products.splice(index, 1, action.payload);
+      })
+      .addCase(removeProductAsync.fulfilled, (state, action) => {
+        const index = state.products.findIndex(
+          (elem) => elem.id === action.payload
+        );
+        state.products.splice(index, 1);
+        state.totalProducts = state.totalProducts - 1;
       });
   },
 });

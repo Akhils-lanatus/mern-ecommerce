@@ -97,7 +97,6 @@ const SingleProduct = () => {
   if (Object.keys(selectedProduct).length === 0) {
     return <Navigate to="/" />;
   }
-  console.log(selectedProduct);
   return (
     <div className="bg-gray-950 rounded-lg">
       <div className="pt-6">
@@ -189,7 +188,7 @@ const SingleProduct = () => {
           <div className="mt-4 lg:row-span-3 lg:mt-0">
             <h2 className="sr-only">Product information</h2>
             <p className="text-3xl tracking-tight text-white">
-              $ {selectedProduct?.price?.toFixed(2)}
+              $ {parseFloat(selectedProduct?.price)?.toFixed(2)}
             </p>
 
             {/* Reviews */}
