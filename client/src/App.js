@@ -23,12 +23,20 @@ import "react-toastify/dist/ReactToastify.css";
 import AdminProtected from "./features/auth/components/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
 import AdminSelectedProductPage from "./pages/AdminSelectedProductPage";
+import AddNewProduct from "./features/admin/components/AddNewProduct";
+import {
+  fetchAllBrandsAsync,
+  fetchAllCategoriesAsync,
+} from "./features/product-list/ProductSlice";
+import EditProduct from "./features/admin/components/EditProduct";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
   useEffect(() => {
     if (user.length !== 0) {
       dispatch(getCartItemsAsync(user?.data?.id));
+      dispatch(fetchAllBrandsAsync());
+      dispatch(fetchAllCategoriesAsync());
     }
   }, [dispatch, user]);
 
@@ -63,6 +71,8 @@ const App = () => {
           {/* Admin Protected */}
           <Route path="/admin" element={<AdminProtected />}>
             <Route path="home" element={<AdminHome />} />
+            <Route path="add-product" element={<AddNewProduct />} />
+            <Route path="edit-product/:id" element={<EditProduct />} />
             <Route
               path="/admin/selected-product/:id"
               element={<AdminSelectedProductPage />}

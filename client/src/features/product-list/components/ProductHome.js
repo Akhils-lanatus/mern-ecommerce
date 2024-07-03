@@ -21,11 +21,9 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-import { ProductList } from "./AdminProductList";
+import { ProductList } from "./ProductList";
 import Pagination from "../../Pagination/Pagination";
 import {
-  fetchAllBrandsAsync,
-  fetchAllCategoriesAsync,
   fetchAllFilteredProductsAsync,
   getAllBrands,
   getAllCategories,
@@ -119,11 +117,6 @@ const ProductHome = () => {
       })
     );
   }, [dispatch, selectedFilters, selectedSort, page]);
-
-  useEffect(() => {
-    dispatch(fetchAllCategoriesAsync());
-    dispatch(fetchAllBrandsAsync());
-  }, []);
 
   return (
     <div>

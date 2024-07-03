@@ -16,9 +16,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getLoggedInUser, logoutUserAsync } from "../auth/AuthSlice";
-import { getLoggedInUserCartItems } from "../cart/cartSlice";
 
-const navigation = [{ name: "Home", to: "/admin/home", current: true }];
+const navigation = [
+  { name: "Home", to: "/admin/home", current: true },
+  { name: "Error", to: "/admin/homes", current: false },
+  { name: "Add Product", to: "/admin/add-product", current: false },
+];
 const userNavigation = [
   { name: "Your Profile", linkTo: "/admin/profile" },
   { name: "Settings", linkTo: "/admin/home" },
@@ -29,11 +32,10 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-const AdminNavbar = ({ children }) => {
+const Navbar = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(getLoggedInUser);
-
   const handleLogout = () => {
     dispatch(logoutUserAsync());
     navigate("/auth/login");
@@ -53,11 +55,12 @@ const AdminNavbar = ({ children }) => {
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
-                    <Link
-                      to="/admin/home"
-                      className="flex-shrink-0 text-2xl text-white font-bold"
-                    >
-                      Admin
+                    <Link to="/admin/home" className="flex-shrink-0">
+                      <img
+                        className="h-8 w-8"
+                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                        alt="Your Company"
+                      />
                     </Link>
                     <div className="hidden md:block">
                       <div className="ml-10 flex items-baseline space-x-4">
@@ -81,7 +84,55 @@ const AdminNavbar = ({ children }) => {
                       </div>
                     </div>
                   </div>
-
+                  <div className="hidden md:block">
+                    <div className="ml-4 flex items-center md:ml-6">
+                      {/* Profile dropdown */}
+                      <Menu as="div" className="relative ml-3">
+                        <div>
+                          <MenuButton className="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                            <span className="absolute -inset-1.5" />
+                            <span className="sr-only">Open user menu</span>
+                            <img
+                              className="h-8 w-8 rounded-full"
+                              src={user.imageUrl}
+                              alt=""
+                            />
+                          </MenuButton>
+                        </div>
+                        <Transition
+                          enter="transition ease-out duration-100"
+                          enterFrom="transform opacity-0 scale-95"
+                          enterTo="transform opacity-100 scale-100"
+                          leave="transition ease-in duration-75"
+                          leaveFrom="transform opacity-100 scale-100"
+                          leaveTo="transform opacity-0 scale-95"
+                        >
+                          <MenuItems className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none cursor-pointer">
+                            {userNavigation.map((item) => (
+                              <MenuItem key={item.name}>
+                                {({ focus }) => (
+                                  <Link
+                                    to={item.linkTo}
+                                    className={classNames(
+                                      focus ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                    onClick={() => {
+                                      item.name === "Sign out" &&
+                                        loggedInUser?.length !== 0 &&
+                                        handleLogout();
+                                    }}
+                                  >
+                                    {item.name}
+                                  </Link>
+                                )}
+                              </MenuItem>
+                            ))}
+                          </MenuItems>
+                        </Transition>
+                      </Menu>
+                    </div>
+                  </div>
                   <div className="-mr-2 flex md:hidden">
                     {/* Mobile menu button */}
                     <DisclosureButton className="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -174,4 +225,4 @@ const AdminNavbar = ({ children }) => {
   );
 };
 
-export default AdminNavbar;
+export default Navbar;

@@ -56,13 +56,22 @@ const Login = () => {
                   dispatch(checkUserAsync(values))
                     .unwrap()
                     .then((res) => {
-                      navigate(
-                        res.data.role === "admin"
-                          ? "/admin/home"
-                          : Boolean(state)
-                          ? state.prev
-                          : "/"
-                      );
+                      let path;
+
+                      if (Boolean(state)) {
+                        if (res.data.role === "user") {
+                          if (state.prev.includes("admin")) {
+                            path = "/";
+                          } else {
+                            path = state.prev;
+                          }
+                        } else {
+                          path = "/admin/home";
+                        }
+                      } else {
+                        path = res.data.role === "user" ? "/" : "/admin/home";
+                      }
+                      navigate(path);
                       resetForm();
                     })
                     .catch((err) => {

@@ -217,7 +217,10 @@ const UserOrders = () => {
                                   x{cartItem.quantity}
                                 </td>
                                 <td className="p-4 text-right text-base font-bold text-gray-900 dark:text-white">
-                                  ${item.price}
+                                  $
+                                  {(item.price * cartItem?.quantity)?.toFixed(
+                                    2
+                                  )}
                                 </td>
                               </tr>
                             );

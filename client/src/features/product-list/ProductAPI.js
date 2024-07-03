@@ -66,3 +66,17 @@ export const fetchSingleProduct = async (id) => {
     console.log(`Error :: ${error}`);
   }
 };
+
+export const createNewProduct = async (productData) => {
+  try {
+    const response = await fetch("http://localhost:8000/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(productData),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+};

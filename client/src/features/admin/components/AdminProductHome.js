@@ -21,16 +21,14 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
-import { ProductList } from "./ProductList";
+import { ProductList } from "./AdminProductList";
 import Pagination from "../../Pagination/Pagination";
 import {
-  fetchAllBrandsAsync,
-  fetchAllCategoriesAsync,
   fetchAllFilteredProductsAsync,
   getAllBrands,
   getAllCategories,
   checkIsLoading,
-} from "../ProductSlice";
+} from "../../product-list/ProductSlice";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
 import LoadingPage from "../../../pages/Loading";
 const sortOptions = [
@@ -119,11 +117,6 @@ const ProductHome = () => {
       })
     );
   }, [dispatch, selectedFilters, selectedSort, page]);
-
-  useEffect(() => {
-    dispatch(fetchAllCategoriesAsync());
-    dispatch(fetchAllBrandsAsync());
-  }, []);
 
   return (
     <div>

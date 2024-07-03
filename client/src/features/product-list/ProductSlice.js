@@ -5,6 +5,7 @@ import {
   fetchAllCategories,
   fetchAllBrands,
   fetchSingleProduct,
+  createNewProduct,
 } from "./ProductAPI";
 
 const initialState = {
@@ -55,11 +56,22 @@ export const fetchSingleProductAsync = createAsyncThunk(
     return response;
   }
 );
+export const createNewProductAsync = createAsyncThunk(
+  "product/createNewProduct",
+  async (productData) => {
+    const response = await createNewProduct(productData);
+    return response;
+  }
+);
 
 export const productsSlice = createSlice({
   name: "product",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSingleProduct: (state) => {
+      state.singleProduct = {};
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllProductsAsync.pending, (state, action) => {
@@ -91,8 +103,15 @@ export const productsSlice = createSlice({
         state.totalProducts = action.payload.totalItems;
         state.isLoading = false;
       })
+      .addCase(fetchSingleProductAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
       .addCase(fetchSingleProductAsync.fulfilled, (state, action) => {
         state.singleProduct = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(createNewProductAsync.fulfilled, (state, action) => {
+        state.products.push(action.payload);
       });
   },
 });
@@ -112,5 +131,7 @@ export {
   getSingleProduct,
   checkIsLoading,
 };
+
+export const { clearSingleProduct } = productsSlice.actions;
 
 export default productsSlice.reducer;

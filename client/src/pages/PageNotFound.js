@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { getLoggedInUserInfo } from "../features/user/userSlice";
+import { useSelector } from "react-redux";
 
 const PageNotFound = () => {
+  const user = useSelector(getLoggedInUserInfo);
+  const isAdmin = user?.data?.role === "admin" || false;
   return (
     <>
       <div
@@ -31,10 +35,10 @@ const PageNotFound = () => {
                 we are sorry, but the page you requested was not found
               </p>
               <Link
-                to={"/"}
+                to={isAdmin ? "/admin/home" : "/"}
                 className="bg-green-400  px-5 py-3 text-sm shadow-sm font-medium tracking-wider text-gray-50 rounded-full hover:shadow-lg"
               >
-                Got to Home
+                Go to Home
               </Link>
             </div>
           </div>

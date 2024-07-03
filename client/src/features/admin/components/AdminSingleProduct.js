@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchSingleProductAsync, getSingleProduct } from "../ProductSlice";
+import {
+  fetchSingleProductAsync,
+  getSingleProduct,
+} from "../../product-list/ProductSlice";
 import { Navigate, useParams } from "react-router-dom";
 import NoImageFound from "../../../assets/No_Image_Found.jpg";
 import ReviewsPage from "../../../pages/ReviewsPage";
-import {
-  addToCartAsync,
-  getLoggedInUserCartItems,
-  removeFromCartAsync,
-} from "../../cart/cartSlice";
+
 import { getLoggedInUser } from "../../auth/AuthSlice";
 const product = {
   colors: [
@@ -98,7 +97,7 @@ const SingleProduct = () => {
   if (Object.keys(selectedProduct).length === 0) {
     return <Navigate to="/" />;
   }
-
+  console.log(selectedProduct);
   return (
     <div className="bg-gray-950 rounded-lg">
       <div className="pt-6">
