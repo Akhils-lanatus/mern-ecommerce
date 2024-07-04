@@ -383,7 +383,8 @@ const AllOrders = () => {
                   handlePagination={handlePagination}
                   page={page}
                   setPage={setPage}
-                  isAdmin={true}
+                  totalItems={totalOrders}
+                  itemsPerPage={ITEMS_PER_PAGE_ALL_ORDERS}
                 />
               </div>
             </div>

@@ -50,6 +50,7 @@ const ProductHome = () => {
   const categories = useSelector(getAllCategories);
   const brands = useSelector(getAllBrands);
   const isLoading = useSelector(checkIsLoading);
+  const totalProducts = useSelector(getProductsLength);
 
   const handleFilter = (e, section, option) => {
     const newFilter = { ...selectedFilters };
@@ -391,6 +392,8 @@ const ProductHome = () => {
           handlePagination={handlePagination}
           page={page}
           setPage={setPage}
+          totalItems={totalProducts}
+          itemsPerPage={ITEMS_PER_PAGE}
         />
       </div>
     </div>

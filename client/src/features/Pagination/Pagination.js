@@ -1,33 +1,24 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { ITEMS_PER_PAGE, ITEMS_PER_PAGE_ALL_ORDERS } from "../../app/constants";
 import { useSelector } from "react-redux";
-import {
-  getProductsLength,
-  selectAllProducts,
-} from "../product-list/ProductSlice";
+import { selectAllProducts } from "../product-list/ProductSlice";
 import { useEffect } from "react";
-import { getTotalOrders } from "../Order/orderSlice";
 
 const Pagination = ({
   page = 1,
   handlePagination = () => {},
   setPage = () => {},
-  isAdmin = false,
+  totalItems = 0,
+  itemsPerPage = 0,
 }) => {
-  const totalProducts = useSelector(getProductsLength);
   const products = useSelector(selectAllProducts);
-  const totalOrders = useSelector(getTotalOrders);
-  const itemsPerPage = isAdmin ? ITEMS_PER_PAGE_ALL_ORDERS : ITEMS_PER_PAGE;
-  const totalPages = isAdmin
-    ? Math.ceil(totalOrders / itemsPerPage)
-    : Math.ceil(totalProducts / itemsPerPage);
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
   useEffect(() => {
     if (products.length === 0) {
       if (page > 1) {
         setPage(totalPages);
       } else setPage(1);
     }
-  }, [totalProducts]);
+  }, [totalItems]);
 
   return (
     <div className="flex items-center justify-between border-t border-gray-200px-4 py-3 sm:px-6">
@@ -67,36 +58,14 @@ const Pagination = ({
         <div>
           <p className="text-sm text-white">
             Showing{" "}
-            {isAdmin ? (
-              <span className="font-medium">
-                {(page - 1) * itemsPerPage + 1}
-              </span>
-            ) : (
-              <span className="font-medium">
-                {(page - 1) * itemsPerPage + 1}
-              </span>
-            )}{" "}
+            <span className="font-medium">{(page - 1) * itemsPerPage + 1}</span>{" "}
             to{" "}
-            {isAdmin ? (
-              <span className="font-medium">
-                {page * itemsPerPage > totalOrders
-                  ? totalOrders
-                  : page * itemsPerPage}
-              </span>
-            ) : (
-              <span className="font-medium">
-                <span className="font-medium">
-                  {page * itemsPerPage > totalProducts
-                    ? totalProducts
-                    : page * itemsPerPage}
-                </span>
-              </span>
-            )}{" "}
-            of{" "}
             <span className="font-medium">
-              {isAdmin ? totalOrders : totalProducts}
+              {page * itemsPerPage > totalItems
+                ? totalItems
+                : page * itemsPerPage}
             </span>{" "}
-            results
+            of <span className="font-medium">totalItems</span> results
           </p>
         </div>
         <div>
