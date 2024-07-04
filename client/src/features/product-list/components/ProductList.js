@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../../../pages/Loading";
 import {
-  fetchAllProductsAsync,
   fetchSingleProductAsync,
   selectAllProducts,
   checkIsLoading as productLoader,
+  fetchAllFilteredProductsAsync,
 } from "../ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export function ProductList() {
   }
 
   useEffect(() => {
-    dispatch(fetchAllProductsAsync());
+    dispatch(fetchAllFilteredProductsAsync());
   }, [dispatch]);
 
   const handleFetchSingleProduct = (id) => {

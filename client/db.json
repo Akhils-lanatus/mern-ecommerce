@@ -5948,8 +5948,8 @@
     },
     {
       "id": 100,
-      "title": "Apple Airpods",
-      "description": "The Apple Airpods offer a seamless wireless audio experience. With easy pairing, high-quality sound, and Siri integration, they are perfect for on-the-go listening.",
+      "title": "Apple airpods",
+      "description": "The Apple Airpods offer a seamless wireless audio experience. With easy pairing, high-quality sound, and Siri integration, they are perfect for on-the-go listening...",
       "category": "mobile-accessories",
       "price": 129.99,
       "discountPercentage": 4.82,
@@ -6270,140 +6270,51 @@
       "role": "admin",
       "addresses": [],
       "id": 2
-    }
-  ],
-  "cart": [
-    {
-      "item": {
-        "id": 1,
-        "title": "Essence Mascara Lash Princess",
-        "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
-        "category": "beauty",
-        "price": 9.99,
-        "discountPercentage": 7.17,
-        "rating": 4.94,
-        "stock": 5,
-        "tags": [
-          "beauty",
-          "mascara"
-        ],
-        "brand": "Essence",
-        "sku": "RCH45Q1A",
-        "weight": 2,
-        "dimensions": {
-          "width": 23.17,
-          "height": 14.43,
-          "depth": 28.01
-        },
-        "warrantyInformation": "1 month warranty",
-        "shippingInformation": "Ships in 1 month",
-        "availabilityStatus": "Low Stock",
-        "reviews": [
-          {
-            "rating": 2,
-            "comment": "Very unhappy with my purchase!",
-            "date": "2024-05-23T08:56:21.618Z",
-            "reviewerName": "John Doe",
-            "reviewerEmail": "john.doe@x.dummyjson.com"
-          },
-          {
-            "rating": 2,
-            "comment": "Not as described!",
-            "date": "2024-05-23T08:56:21.618Z",
-            "reviewerName": "Nolan Gonzalez",
-            "reviewerEmail": "nolan.gonzalez@x.dummyjson.com"
-          },
-          {
-            "rating": 5,
-            "comment": "Very satisfied!",
-            "date": "2024-05-23T08:56:21.618Z",
-            "reviewerName": "Scarlett Wright",
-            "reviewerEmail": "scarlett.wright@x.dummyjson.com"
-          }
-        ],
-        "returnPolicy": "30 days return policy",
-        "minimumOrderQuantity": 24,
-        "meta": {
-          "createdAt": "2024-05-23T08:56:21.618Z",
-          "updatedAt": "2024-05-23T08:56:21.618Z",
-          "barcode": "9164035109868",
-          "qrCode": "https://dummyjson.com/public/qr-code.png"
-        },
-        "images": [
-          "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
-        ],
-        "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
-      },
-      "quantity": 1,
-      "user": 1,
-      "id": 1
     },
     {
-      "item": {
-        "id": 2,
-        "title": "Eyeshadow Palette with Mirror",
-        "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
-        "category": "beauty",
-        "price": 19.99,
-        "discountPercentage": 5.5,
-        "rating": 3.28,
-        "stock": 44,
-        "tags": [
-          "beauty",
-          "eyeshadow"
-        ],
-        "brand": "Glamour Beauty",
-        "sku": "MVCFH27F",
-        "weight": 3,
-        "dimensions": {
-          "width": 12.42,
-          "height": 8.63,
-          "depth": 29.13
-        },
-        "warrantyInformation": "1 year warranty",
-        "shippingInformation": "Ships in 2 weeks",
-        "availabilityStatus": "In Stock",
-        "reviews": [
-          {
-            "rating": 4,
-            "comment": "Very satisfied!",
-            "date": "2024-05-23T08:56:21.618Z",
-            "reviewerName": "Liam Garcia",
-            "reviewerEmail": "liam.garcia@x.dummyjson.com"
+      "name": "Akhil",
+      "email": "akhilshah1902@gmail.com",
+      "password": "111111",
+      "confirmPassword": "111111",
+      "addresses": [
+        {
+          "fullName": "Akhil",
+          "email": "akhilshah1902@gmail.com",
+          "phone": "9876543210",
+          "country": {
+            "name": "India",
+            "isoCode": "IN",
+            "flag": "🇮🇳",
+            "phonecode": "91",
+            "currency": "INR",
+            "latitude": "20.00000000",
+            "longitude": "77.00000000",
+            "timezones": [
+              {
+                "zoneName": "Asia/Kolkata",
+                "gmtOffset": 19800,
+                "gmtOffsetName": "UTC+05:30",
+                "abbreviation": "IST",
+                "tzName": "Indian Standard Time"
+              }
+            ]
           },
-          {
-            "rating": 1,
-            "comment": "Very disappointed!",
-            "date": "2024-05-23T08:56:21.618Z",
-            "reviewerName": "Nora Russell",
-            "reviewerEmail": "nora.russell@x.dummyjson.com"
+          "state": {
+            "name": "Gujarat",
+            "isoCode": "GJ",
+            "countryCode": "IN",
+            "latitude": "22.25865200",
+            "longitude": "71.19238050"
           },
-          {
-            "rating": 5,
-            "comment": "Highly impressed!",
-            "date": "2024-05-23T08:56:21.618Z",
-            "reviewerName": "Elena Baker",
-            "reviewerEmail": "elena.baker@x.dummyjson.com"
-          }
-        ],
-        "returnPolicy": "30 days return policy",
-        "minimumOrderQuantity": 32,
-        "meta": {
-          "createdAt": "2024-05-23T08:56:21.618Z",
-          "updatedAt": "2024-05-23T08:56:21.618Z",
-          "barcode": "2817839095220",
-          "qrCode": "https://dummyjson.com/public/qr-code.png"
-        },
-        "images": [
-          "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
-        ],
-        "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
-      },
-      "quantity": 1,
-      "user": 1,
-      "id": 2
+          "city": "Ahmedabad",
+          "pinCode": "380050",
+          "address": "B/12 chanchalba appt., 19th jayant park society, bhadwatnagar, maninagar, ahmedabad"
+        }
+      ],
+      "id": 3
     }
   ],
+  "cart": [],
   "orders": [
     {
       "user": {
@@ -6551,7 +6462,7 @@
       "selectedDeliveryMethod": "Free Delivery",
       "selectedPaymentMethod": "Credit Card",
       "orderDate": "2024-07-01T09:34:31.720Z",
-      "status": "confirmed",
+      "status": "pending",
       "pricing": {
         "savings": 3.85,
         "tax_amount": 1,
@@ -6608,28 +6519,202 @@
       "cartItems": [
         {
           "item": {
-            "title": "test",
-            "brand": "Glamour Beauty",
-            "price": "4500",
-            "category": "beauty",
-            "discountPercentage": "10",
-            "minimumOrderQuantity": "2",
-            "returnPolicy": "No return policy",
-            "shippingInformation": "Ships Overnight",
-            "stock": "500",
-            "availabilityStatus": "In Stock",
-            "description": "test",
-            "thumbnail": "http://localhost:8080/uploads\\1719990500235-macbookTN.jpg",
-            "images": [
-              "http://localhost:8080/uploads\\1719990500235-macbook3.jpg",
-              "http://localhost:8080/uploads\\1719990500236-macbook2.jpg",
-              "http://localhost:8080/uploads\\1719990500236-macbook1.jpg"
+            "id": 78,
+            "title": "Apple MacBook Pro 14 Inch Space Grey",
+            "description": "The MacBook Pro 14 Inch in Space Grey is a powerful and sleek laptop, featuring Apple's M1 Pro chip for exceptional performance and a stunning Retina display.",
+            "category": "laptops",
+            "price": 1999.99,
+            "discountPercentage": 9.25,
+            "rating": 3.13,
+            "stock": 39,
+            "tags": [
+              "laptops",
+              "apple"
             ],
-            "id": 101
+            "brand": "Apple",
+            "sku": "QDKO6NRJ",
+            "weight": 4,
+            "dimensions": {
+              "width": 12.38,
+              "height": 21.55,
+              "depth": 27.95
+            },
+            "warrantyInformation": "1 month warranty",
+            "shippingInformation": "Ships in 1 week",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Hunter Gordon",
+                "reviewerEmail": "hunter.gordon@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Emma Wilson",
+                "reviewerEmail": "emma.wilson@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "David Martinez",
+                "reviewerEmail": "david.martinez@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.622Z",
+              "updatedAt": "2024-05-23T08:56:21.622Z",
+              "barcode": "3883623063065",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/1.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/2.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Apple%20MacBook%20Pro%2014%20Inch%20Space%20Grey/thumbnail.png"
           },
           "quantity": 1,
           "user": 1,
           "id": 1
+        },
+        {
+          "item": {
+            "id": 79,
+            "title": "Asus Zenbook Pro Dual Screen Laptop",
+            "description": "The Asus Zenbook Pro Dual Screen Laptop is a high-performance device with dual screens, providing productivity and versatility for creative professionals.",
+            "category": "laptops",
+            "price": 1799.99,
+            "discountPercentage": 9.21,
+            "rating": 3.14,
+            "stock": 38,
+            "tags": [
+              "laptops"
+            ],
+            "brand": "Asus",
+            "sku": "4A9KFMBG",
+            "weight": 8,
+            "dimensions": {
+              "width": 19.67,
+              "height": 11.05,
+              "depth": 14.32
+            },
+            "warrantyInformation": "No warranty",
+            "shippingInformation": "Ships in 3-5 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Jack Ward",
+                "reviewerEmail": "jack.ward@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Ava Harris",
+                "reviewerEmail": "ava.harris@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Brayden Fleming",
+                "reviewerEmail": "brayden.fleming@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "No return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.622Z",
+              "updatedAt": "2024-05-23T08:56:21.622Z",
+              "barcode": "2899455033799",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/1.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/2.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 2
+        },
+        {
+          "item": {
+            "id": 80,
+            "title": "Huawei Matebook X Pro",
+            "description": "The Huawei Matebook X Pro is a slim and stylish laptop with a high-resolution touchscreen display, offering a premium experience for users on the go.",
+            "category": "laptops",
+            "price": 1399.99,
+            "discountPercentage": 15.25,
+            "rating": 4.62,
+            "stock": 34,
+            "tags": [
+              "laptops"
+            ],
+            "brand": "Huawei",
+            "sku": "U2CBNNB0",
+            "weight": 9,
+            "dimensions": {
+              "width": 22.11,
+              "height": 11.11,
+              "depth": 23.07
+            },
+            "warrantyInformation": "2 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Samantha Howard",
+                "reviewerEmail": "samantha.howard@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Would not buy again!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Daniel Cook",
+                "reviewerEmail": "daniel.cook@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.622Z",
+                "reviewerName": "Brayden Fleming",
+                "reviewerEmail": "brayden.fleming@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "60 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.622Z",
+              "updatedAt": "2024-05-23T08:56:21.622Z",
+              "barcode": "1232723732298",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/1.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/2.png",
+              "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/laptops/Huawei%20Matebook%20X%20Pro/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 3
         }
       ],
       "selectedAddress": {
@@ -6667,16 +6752,830 @@
       },
       "selectedDeliveryMethod": "Free Delivery",
       "selectedPaymentMethod": "Credit Card",
-      "orderDate": "2024-07-03T07:12:22.909Z",
-      "status": "confirmed",
+      "orderDate": "2024-07-04T09:07:09.773Z",
+      "status": "dispatched",
       "pricing": {
-        "savings": 500,
-        "tax_amount": 90,
+        "savings": 638.38,
+        "tax_amount": 104,
         "store_pickup_price": 10,
-        "final_amount": "4600.00",
-        "totalAmountBeforeDiscount": 5000
+        "final_amount": "5313.97",
+        "totalAmountBeforeDiscount": 5838.349999999999
       },
       "id": 2
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "password": "11111111",
+        "confirmPassword": "11111111",
+        "role": "user",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhil.s@lanatussystems.com",
+            "phone": "9879733657",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Gujarat",
+              "isoCode": "GJ",
+              "countryCode": "IN",
+              "latitude": "22.25865200",
+              "longitude": "71.19238050"
+            },
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "India"
+          }
+        ],
+        "id": 1
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 97,
+            "title": "Rolex Datejust",
+            "description": "The Rolex Datejust is an iconic and versatile timepiece with a date window. Known for its timeless design and reliability, it's a symbol of Rolex's watchmaking excellence.",
+            "category": "mens-watches",
+            "price": 10999.99,
+            "discountPercentage": 9.69,
+            "rating": 4.94,
+            "stock": 11,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "86V20NWJ",
+            "weight": 5,
+            "dimensions": {
+              "width": 9.68,
+              "height": 7.29,
+              "depth": 5.67
+            },
+            "warrantyInformation": "6 months warranty",
+            "shippingInformation": "Ships in 3-5 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Max Russell",
+                "reviewerEmail": "max.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Jonathan Pierce",
+                "reviewerEmail": "jonathan.pierce@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Asher Scott",
+                "reviewerEmail": "asher.scott@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "4957618378388",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 1
+        },
+        {
+          "item": {
+            "id": 98,
+            "title": "Rolex Submariner Watch",
+            "description": "The Rolex Submariner is a legendary dive watch with a rich history. Known for its durability and water resistance, it's a symbol of adventure and exploration.",
+            "category": "mens-watches",
+            "price": 13999.99,
+            "discountPercentage": 0.82,
+            "rating": 2.97,
+            "stock": 35,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "XFGRO0O5",
+            "weight": 5,
+            "dimensions": {
+              "width": 5.22,
+              "height": 27.59,
+              "depth": 16.93
+            },
+            "warrantyInformation": "No warranty",
+            "shippingInformation": "Ships in 1-2 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 2,
+                "comment": "Very dissatisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Emily Brown",
+                "reviewerEmail": "emily.brown@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Nova Cooper",
+                "reviewerEmail": "nova.cooper@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Julian James",
+                "reviewerEmail": "julian.james@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "6567997358364",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 2
+        },
+        {
+          "item": {
+            "id": 94,
+            "title": "Longines Master Collection",
+            "description": "The Longines Master Collection is an elegant and refined watch known for its precision and craftsmanship. With a timeless design, it's a symbol of luxury and sophistication.",
+            "category": "mens-watches",
+            "price": 1499.99,
+            "discountPercentage": 0.64,
+            "rating": 2.64,
+            "stock": 65,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Longines",
+            "sku": "LA7B9XEV",
+            "weight": 2,
+            "dimensions": {
+              "width": 5.83,
+              "height": 12.48,
+              "depth": 7.65
+            },
+            "warrantyInformation": "1 month warranty",
+            "shippingInformation": "Ships in 3-5 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Jack Ward",
+                "reviewerEmail": "jack.ward@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Victoria McDonald",
+                "reviewerEmail": "victoria.mcdonald@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Mia Rodriguez",
+                "reviewerEmail": "mia.rodriguez@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "60 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "1865008250672",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 3
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "phone": "9879733657",
+        "country": {
+          "name": "India",
+          "isoCode": "IN",
+          "flag": "🇮🇳",
+          "phonecode": "91",
+          "currency": "INR",
+          "latitude": "20.00000000",
+          "longitude": "77.00000000",
+          "timezones": [
+            {
+              "zoneName": "Asia/Kolkata",
+              "gmtOffset": 19800,
+              "gmtOffsetName": "UTC+05:30",
+              "abbreviation": "IST",
+              "tzName": "Indian Standard Time"
+            }
+          ]
+        },
+        "state": {
+          "name": "Gujarat",
+          "isoCode": "GJ",
+          "countryCode": "IN",
+          "latitude": "22.25865200",
+          "longitude": "71.19238050"
+        },
+        "city": "Ahmedabad",
+        "pinCode": "380050",
+        "address": "India"
+      },
+      "selectedDeliveryMethod": "Fast Delivery",
+      "selectedPaymentMethod": "Payment on delivery",
+      "orderDate": "2024-07-04T09:07:29.093Z",
+      "status": "cancelled",
+      "pricing": {
+        "savings": 1305.68,
+        "tax_amount": 530,
+        "store_pickup_price": 10,
+        "final_amount": "27039.97",
+        "totalAmountBeforeDiscount": 27805.65
+      },
+      "id": 3
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhilshah1902@gmail.com",
+        "password": "111111",
+        "confirmPassword": "111111",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhilshah1902@gmail.com",
+            "phone": "9876543210",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Gujarat",
+              "isoCode": "GJ",
+              "countryCode": "IN",
+              "latitude": "22.25865200",
+              "longitude": "71.19238050"
+            },
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "B/12 chanchalba appt., 19th jayant park society, bhadwatnagar, maninagar, ahmedabad"
+          }
+        ],
+        "id": 3
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 8,
+            "title": "Dior J'adore",
+            "description": "J'adore by Dior is a luxurious and floral fragrance, known for its blend of ylang-ylang, rose, and jasmine. It embodies femininity and sophistication.",
+            "category": "fragrances",
+            "price": 89.99,
+            "discountPercentage": 17.44,
+            "rating": 3.31,
+            "stock": 91,
+            "tags": [
+              "fragrances",
+              "perfumes"
+            ],
+            "brand": "Dior",
+            "sku": "E70NB03B",
+            "weight": 10,
+            "dimensions": {
+              "width": 21.51,
+              "height": 7,
+              "depth": 26.51
+            },
+            "warrantyInformation": "Lifetime warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Zoe Nicholson",
+                "reviewerEmail": "zoe.nicholson@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Addison Wright",
+                "reviewerEmail": "addison.wright@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Clara Berry",
+                "reviewerEmail": "clara.berry@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "7 days return policy",
+            "minimumOrderQuantity": 8,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.619Z",
+              "updatedAt": "2024-05-23T08:56:21.619Z",
+              "barcode": "0887083199279",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/1.png",
+              "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/2.png",
+              "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/thumbnail.png"
+          },
+          "quantity": 10,
+          "user": 3,
+          "id": 1
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Akhil",
+        "email": "akhilshah1902@gmail.com",
+        "phone": "9876543210",
+        "country": {
+          "name": "India",
+          "isoCode": "IN",
+          "flag": "🇮🇳",
+          "phonecode": "91",
+          "currency": "INR",
+          "latitude": "20.00000000",
+          "longitude": "77.00000000",
+          "timezones": [
+            {
+              "zoneName": "Asia/Kolkata",
+              "gmtOffset": 19800,
+              "gmtOffsetName": "UTC+05:30",
+              "abbreviation": "IST",
+              "tzName": "Indian Standard Time"
+            }
+          ]
+        },
+        "state": {
+          "name": "Gujarat",
+          "isoCode": "GJ",
+          "countryCode": "IN",
+          "latitude": "22.25865200",
+          "longitude": "71.19238050"
+        },
+        "city": "Ahmedabad",
+        "pinCode": "380050",
+        "address": "B/12 chanchalba appt., 19th jayant park society, bhadwatnagar, maninagar, ahmedabad"
+      },
+      "selectedDeliveryMethod": "Fast Delivery",
+      "selectedPaymentMethod": "Payment on delivery",
+      "orderDate": "2024-07-04T09:09:11.724Z",
+      "status": "dispatched",
+      "pricing": {
+        "savings": 190.1,
+        "tax_amount": 18,
+        "store_pickup_price": 10,
+        "final_amount": "927.90",
+        "totalAmountBeforeDiscount": 1090
+      },
+      "id": 4
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhilshah1902@gmail.com",
+        "password": "111111",
+        "confirmPassword": "111111",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhilshah1902@gmail.com",
+            "phone": "9876543210",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Gujarat",
+              "isoCode": "GJ",
+              "countryCode": "IN",
+              "latitude": "22.25865200",
+              "longitude": "71.19238050"
+            },
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "B/12 chanchalba appt., 19th jayant park society, bhadwatnagar, maninagar, ahmedabad"
+          }
+        ],
+        "id": 3
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 83,
+            "title": "Blue & Black Check Shirt",
+            "description": "The Blue & Black Check Shirt is a stylish and comfortable men's shirt featuring a classic check pattern. Made from high-quality fabric, it's suitable for both casual and semi-formal occasions.",
+            "category": "mens-shirts",
+            "price": 29.99,
+            "discountPercentage": 1.41,
+            "rating": 4.19,
+            "stock": 44,
+            "tags": [
+              "clothing",
+              "men's shirts"
+            ],
+            "brand": "Fashion Trends",
+            "sku": "6RJDTVCU",
+            "weight": 6,
+            "dimensions": {
+              "width": 17.25,
+              "height": 27.31,
+              "depth": 20.88
+            },
+            "warrantyInformation": "No warranty",
+            "shippingInformation": "Ships in 1 month",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Mason Parker",
+                "reviewerEmail": "mason.parker@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Avery Perez",
+                "reviewerEmail": "avery.perez@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Nathan Reed",
+                "reviewerEmail": "nathan.reed@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "7 days return policy",
+            "minimumOrderQuantity": 4,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.623Z",
+              "updatedAt": "2024-05-23T08:56:21.623Z",
+              "barcode": "8840720880947",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Blue%20&%20Black%20Check%20Shirt/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Blue%20&%20Black%20Check%20Shirt/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Blue%20&%20Black%20Check%20Shirt/3.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Blue%20&%20Black%20Check%20Shirt/4.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-shirts/Blue%20&%20Black%20Check%20Shirt/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 3,
+          "id": 1
+        },
+        {
+          "item": {
+            "id": 84,
+            "title": "Gigabyte Aorus Men Tshirt",
+            "description": "The Gigabyte Aorus Men Tshirt is a cool and casual shirt for gaming enthusiasts. With the Aorus logo and sleek design, it's perfect for expressing your gaming style.",
+            "category": "mens-shirts",
+            "price": 24.99,
+            "discountPercentage": 12.6,
+            "rating": 4.95,
+            "stock": 64,
+            "tags": [
+              "clothing",
+              "men's t-shirts"
+            ],
+            "brand": "Gigabyte",
+            "sku": "QA703Y60",
+            "weight": 2,
+            "dimensions": {
+              "width": 8.54,
+              "height": 23.52,
+              "depth": 5.66
+            },
+            "warrantyInformation": "1 month warranty",
+            "shippingInformation": "Ships in 1 week",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Logan Lawson",
+                "reviewerEmail": "logan.lawson@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Logan Lawson",
+                "reviewerEmail": "logan.lawson@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Oscar Powers",
+                "reviewerEmail": "oscar.powers@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 4,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.623Z",
+              "updatedAt": "2024-05-23T08:56:21.623Z",
+              "barcode": "3072645939073",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Gigabyte%20Aorus%20Men%20Tshirt/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Gigabyte%20Aorus%20Men%20Tshirt/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Gigabyte%20Aorus%20Men%20Tshirt/3.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Gigabyte%20Aorus%20Men%20Tshirt/4.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-shirts/Gigabyte%20Aorus%20Men%20Tshirt/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 3,
+          "id": 2
+        },
+        {
+          "item": {
+            "id": 85,
+            "title": "Man Plaid Shirt",
+            "description": "The Man Plaid Shirt is a timeless and versatile men's shirt with a classic plaid pattern. Its comfortable fit and casual style make it a wardrobe essential for various occasions.",
+            "category": "mens-shirts",
+            "price": 34.99,
+            "discountPercentage": 17.53,
+            "rating": 3.66,
+            "stock": 65,
+            "tags": [
+              "clothing",
+              "men's shirts"
+            ],
+            "brand": "Classic Wear",
+            "sku": "TWL7HRBB",
+            "weight": 1,
+            "dimensions": {
+              "width": 29.56,
+              "height": 29.84,
+              "depth": 7.77
+            },
+            "warrantyInformation": "Lifetime warranty",
+            "shippingInformation": "Ships in 1 week",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 3,
+                "comment": "Would not buy again!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Nora Mills",
+                "reviewerEmail": "nora.mills@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Addison Ward",
+                "reviewerEmail": "addison.ward@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Emily Brown",
+                "reviewerEmail": "emily.brown@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.623Z",
+              "updatedAt": "2024-05-23T08:56:21.623Z",
+              "barcode": "9383795178668",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Plaid%20Shirt/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Plaid%20Shirt/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Plaid%20Shirt/3.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Plaid%20Shirt/4.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Plaid%20Shirt/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 3,
+          "id": 3
+        },
+        {
+          "item": {
+            "id": 86,
+            "title": "Man Short Sleeve Shirt",
+            "description": "The Man Short Sleeve Shirt is a breezy and stylish option for warm days. With a comfortable fit and short sleeves, it's perfect for a laid-back yet polished look.",
+            "category": "mens-shirts",
+            "price": 19.99,
+            "discountPercentage": 8.65,
+            "rating": 4.62,
+            "stock": 20,
+            "tags": [
+              "clothing",
+              "men's shirts"
+            ],
+            "brand": "Casual Comfort",
+            "sku": "KEVGVDTV",
+            "weight": 2,
+            "dimensions": {
+              "width": 7.11,
+              "height": 28.63,
+              "depth": 27.54
+            },
+            "warrantyInformation": "5 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Caleb Nelson",
+                "reviewerEmail": "caleb.nelson@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Disappointing product!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Emily Johnson",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.623Z",
+                "reviewerName": "Mila Hernandez",
+                "reviewerEmail": "mila.hernandez@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "7 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.623Z",
+              "updatedAt": "2024-05-23T08:56:21.623Z",
+              "barcode": "8162805546713",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/3.png",
+              "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/4.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-shirts/Man%20Short%20Sleeve%20Shirt/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 3,
+          "id": 4
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Akhil",
+        "email": "akhilshah1902@gmail.com",
+        "phone": "9876543210",
+        "country": {
+          "name": "India",
+          "isoCode": "IN",
+          "flag": "🇮🇳",
+          "phonecode": "91",
+          "currency": "INR",
+          "latitude": "20.00000000",
+          "longitude": "77.00000000",
+          "timezones": [
+            {
+              "zoneName": "Asia/Kolkata",
+              "gmtOffset": 19800,
+              "gmtOffsetName": "UTC+05:30",
+              "abbreviation": "IST",
+              "tzName": "Indian Standard Time"
+            }
+          ]
+        },
+        "state": {
+          "name": "Gujarat",
+          "isoCode": "GJ",
+          "countryCode": "IN",
+          "latitude": "22.25865200",
+          "longitude": "71.19238050"
+        },
+        "city": "Ahmedabad",
+        "pinCode": "380050",
+        "address": "B/12 chanchalba appt., 19th jayant park society, bhadwatnagar, maninagar, ahmedabad"
+      },
+      "selectedDeliveryMethod": "Free Delivery",
+      "selectedPaymentMethod": "Credit Card",
+      "orderDate": "2024-07-04T09:09:35.460Z",
+      "status": "cancelled",
+      "pricing": {
+        "savings": 13.36,
+        "tax_amount": 2.2,
+        "store_pickup_price": 10,
+        "final_amount": "122.16",
+        "totalAmountBeforeDiscount": 123.32
+      },
+      "id": 5
     }
   ]
 }

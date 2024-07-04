@@ -1,16 +1,26 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { ITEMS_PER_PAGE } from "../../app/constants";
+import { ITEMS_PER_PAGE, ITEMS_PER_PAGE_ALL_ORDERS } from "../../app/constants";
 import { useSelector } from "react-redux";
 import {
   getProductsLength,
   selectAllProducts,
 } from "../product-list/ProductSlice";
 import { useEffect } from "react";
+import { getTotalOrders } from "../Order/orderSlice";
 
-const Pagination = ({ page, handlePagination, setPage }) => {
+const Pagination = ({
+  page = 1,
+  handlePagination = () => {},
+  setPage = () => {},
+  isAdmin = false,
+}) => {
   const totalProducts = useSelector(getProductsLength);
   const products = useSelector(selectAllProducts);
-  const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+  const totalOrders = useSelector(getTotalOrders);
+  const itemsPerPage = isAdmin ? ITEMS_PER_PAGE_ALL_ORDERS : ITEMS_PER_PAGE;
+  const totalPages = isAdmin
+    ? Math.ceil(totalOrders / itemsPerPage)
+    : Math.ceil(totalProducts / itemsPerPage);
   useEffect(() => {
     if (products.length === 0) {
       if (page > 1) {
@@ -23,17 +33,15 @@ const Pagination = ({ page, handlePagination, setPage }) => {
     <div className="flex items-center justify-between border-t border-gray-200px-4 py-3 sm:px-6">
       <div className="flex flex-1 justify-evenly sm:hidden">
         <div
+          onClick={() => setPage(page - 1)}
           className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium  ${
-            page !== Math.ceil(totalPages / ITEMS_PER_PAGE)
+            page !== Math.ceil(totalPages / itemsPerPage)
               ? "text-white cursor-pointer"
               : "text-gray-500 border-gray-950"
           }`}
         >
           <span className="sr-only">Previous</span>
-          <button
-            disabled={page === Math.ceil(totalPages / ITEMS_PER_PAGE)}
-            onClick={() => setPage(page - 1)}
-          >
+          <button disabled={page === Math.ceil(totalPages / itemsPerPage)}>
             Previous
           </button>
         </div>
@@ -48,31 +56,47 @@ const Pagination = ({ page, handlePagination, setPage }) => {
               ? "text-white cursor-pointer"
               : "text-gray-500 border-gray-950"
           }`}
+          onClick={() => setPage(page + 1)}
         >
           <span className="sr-only">Next</span>
 
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage(page + 1)}
-          >
-            Next
-          </button>
+          <button disabled={page === totalPages}>Next</button>
         </div>
       </div>
       <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p className="text-sm text-white">
             Showing{" "}
-            <span className="font-medium">
-              {(page - 1) * ITEMS_PER_PAGE + 1}
-            </span>{" "}
+            {isAdmin ? (
+              <span className="font-medium">
+                {(page - 1) * itemsPerPage + 1}
+              </span>
+            ) : (
+              <span className="font-medium">
+                {(page - 1) * itemsPerPage + 1}
+              </span>
+            )}{" "}
             to{" "}
+            {isAdmin ? (
+              <span className="font-medium">
+                {page * itemsPerPage > totalOrders
+                  ? totalOrders
+                  : page * itemsPerPage}
+              </span>
+            ) : (
+              <span className="font-medium">
+                <span className="font-medium">
+                  {page * itemsPerPage > totalProducts
+                    ? totalProducts
+                    : page * itemsPerPage}
+                </span>
+              </span>
+            )}{" "}
+            of{" "}
             <span className="font-medium">
-              {page * ITEMS_PER_PAGE > totalProducts
-                ? totalProducts
-                : page * ITEMS_PER_PAGE}
+              {isAdmin ? totalOrders : totalProducts}
             </span>{" "}
-            of <span className="font-medium">{totalProducts}</span> results
+            results
           </p>
         </div>
         <div>
@@ -82,16 +106,14 @@ const Pagination = ({ page, handlePagination, setPage }) => {
           >
             <div
               className={`relative inline-flex items-center rounded-s-md px-2 py-2 ring-1 ring-inset  ring-gray-300 focus:z-20 focus:outline-offset-0 ${
-                page !== Math.ceil(totalPages / ITEMS_PER_PAGE)
+                page !== Math.ceil(totalPages / itemsPerPage)
                   ? "text-white hover:bg-white hover:text-black cursor-pointer"
                   : "text-gray-500"
               }`}
+              onClick={() => setPage(page - 1)}
             >
               <span className="sr-only">Previous</span>
-              <button
-                disabled={page === Math.ceil(totalPages / ITEMS_PER_PAGE)}
-                onClick={() => setPage(page - 1)}
-              >
+              <button disabled={page === Math.ceil(totalPages / itemsPerPage)}>
                 <ChevronLeftIcon className="h-5 w-5 " aria-hidden="true" />
               </button>
             </div>
@@ -112,13 +134,11 @@ const Pagination = ({ page, handlePagination, setPage }) => {
                   ? "text-white hover:bg-white hover:text-black cursor-pointer "
                   : "text-gray-500"
               }`}
+              onClick={() => setPage(page + 1)}
             >
               <span className="sr-only">Next</span>
 
-              <button
-                disabled={page === totalPages}
-                onClick={() => setPage(page + 1)}
-              >
+              <button disabled={page === totalPages}>
                 <ChevronRightIcon className="h-5 w-5" aria-hidden="true" />
               </button>
             </div>

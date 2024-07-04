@@ -371,7 +371,15 @@ const EditProduct = () => {
                   <button
                     type="button"
                     className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 "
-                    onClick={() => dispatch(removeProductAsync(id))}
+                    onClick={() => {
+                      if (
+                        window.confirm(
+                          `Are you sure you want to remove ${product.title}`
+                        )
+                      ) {
+                        dispatch(removeProductAsync(product.id));
+                      }
+                    }}
                   >
                     Remove product
                   </button>

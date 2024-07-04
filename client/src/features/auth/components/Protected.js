@@ -14,7 +14,6 @@ const Protected = () => {
       />
     );
   }
-  console.log(loggedInUser);
   if (loggedInUser.length > 0 && loggedInUser.data.role !== "user") {
     return (
       <Navigate

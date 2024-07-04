@@ -3,6 +3,7 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  clearSingleProduct,
   fetchSingleProductAsync,
   getSingleProduct,
 } from "../../product-list/ProductSlice";
@@ -93,10 +94,16 @@ const SingleProduct = () => {
   ];
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
   const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  useEffect(() => {
+    return () => {
+      dispatch(clearSingleProduct());
+    };
+  }, []);
 
   if (Object.keys(selectedProduct).length === 0) {
     return <Navigate to="/" />;
   }
+
   return (
     <div className="bg-gray-950 rounded-lg">
       <div className="pt-6">

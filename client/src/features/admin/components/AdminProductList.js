@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../../../pages/Loading";
 import {
-  fetchAllProductsAsync,
   fetchSingleProductAsync,
   selectAllProducts,
   checkIsLoading as productLoader,
   removeProductAsync,
+  fetchAllFilteredProductsAsync,
 } from "../../product-list/ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ export function ProductList() {
   }
 
   useEffect(() => {
-    dispatch(fetchAllProductsAsync());
+    dispatch(fetchAllFilteredProductsAsync());
   }, [dispatch]);
 
   const handleFetchSingleProduct = (id) => {
@@ -106,7 +106,15 @@ export function ProductList() {
                     <button
                       type="button"
                       className="inline-flex w-full items-center justify-center rounded-lg bg-red-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-primary-300 "
-                      onClick={() => dispatch(removeProductAsync(product.id))}
+                      onClick={() => {
+                        if (
+                          window.confirm(
+                            `Are you sure you want to remove ${product.title}`
+                          )
+                        ) {
+                          dispatch(removeProductAsync(product.id));
+                        }
+                      }}
                     >
                       Remove
                     </button>

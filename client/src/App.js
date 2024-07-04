@@ -29,6 +29,7 @@ import {
   fetchAllCategoriesAsync,
 } from "./features/product-list/ProductSlice";
 import EditProduct from "./features/admin/components/EditProduct";
+import AdminAllOrdersPage from "./pages/AdminAllOrdersPage";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -77,6 +78,7 @@ const App = () => {
               path="/admin/selected-product/:id"
               element={<AdminSelectedProductPage />}
             />
+            <Route path="/admin/all-orders" element={<AdminAllOrdersPage />} />
           </Route>
           <Route path="/selected-product/:id" element={<SingleProductPage />} />
           <Route path="*" element={<PageNotFound />} />

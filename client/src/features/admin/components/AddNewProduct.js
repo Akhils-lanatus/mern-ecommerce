@@ -115,29 +115,31 @@ const AddNewProduct = () => {
               }
 
               try {
-                const res = await axios.post(
-                  "http://localhost:8080/api/products/add",
-                  formData,
-                  {
-                    headers: {
-                      "Content-Type": "multipart/form-data",
-                    },
-                  }
-                );
-                const images = res.data.images.map(
-                  (file) => `http://localhost:8080/${file.path}`
-                );
-                const thumbnailUrl = `http://localhost:8080/${res.data.thumbnail.path}`;
-                const productData = {
-                  ...res.data,
-                  thumbnail: thumbnailUrl,
-                  images,
-                };
+                if (window.confirm("Confirm want to add selected product?")) {
+                  const res = await axios.post(
+                    "http://localhost:8080/api/products/add",
+                    formData,
+                    {
+                      headers: {
+                        "Content-Type": "multipart/form-data",
+                      },
+                    }
+                  );
+                  const images = res.data.images.map(
+                    (file) => `http://localhost:8080/${file.path}`
+                  );
+                  const thumbnailUrl = `http://localhost:8080/${res.data.thumbnail.path}`;
+                  const productData = {
+                    ...res.data,
+                    thumbnail: thumbnailUrl,
+                    images,
+                  };
 
-                dispatch(createNewProductAsync(productData));
-                actions.resetForm();
-                if (thumbnailRef.current) thumbnailRef.current.value = "";
-                navigate("/admin/home");
+                  dispatch(createNewProductAsync(productData));
+                  actions.resetForm();
+                  if (thumbnailRef.current) thumbnailRef.current.value = "";
+                  navigate("/admin/home");
+                }
               } catch (error) {
                 console.error("Error adding product:", error);
               }
