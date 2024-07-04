@@ -122,7 +122,7 @@ const AllOrders = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     {orders?.map((item) => (
-                      <tr>
+                      <tr key={item.id}>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                           <div className="inline-flex items-center gap-x-3">
                             <span>#{item.id}</span>
@@ -151,8 +151,8 @@ const AllOrders = () => {
                                 Select Status
                               </option>
                               {status.map((statusObj) => {
-                                return Object.keys(statusObj).map((item) => (
-                                  <option value={statusObj[item].title}>
+                                return Object.keys(statusObj).map((item, i) => (
+                                  <option key={i} value={statusObj[item].title}>
                                     {statusObj[item].label}
                                   </option>
                                 ));
@@ -193,7 +193,10 @@ const AllOrders = () => {
                         )}
                         <td className="px-2 py-4 text-sm  text-gray-500 dark:text-gray-300 text-left w-full sm:w-auto">
                           {item.cartItems?.map((cartItem) => (
-                            <div className="flex items-center gap-x-2 pb-3">
+                            <div
+                              className="flex items-center gap-x-2 pb-3"
+                              key={cartItem.item.id}
+                            >
                               <img
                                 className="object-cover w-8 h-8 rounded-full"
                                 src={
@@ -224,7 +227,7 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-4 mb-1"
                               >
@@ -242,7 +245,7 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-4 mb-1"
                               >
@@ -260,7 +263,7 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-4 mb-1"
                               >
@@ -278,7 +281,7 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-4 mb-1"
                               >
@@ -298,7 +301,7 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-4 mb-1"
                               >
@@ -321,9 +324,9 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
-                                class="size-4 mb-1"
+                                className="size-4 mb-1"
                               >
                                 <path
                                   strokeLinecap="round"
@@ -342,9 +345,9 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
-                                class="size-6 text-white cursor-pointer"
+                                className="size-6 text-white cursor-pointer"
                               >
                                 <path
                                   strokeLinecap="round"
@@ -359,7 +362,7 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-6 text-white cursor-pointer"
                               >
