@@ -8,6 +8,7 @@ import {
 } from "../../user/userSlice";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Navbar from "../../Navbar/Navbar";
+import { showToast } from "../../../utils/showToast";
 
 const UpdateAddress = () => {
   const dispatch = useDispatch();
@@ -79,6 +80,7 @@ const UpdateAddress = () => {
                           addressIndex: id,
                         })
                       );
+                      showToast("SUCCESS", "Address Updated");
                       resetForm();
                       navigate("/profile");
                     }}

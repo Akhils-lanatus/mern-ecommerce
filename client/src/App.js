@@ -18,7 +18,7 @@ import UserProfile from "./features/user/components/UserProfile";
 import UserOrders from "./features/user/components/UserOrders";
 import AddAddress from "./features/user/components/AddAddress";
 import UpdateAddress from "./features/user/components/UpdateAddress";
-import { ToastContainer, Flip } from "react-toastify";
+import { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import AdminProtected from "./features/auth/components/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
@@ -43,7 +43,6 @@ const App = () => {
 
   return (
     <>
-      <ToastContainer transition={Flip} />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -84,6 +83,7 @@ const App = () => {
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
+      <Toaster />
     </>
   );
 };

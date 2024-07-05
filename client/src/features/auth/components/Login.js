@@ -76,11 +76,12 @@ const Login = () => {
                               res.data.role === "user" ? "/" : "/admin/home")
                           : (path = "/");
                       }
+                      showToast("SUCCESS", "Login Successful");
+
                       navigate(path);
                       resetForm();
                     })
                     .catch((err) => {
-                      console.log(err.message);
                       showToast("ERROR", err.message);
                     });
                 } catch (error) {

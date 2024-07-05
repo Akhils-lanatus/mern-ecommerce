@@ -20,7 +20,6 @@ export async function fetchAllOrders({ sort, pagination }) {
     for (let x in sort) {
       queryString += `${x}=${sort[x]}&`;
     }
-    console.log(`http://localhost:8000/orders?` + queryString);
     const res = await fetch("http://localhost:8000/orders?" + queryString);
     const data = await res.json();
     const totalOrders = await res.headers.get("X-Total-Count");

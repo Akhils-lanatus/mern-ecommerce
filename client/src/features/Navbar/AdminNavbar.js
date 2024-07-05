@@ -16,6 +16,7 @@ import {
   logoutUserAsync as logoutUserAsyncFromAuth,
 } from "../auth/AuthSlice";
 import { logoutUserAsync as logoutUserAsyncFromUser } from "../user/userSlice";
+import { showToast } from "../../utils/showToast";
 
 const navigation = [
   { name: "Home", to: "/admin/home", current: true },
@@ -40,6 +41,7 @@ const Navbar = ({ children }) => {
   const handleLogout = () => {
     dispatch(logoutUserAsyncFromAuth());
     dispatch(logoutUserAsyncFromUser());
+    showToast("SUCCESS", "Logged Out Successfully");
     navigate("/auth/login");
   };
   const user = {

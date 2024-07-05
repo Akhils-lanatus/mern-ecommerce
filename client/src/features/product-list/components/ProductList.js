@@ -10,6 +10,7 @@ import {
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import { getLoggedInUser } from "../../auth/AuthSlice";
+import { showToast } from "../../../utils/showToast";
 import {
   addToCartAsync,
   getLoggedInUserCartItems,
@@ -27,10 +28,6 @@ export function ProductList() {
     return classes.filter(Boolean).join(" ");
   }
 
-  useEffect(() => {
-    dispatch(fetchAllFilteredProductsAsync());
-  }, [dispatch]);
-
   const handleFetchSingleProduct = (id) => {
     dispatch(fetchSingleProductAsync(id))
       .unwrap()
@@ -47,6 +44,7 @@ export function ProductList() {
     dispatch(
       addToCartAsync({ item: product, quantity: 1, user: loggedInUser.data.id })
     );
+    showToast("SUCCESS", "Item added to cart");
   };
   const handleRemoveFromCart = (product) => {
     const cartItem = cartItems.find(

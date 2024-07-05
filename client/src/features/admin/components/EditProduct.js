@@ -12,6 +12,7 @@ import {
   removeProductAsync,
   updateProductAsync,
 } from "../../product-list/ProductSlice";
+import { showToast } from "../../../utils/showToast";
 import * as Yup from "yup";
 import LoadingPage from "../../../pages/Loading";
 import { Form, Formik, Field, ErrorMessage } from "formik";
@@ -100,6 +101,7 @@ const EditProduct = () => {
                 const product = { ...values, id };
                 dispatch(updateProductAsync(product));
                 action.resetForm();
+                showToast("SUCCESS", "Product Updated");
                 navigate("/admin/home");
               }}
             >

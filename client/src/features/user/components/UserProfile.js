@@ -8,6 +8,7 @@ import {
 } from "../userSlice";
 import Navbar from "../../../features/Navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
+import { showToast } from "../../../utils/showToast";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const UserProfile = () => {
         addresses: addresses,
       };
       dispatch(removeUserAddressAsync(updatedUser?.data));
+      showToast("SUCCESS", "Address removed");
     }
   };
 

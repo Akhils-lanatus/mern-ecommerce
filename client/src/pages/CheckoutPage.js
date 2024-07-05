@@ -11,7 +11,7 @@ import {
 } from "../features/user/userSlice";
 import { createOrderAsync } from "../features/Order/orderSlice";
 import OrderSuccess from "./OrderSuccess";
-
+import { showToast } from "../utils/showToast";
 const paymentMethods = [
   {
     name: "payment-method",
@@ -103,6 +103,7 @@ const CheckoutPage = () => {
       };
       dispatch(createOrderAsync(order));
       setOpen(true);
+      showToast("SUCCESS", "Order Placed Successfully");
     } catch (error) {
       setOpen(false);
       console.log(`Error while ordering :: ${error}`);

@@ -6011,23 +6011,23 @@
     {
       "title": "Test",
       "brand": "Glamour Beauty",
-      "price": "800",
+      "price": "78",
       "category": "beauty",
-      "discountPercentage": "2",
-      "minimumOrderQuantity": "2",
+      "discountPercentage": "4",
+      "minimumOrderQuantity": "78",
       "returnPolicy": "No return policy",
       "shippingInformation": "Ships Overnight",
-      "stock": "499",
+      "stock": "12",
       "availabilityStatus": "In Stock",
-      "description": "Tesst",
-      "rating": 4.2,
-      "thumbnail": "http://localhost:8080/uploads\\1720158907597-macbookTN.jpg",
+      "description": "testtoast",
+      "rating": "5",
+      "thumbnail": "http://localhost:8080/uploads\\1720200053586-6thMS-1_11zon.png",
       "images": [
-        "http://localhost:8080/uploads\\1720158907598-macbook3.jpg",
-        "http://localhost:8080/uploads\\1720158907598-macbook2.jpg",
-        "http://localhost:8080/uploads\\1720158907598-macbook1.jpg"
+        "http://localhost:8080/uploads\\1720200053617-jpeg-optimizer_6thMS-1.png",
+        "http://localhost:8080/uploads\\1720200053619-Green Gold Elegant Certificate  (1).png",
+        "http://localhost:8080/uploads\\1720200053662-Green Gold Elegant Certificate .png"
       ],
-      "id": 101
+      "id": 102
     }
   ],
   "categories": [
@@ -6279,6 +6279,39 @@
           "city": "Ahmedabad",
           "pinCode": "380050",
           "address": "India"
+        },
+        {
+          "fullName": "Test",
+          "email": "test@record.com",
+          "phone": "6548877660",
+          "country": {
+            "name": "India",
+            "isoCode": "IN",
+            "flag": "🇮🇳",
+            "phonecode": "91",
+            "currency": "INR",
+            "latitude": "20.00000000",
+            "longitude": "77.00000000",
+            "timezones": [
+              {
+                "zoneName": "Asia/Kolkata",
+                "gmtOffset": 19800,
+                "gmtOffsetName": "UTC+05:30",
+                "abbreviation": "IST",
+                "tzName": "Indian Standard Time"
+              }
+            ]
+          },
+          "state": {
+            "name": "Uttar Pradesh",
+            "isoCode": "UP",
+            "countryCode": "IN",
+            "latitude": "26.84670880",
+            "longitude": "80.94615920"
+          },
+          "city": "Afzalgarh",
+          "pinCode": "896745",
+          "address": "\tP.O. Sakauti Tanda, Distt. Meerut, Uttar Pradesh, Shri Nangli Darbar"
         }
       ],
       "id": 1
@@ -6335,7 +6368,138 @@
       "id": 3
     }
   ],
-  "cart": [],
+  "cart": [
+    {
+      "item": {
+        "id": 1,
+        "title": "Essence Mascara Lash Princess",
+        "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+        "category": "beauty",
+        "price": 9.99,
+        "discountPercentage": 7.17,
+        "rating": 4.94,
+        "stock": 5,
+        "tags": [
+          "beauty",
+          "mascara"
+        ],
+        "brand": "Essence",
+        "sku": "RCH45Q1A",
+        "weight": 2,
+        "dimensions": {
+          "width": 23.17,
+          "height": 14.43,
+          "depth": 28.01
+        },
+        "warrantyInformation": "1 month warranty",
+        "shippingInformation": "Ships in 1 month",
+        "availabilityStatus": "Low Stock",
+        "reviews": [
+          {
+            "rating": 2,
+            "comment": "Very unhappy with my purchase!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "John Doe",
+            "reviewerEmail": "john.doe@x.dummyjson.com"
+          },
+          {
+            "rating": 2,
+            "comment": "Not as described!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Nolan Gonzalez",
+            "reviewerEmail": "nolan.gonzalez@x.dummyjson.com"
+          },
+          {
+            "rating": 5,
+            "comment": "Very satisfied!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Scarlett Wright",
+            "reviewerEmail": "scarlett.wright@x.dummyjson.com"
+          }
+        ],
+        "returnPolicy": "30 days return policy",
+        "minimumOrderQuantity": 24,
+        "meta": {
+          "createdAt": "2024-05-23T08:56:21.618Z",
+          "updatedAt": "2024-05-23T08:56:21.618Z",
+          "barcode": "9164035109868",
+          "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+        },
+        "images": [
+          "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
+        ],
+        "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
+      },
+      "quantity": 1,
+      "user": 3,
+      "id": 1
+    },
+    {
+      "item": {
+        "id": 2,
+        "title": "Eyeshadow Palette with Mirror",
+        "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+        "category": "beauty",
+        "price": 19.99,
+        "discountPercentage": 5.5,
+        "rating": 3.28,
+        "stock": 44,
+        "tags": [
+          "beauty",
+          "eyeshadow"
+        ],
+        "brand": "Glamour Beauty",
+        "sku": "MVCFH27F",
+        "weight": 3,
+        "dimensions": {
+          "width": 12.42,
+          "height": 8.63,
+          "depth": 29.13
+        },
+        "warrantyInformation": "1 year warranty",
+        "shippingInformation": "Ships in 2 weeks",
+        "availabilityStatus": "In Stock",
+        "reviews": [
+          {
+            "rating": 4,
+            "comment": "Very satisfied!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Liam Garcia",
+            "reviewerEmail": "liam.garcia@x.dummyjson.com"
+          },
+          {
+            "rating": 1,
+            "comment": "Very disappointed!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Nora Russell",
+            "reviewerEmail": "nora.russell@x.dummyjson.com"
+          },
+          {
+            "rating": 5,
+            "comment": "Highly impressed!",
+            "date": "2024-05-23T08:56:21.618Z",
+            "reviewerName": "Elena Baker",
+            "reviewerEmail": "elena.baker@x.dummyjson.com"
+          }
+        ],
+        "returnPolicy": "30 days return policy",
+        "minimumOrderQuantity": 32,
+        "meta": {
+          "createdAt": "2024-05-23T08:56:21.618Z",
+          "updatedAt": "2024-05-23T08:56:21.618Z",
+          "barcode": "2817839095220",
+          "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+        },
+        "images": [
+          "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+        ],
+        "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+      },
+      "quantity": 1,
+      "user": 3,
+      "id": 2
+    }
+  ],
   "orders": [
     {
       "user": {
@@ -8091,6 +8255,898 @@
         "totalAmountBeforeDiscount": 180191.18
       },
       "id": 6
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "password": "11111111",
+        "confirmPassword": "11111111",
+        "role": "user",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhil.s@lanatussystems.com",
+            "phone": "9879733657",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Gujarat",
+              "isoCode": "GJ",
+              "countryCode": "IN",
+              "latitude": "22.25865200",
+              "longitude": "71.19238050"
+            },
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "India"
+          }
+        ],
+        "id": 1
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 1,
+            "title": "Essence Mascara Lash Princess",
+            "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+            "category": "beauty",
+            "price": 9.99,
+            "discountPercentage": 7.17,
+            "rating": 4.94,
+            "stock": 5,
+            "tags": [
+              "beauty",
+              "mascara"
+            ],
+            "brand": "Essence",
+            "sku": "RCH45Q1A",
+            "weight": 2,
+            "dimensions": {
+              "width": 23.17,
+              "height": 14.43,
+              "depth": 28.01
+            },
+            "warrantyInformation": "1 month warranty",
+            "shippingInformation": "Ships in 1 month",
+            "availabilityStatus": "Low Stock",
+            "reviews": [
+              {
+                "rating": 2,
+                "comment": "Very unhappy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "john.doe@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nolan Gonzalez",
+                "reviewerEmail": "nolan.gonzalez@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Scarlett Wright",
+                "reviewerEmail": "scarlett.wright@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 24,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "9164035109868",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 5
+        },
+        {
+          "item": {
+            "id": 2,
+            "title": "Eyeshadow Palette with Mirror",
+            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+            "category": "beauty",
+            "price": 19.99,
+            "discountPercentage": 5.5,
+            "rating": 3.28,
+            "stock": 44,
+            "tags": [
+              "beauty",
+              "eyeshadow"
+            ],
+            "brand": "Glamour Beauty",
+            "sku": "MVCFH27F",
+            "weight": 3,
+            "dimensions": {
+              "width": 12.42,
+              "height": 8.63,
+              "depth": 29.13
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Liam Garcia",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nora Russell",
+                "reviewerEmail": "nora.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Elena Baker",
+                "reviewerEmail": "elena.baker@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 32,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "2817839095220",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 6
+        },
+        {
+          "item": {
+            "id": 3,
+            "title": "Powder Canister",
+            "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
+            "category": "beauty",
+            "price": 14.99,
+            "discountPercentage": 18.14,
+            "rating": 3.82,
+            "stock": 59,
+            "tags": [
+              "beauty",
+              "face powder"
+            ],
+            "brand": "Velvet Touch",
+            "sku": "9EN8WLT2",
+            "weight": 8,
+            "dimensions": {
+              "width": 24.16,
+              "height": 10.7,
+              "depth": 11.07
+            },
+            "warrantyInformation": "2 year warranty",
+            "shippingInformation": "Ships in 1-2 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Ethan Thompson",
+                "reviewerEmail": "ethan.thompson@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Levi Hicks",
+                "reviewerEmail": "levi.hicks@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "hazel.gardner@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "60 days return policy",
+            "minimumOrderQuantity": 25,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "0516267971277",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "phone": "9879733657",
+        "country": {
+          "name": "India",
+          "isoCode": "IN",
+          "flag": "🇮🇳",
+          "phonecode": "91",
+          "currency": "INR",
+          "latitude": "20.00000000",
+          "longitude": "77.00000000",
+          "timezones": [
+            {
+              "zoneName": "Asia/Kolkata",
+              "gmtOffset": 19800,
+              "gmtOffsetName": "UTC+05:30",
+              "abbreviation": "IST",
+              "tzName": "Indian Standard Time"
+            }
+          ]
+        },
+        "state": {
+          "name": "Gujarat",
+          "isoCode": "GJ",
+          "countryCode": "IN",
+          "latitude": "22.25865200",
+          "longitude": "71.19238050"
+        },
+        "city": "Ahmedabad",
+        "pinCode": "380050",
+        "address": "India"
+      },
+      "selectedDeliveryMethod": "Free Delivery",
+      "selectedPaymentMethod": "Credit Card",
+      "orderDate": "2024-07-05T17:09:16.938Z",
+      "status": "confirmed",
+      "pricing": {
+        "savings": 5.25,
+        "tax_amount": 0.9,
+        "store_pickup_price": 10,
+        "final_amount": 55.87,
+        "totalAmountBeforeDiscount": 50.22
+      },
+      "id": 7
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "password": "11111111",
+        "confirmPassword": "11111111",
+        "role": "user",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhil.s@lanatussystems.com",
+            "phone": "9879733657",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Gujarat",
+              "isoCode": "GJ",
+              "countryCode": "IN",
+              "latitude": "22.25865200",
+              "longitude": "71.19238050"
+            },
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "India"
+          }
+        ],
+        "id": 1
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 3,
+            "title": "Powder Canister",
+            "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
+            "category": "beauty",
+            "price": 14.99,
+            "discountPercentage": 18.14,
+            "rating": 3.82,
+            "stock": 59,
+            "tags": [
+              "beauty",
+              "face powder"
+            ],
+            "brand": "Velvet Touch",
+            "sku": "9EN8WLT2",
+            "weight": 8,
+            "dimensions": {
+              "width": 24.16,
+              "height": 10.7,
+              "depth": 11.07
+            },
+            "warrantyInformation": "2 year warranty",
+            "shippingInformation": "Ships in 1-2 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Ethan Thompson",
+                "reviewerEmail": "ethan.thompson@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Levi Hicks",
+                "reviewerEmail": "levi.hicks@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "hazel.gardner@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "60 days return policy",
+            "minimumOrderQuantity": 25,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "0516267971277",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 7
+        },
+        {
+          "item": {
+            "id": 1,
+            "title": "Essence Mascara Lash Princess",
+            "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+            "category": "beauty",
+            "price": 9.99,
+            "discountPercentage": 7.17,
+            "rating": 4.94,
+            "stock": 5,
+            "tags": [
+              "beauty",
+              "mascara"
+            ],
+            "brand": "Essence",
+            "sku": "RCH45Q1A",
+            "weight": 2,
+            "dimensions": {
+              "width": 23.17,
+              "height": 14.43,
+              "depth": 28.01
+            },
+            "warrantyInformation": "1 month warranty",
+            "shippingInformation": "Ships in 1 month",
+            "availabilityStatus": "Low Stock",
+            "reviews": [
+              {
+                "rating": 2,
+                "comment": "Very unhappy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "john.doe@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nolan Gonzalez",
+                "reviewerEmail": "nolan.gonzalez@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Scarlett Wright",
+                "reviewerEmail": "scarlett.wright@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 24,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "9164035109868",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 8
+        },
+        {
+          "item": {
+            "id": 2,
+            "title": "Eyeshadow Palette with Mirror",
+            "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+            "category": "beauty",
+            "price": 19.99,
+            "discountPercentage": 5.5,
+            "rating": 3.28,
+            "stock": 44,
+            "tags": [
+              "beauty",
+              "eyeshadow"
+            ],
+            "brand": "Glamour Beauty",
+            "sku": "MVCFH27F",
+            "weight": 3,
+            "dimensions": {
+              "width": 12.42,
+              "height": 8.63,
+              "depth": 29.13
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 2 weeks",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Liam Garcia",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+              },
+              {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nora Russell",
+                "reviewerEmail": "nora.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Elena Baker",
+                "reviewerEmail": "elena.baker@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 32,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.618Z",
+              "updatedAt": "2024-05-23T08:56:21.618Z",
+              "barcode": "2817839095220",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 9
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "phone": "9879733657",
+        "country": {
+          "name": "India",
+          "isoCode": "IN",
+          "flag": "🇮🇳",
+          "phonecode": "91",
+          "currency": "INR",
+          "latitude": "20.00000000",
+          "longitude": "77.00000000",
+          "timezones": [
+            {
+              "zoneName": "Asia/Kolkata",
+              "gmtOffset": 19800,
+              "gmtOffsetName": "UTC+05:30",
+              "abbreviation": "IST",
+              "tzName": "Indian Standard Time"
+            }
+          ]
+        },
+        "state": {
+          "name": "Gujarat",
+          "isoCode": "GJ",
+          "countryCode": "IN",
+          "latitude": "22.25865200",
+          "longitude": "71.19238050"
+        },
+        "city": "Ahmedabad",
+        "pinCode": "380050",
+        "address": "India"
+      },
+      "selectedDeliveryMethod": "Free Delivery",
+      "selectedPaymentMethod": "Credit Card",
+      "orderDate": "2024-07-05T17:12:03.831Z",
+      "status": "dispatched",
+      "pricing": {
+        "savings": 5.25,
+        "tax_amount": 0.9,
+        "store_pickup_price": 10,
+        "final_amount": 55.87,
+        "totalAmountBeforeDiscount": 50.22
+      },
+      "id": 8
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "password": "11111111",
+        "confirmPassword": "11111111",
+        "role": "user",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhil.s@lanatussystems.com",
+            "phone": "9879733657",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Gujarat",
+              "isoCode": "GJ",
+              "countryCode": "IN",
+              "latitude": "22.25865200",
+              "longitude": "71.19238050"
+            },
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "India"
+          },
+          {
+            "fullName": "Test",
+            "email": "test@record.com",
+            "phone": "6548877660",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Uttar Pradesh",
+              "isoCode": "UP",
+              "countryCode": "IN",
+              "latitude": "26.84670880",
+              "longitude": "80.94615920"
+            },
+            "city": "Afzalgarh",
+            "pinCode": "896745",
+            "address": "\tP.O. Sakauti Tanda, Distt. Meerut, Uttar Pradesh, Shri Nangli Darbar"
+          }
+        ],
+        "id": 1
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 48,
+            "title": "Bamboo Spatula",
+            "description": "The Bamboo Spatula is a versatile kitchen tool made from eco-friendly bamboo. Ideal for flipping, stirring, and serving various dishes.",
+            "category": "kitchen-accessories",
+            "price": 7.99,
+            "discountPercentage": 4.85,
+            "rating": 4.4,
+            "stock": 0,
+            "tags": [
+              "kitchen tools",
+              "utensils"
+            ],
+            "sku": "MYIWU1I6",
+            "weight": 4,
+            "dimensions": {
+              "width": 27.97,
+              "height": 21.77,
+              "depth": 21.38
+            },
+            "warrantyInformation": "1 year warranty",
+            "shippingInformation": "Ships in 1 month",
+            "availabilityStatus": "Out of Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Olivia Anderson",
+                "reviewerEmail": "olivia.anderson@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Grayson Coleman",
+                "reviewerEmail": "grayson.coleman@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Mia Miller",
+                "reviewerEmail": "mia.miller@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "7 days return policy",
+            "minimumOrderQuantity": 26,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.621Z",
+              "updatedAt": "2024-05-23T08:56:21.621Z",
+              "barcode": "4736572105219",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/kitchen-accessories/Bamboo%20Spatula/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/kitchen-accessories/Bamboo%20Spatula/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 3
+        },
+        {
+          "item": {
+            "id": 49,
+            "title": "Black Aluminium Cup",
+            "description": "The Black Aluminium Cup is a stylish and durable cup suitable for both hot and cold beverages. Its sleek black design adds a modern touch to your drinkware collection.",
+            "category": "kitchen-accessories",
+            "price": 5.99,
+            "discountPercentage": 9.22,
+            "rating": 3.62,
+            "stock": 42,
+            "tags": [
+              "drinkware",
+              "cups"
+            ],
+            "sku": "1CSCC3UH",
+            "weight": 8,
+            "dimensions": {
+              "width": 7.48,
+              "height": 23.98,
+              "depth": 12.84
+            },
+            "warrantyInformation": "Lifetime warranty",
+            "shippingInformation": "Ships in 1 week",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Bella Grant",
+                "reviewerEmail": "bella.grant@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Waste of money!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Layla Young",
+                "reviewerEmail": "layla.young@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Wyatt Perry",
+                "reviewerEmail": "wyatt.perry@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "7 days return policy",
+            "minimumOrderQuantity": 5,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.621Z",
+              "updatedAt": "2024-05-23T08:56:21.621Z",
+              "barcode": "9830484636197",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Aluminium%20Cup/1.png",
+              "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Aluminium%20Cup/2.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Aluminium%20Cup/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 4
+        },
+        {
+          "item": {
+            "id": 50,
+            "title": "Black Whisk",
+            "description": "The Black Whisk is a kitchen essential for whisking and beating ingredients. Its ergonomic handle and sleek design make it a practical and stylish tool.",
+            "category": "kitchen-accessories",
+            "price": 9.99,
+            "discountPercentage": 16.87,
+            "rating": 2.88,
+            "stock": 17,
+            "tags": [
+              "kitchen tools",
+              "utensils"
+            ],
+            "sku": "0TDFNB1Q",
+            "weight": 6,
+            "dimensions": {
+              "width": 21.06,
+              "height": 15.46,
+              "depth": 13.28
+            },
+            "warrantyInformation": "5 year warranty",
+            "shippingInformation": "Ships in 3-5 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 1,
+                "comment": "Disappointing product!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Claire Foster",
+                "reviewerEmail": "claire.foster@x.dummyjson.com"
+              },
+              {
+                "rating": 3,
+                "comment": "Would not buy again!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Sophia Jones",
+                "reviewerEmail": "sophia.jones@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.621Z",
+                "reviewerName": "Avery Scott",
+                "reviewerEmail": "avery.scott@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 30,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.621Z",
+              "updatedAt": "2024-05-23T08:56:21.621Z",
+              "barcode": "6349276911476",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Whisk/1.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Whisk/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 5
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Test",
+        "email": "test@record.com",
+        "phone": "6548877660",
+        "country": {
+          "name": "India",
+          "isoCode": "IN",
+          "flag": "🇮🇳",
+          "phonecode": "91",
+          "currency": "INR",
+          "latitude": "20.00000000",
+          "longitude": "77.00000000",
+          "timezones": [
+            {
+              "zoneName": "Asia/Kolkata",
+              "gmtOffset": 19800,
+              "gmtOffsetName": "UTC+05:30",
+              "abbreviation": "IST",
+              "tzName": "Indian Standard Time"
+            }
+          ]
+        },
+        "state": {
+          "name": "Uttar Pradesh",
+          "isoCode": "UP",
+          "countryCode": "IN",
+          "latitude": "26.84670880",
+          "longitude": "80.94615920"
+        },
+        "city": "Afzalgarh",
+        "pinCode": "896745",
+        "address": "\tP.O. Sakauti Tanda, Distt. Meerut, Uttar Pradesh, Shri Nangli Darbar"
+      },
+      "selectedDeliveryMethod": "Fast Delivery",
+      "selectedPaymentMethod": "Payment on delivery",
+      "orderDate": "2024-07-05T17:14:42.641Z",
+      "status": "confirmed",
+      "pricing": {
+        "savings": 3.05,
+        "tax_amount": 0.48,
+        "store_pickup_price": 10,
+        "final_amount": 34.45,
+        "totalAmountBeforeDiscount": 27.02
+      },
+      "id": 9
     }
   ]
 }

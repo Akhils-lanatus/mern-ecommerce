@@ -60,6 +60,7 @@ const AllOrders = () => {
       if (item.status !== selectedStatus) {
         const updatedOrder = { ...item, status: selectedStatus };
         dispatch(updateOrderStatusAsync(updatedOrder));
+        showToast("SUCCESS", "Status Updated");
       } else {
         showToast("ERROR", "Same Option Selected");
       }

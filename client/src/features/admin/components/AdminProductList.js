@@ -10,6 +10,7 @@ import {
 } from "../../product-list/ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
+import { showToast } from "../../../utils/showToast";
 export function ProductList() {
   const products = useSelector(selectAllProducts);
   const productLoading = useSelector(productLoader);
@@ -18,10 +19,6 @@ export function ProductList() {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
-
-  useEffect(() => {
-    dispatch(fetchAllFilteredProductsAsync());
-  }, [dispatch]);
 
   const handleFetchSingleProduct = (id) => {
     dispatch(fetchSingleProductAsync(id))
@@ -113,6 +110,7 @@ export function ProductList() {
                           )
                         ) {
                           dispatch(removeProductAsync(product.id));
+                          showToast("SUCCESS", "Product Removed");
                         }
                       }}
                     >

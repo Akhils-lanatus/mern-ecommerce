@@ -5,6 +5,7 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import { addUserAddressAsync, getLoggedInUserInfo } from "../../user/userSlice";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../Navbar/Navbar";
+import { showToast } from "../../../utils/showToast";
 
 const AddAddress = () => {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ const AddAddress = () => {
                           user: loggedInUser.data,
                         })
                       );
+                      showToast("SUCCESS", "Address added successfully");
                       resetForm();
                       navigate("/profile");
                     }}

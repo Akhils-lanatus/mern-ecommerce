@@ -10,6 +10,7 @@ import * as Yup from "yup";
 import axios from "axios";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
+import { showToast } from "../../../utils/showToast";
 const AddNewProduct = () => {
   const brands = useSelector(getAllBrands);
   const categories = useSelector(getAllCategories);
@@ -140,6 +141,7 @@ const AddNewProduct = () => {
                   };
 
                   dispatch(createNewProductAsync(productData));
+                  showToast("SUCCESS", "Product Added");
                   actions.resetForm();
                   if (thumbnailRef.current) thumbnailRef.current.value = "";
                   navigate("/admin/home");

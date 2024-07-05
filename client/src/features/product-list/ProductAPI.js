@@ -1,12 +1,3 @@
-export async function fetchAllProducts() {
-  try {
-    const res = await fetch("http://localhost:8000/products");
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    console.log(`Error :: ${error}`);
-  }
-}
 export async function fetchAllCategories() {
   try {
     const res = await fetch("http://localhost:8000/categories");

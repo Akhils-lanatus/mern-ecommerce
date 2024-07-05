@@ -21,7 +21,7 @@ import {
 } from "../auth/AuthSlice";
 import { getLoggedInUserCartItems } from "../cart/cartSlice";
 import { logoutUserAsync as logoutUserAsyncFromUser } from "../user/userSlice";
-
+import { showToast } from "../../utils/showToast";
 const navigation = [
   { name: "Home", to: "/", current: true },
   { name: "Login", to: "/auth/login", current: false },
@@ -49,6 +49,7 @@ const Navbar = ({ children }) => {
   const handleLogout = () => {
     dispatch(logoutUserAsyncFromAuth());
     dispatch(logoutUserAsyncFromUser());
+    showToast("SUCCESS", "Successfully Logged Out");
     navigate("/auth/login");
   };
   const user = {

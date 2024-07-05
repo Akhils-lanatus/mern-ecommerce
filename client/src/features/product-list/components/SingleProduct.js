@@ -15,6 +15,7 @@ import {
   removeFromCartAsync,
 } from "../../cart/cartSlice";
 import { getLoggedInUser } from "../../auth/AuthSlice";
+import { showToast } from "../../../utils/showToast";
 const product = {
   colors: [
     { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -106,6 +107,7 @@ const SingleProduct = () => {
         user: loggedInUser.data.id,
       })
     );
+    showToast("SUCCESS", "Item added to cart");
   };
   const handleRemoveFromCart = (product) => {
     const cartItem = cartItems.find(
