@@ -6,7 +6,6 @@ import {
   checkIsLoading,
   removeUserAddressAsync,
 } from "../userSlice";
-import Navbar from "../../../features/Navbar/Navbar";
 import { Link, useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 const UserProfile = () => {
@@ -36,7 +35,7 @@ const UserProfile = () => {
   };
 
   return (
-    <Navbar>
+    <>
       {isLoading && <LoadingPage loadingMessage="Fetching Details..." />}
       <section className="py-8 antialiased md:py-8">
         <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -139,7 +138,7 @@ const UserProfile = () => {
           </div>
         </div>
       </section>
-    </Navbar>
+    </>
   );
 };
 

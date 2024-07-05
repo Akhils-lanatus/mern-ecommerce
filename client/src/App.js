@@ -14,22 +14,22 @@ import UnProtected from "./utils/checkIsLoggedIn";
 import { useDispatch, useSelector } from "react-redux";
 import { getLoggedInUser } from "./features/auth/AuthSlice";
 import { getCartItemsAsync } from "./features/cart/cartSlice";
-import UserProfile from "./features/user/components/UserProfile";
-import UserOrders from "./features/user/components/UserOrders";
-import AddAddress from "./features/user/components/AddAddress";
-import UpdateAddress from "./features/user/components/UpdateAddress";
 import { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import AdminProtected from "./features/auth/components/ProtectedAdmin";
 import AdminHome from "./pages/AdminHome";
 import AdminSelectedProductPage from "./pages/AdminSelectedProductPage";
-import AddNewProduct from "./features/admin/components/AddNewProduct";
 import {
   fetchAllBrandsAsync,
   fetchAllCategoriesAsync,
 } from "./features/product-list/ProductSlice";
-import EditProduct from "./features/admin/components/EditProduct";
 import AdminAllOrdersPage from "./pages/AdminAllOrdersPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import UserOrdersPage from "./pages/UserOrdersPage";
+import UserAddAddressPage from "./pages/UserAddAddressPage";
+import UserUpdateAddressPage from "./pages/UserUpdateAddressPage";
+import AdminAddProductPage from "./pages/AdminAddProductPage";
+import AdminEditProductPage from "./pages/AdminEditProductPage";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -63,16 +63,19 @@ const App = () => {
           <Route path="" element={<Protected />}>
             <Route path="/cart" element={<CartPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/profile" element={<UserProfile />} />
-            <Route path="/my-orders" element={<UserOrders />} />
-            <Route path="/add-address" element={<AddAddress />} />
-            <Route path="/update-address/:id" element={<UpdateAddress />} />
+            <Route path="/profile" element={<UserProfilePage />} />
+            <Route path="/my-orders" element={<UserOrdersPage />} />
+            <Route path="/add-address" element={<UserAddAddressPage />} />
+            <Route
+              path="/update-address/:id"
+              element={<UserUpdateAddressPage />}
+            />
           </Route>
           {/* Admin Protected */}
           <Route path="/admin" element={<AdminProtected />}>
             <Route path="home" element={<AdminHome />} />
-            <Route path="add-product" element={<AddNewProduct />} />
-            <Route path="edit-product/:id" element={<EditProduct />} />
+            <Route path="add-product" element={<AdminAddProductPage />} />
+            <Route path="edit-product/:id" element={<AdminEditProductPage />} />
             <Route
               path="/admin/selected-product/:id"
               element={<AdminSelectedProductPage />}

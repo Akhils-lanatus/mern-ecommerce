@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Navbar from "../../../features/Navbar/Navbar";
 import LoadingPage from "../../../pages/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -50,7 +49,7 @@ const UserOrders = () => {
     },
   ];
   return (
-    <Navbar>
+    <>
       {isLoading && <LoadingPage loadingMessage="Fetching Your Orders..." />}
       <section className="bg-white py-4 antialiased dark:bg-gray-900 md:py-4">
         {allOrders?.length === 0 && (
@@ -286,7 +285,7 @@ const UserOrders = () => {
             );
           })}
       </section>
-    </Navbar>
+    </>
   );
 };
 

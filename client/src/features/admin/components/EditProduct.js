@@ -48,7 +48,7 @@ const EditProduct = () => {
   }, []);
   const isLoading = useSelector(checkIsLoading);
   return (
-    <Navbar>
+    <>
       {isLoading && <LoadingPage loadingMessage="Fetching..." />}
       <section className="bg-white dark:bg-gray-900">
         <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
@@ -415,7 +415,7 @@ const EditProduct = () => {
           )}
         </div>
       </section>
-    </Navbar>
+    </>
   );
 };
 
