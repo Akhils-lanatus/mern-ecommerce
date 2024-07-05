@@ -65,7 +65,7 @@ const Pagination = ({
                 ? totalItems
                 : page * itemsPerPage}
             </span>{" "}
-            of <span className="font-medium">totalItems</span> results
+            of <span className="font-medium">{totalItems}</span> results
           </p>
         </div>
         <div>

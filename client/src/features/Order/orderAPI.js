@@ -11,12 +11,17 @@ export async function createOrder(order) {
     console.log(`Error :: ${error}`);
   }
 }
-export async function fetchAllOrders(pagination) {
+export async function fetchAllOrders({ sort, pagination }) {
   try {
+    console.log(sort, pagination);
     let queryString = "";
     for (let key in pagination) {
       queryString += `${key}=${pagination[key]}&`;
     }
+    for (let x in sort) {
+      queryString += `${x}=${sort[x]}&`;
+    }
+    console.log(`http://localhost:8000/orders?` + queryString);
     const res = await fetch("http://localhost:8000/orders?" + queryString);
     const data = await res.json();
     const totalOrders = await res.headers.get("X-Total-Count");

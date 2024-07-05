@@ -15,8 +15,12 @@ import {
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { getLoggedInUser, logoutUserAsync } from "../auth/AuthSlice";
+import {
+  getLoggedInUser,
+  logoutUserAsync as logoutUserAsyncFromAuth,
+} from "../auth/AuthSlice";
 import { getLoggedInUserCartItems } from "../cart/cartSlice";
+import { logoutUserAsync as logoutUserAsyncFromUser } from "../user/userSlice";
 
 const navigation = [
   { name: "Home", to: "/", current: true },
@@ -43,7 +47,8 @@ const Navbar = ({ children }) => {
   const totalItemsInCart = cartItems?.length;
   const isUserNotLoggedIn = loggedInUser?.length === 0;
   const handleLogout = () => {
-    dispatch(logoutUserAsync());
+    dispatch(logoutUserAsyncFromAuth());
+    dispatch(logoutUserAsyncFromUser());
     navigate("/auth/login");
   };
   const user = {

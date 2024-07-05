@@ -49,7 +49,7 @@ const Signup = () => {
                   .email("Invalid email format"),
                 password: Yup.string()
                   .required("Password is required")
-                  .min(6, "Enter atleast 8 characters")
+                  .min(6, "Enter at least 8 characters")
                   .max(16, "Max 16 characters are allowed"),
                 confirmPassword: Yup.string()
                   .required("Confirm Password is required")

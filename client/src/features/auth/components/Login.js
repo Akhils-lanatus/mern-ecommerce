@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserAsync, checkIsLoading } from "../AuthSlice";
 import { showToast } from "../../../utils/showToast";
+import { fetchLoggedInUserAsync } from "../../user/userSlice";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ const Login = () => {
                   dispatch(checkUserAsync(values))
                     .unwrap()
                     .then((res) => {
+                      dispatch(fetchLoggedInUserAsync(res?.data?.id));
                       let path;
 
                       if (Boolean(state)) {
@@ -69,7 +71,10 @@ const Login = () => {
                           path = "/admin/home";
                         }
                       } else {
-                        path = res.data.role === "user" ? "/" : "/admin/home";
+                        Boolean(res.data.role)
+                          ? (path =
+                              res.data.role === "user" ? "/" : "/admin/home")
+                          : (path = "/");
                       }
                       navigate(path);
                       resetForm();

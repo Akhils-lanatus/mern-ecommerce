@@ -6278,9 +6278,9 @@
       "confirmPassword": "111111",
       "addresses": [
         {
-          "fullName": "Akhil",
+          "fullName": "Akhil P Shah",
           "email": "akhilshah1902@gmail.com",
-          "phone": "9876543210",
+          "phone": "8141281412",
           "country": {
             "name": "India",
             "isoCode": "IN",
@@ -6307,8 +6307,8 @@
             "longitude": "71.19238050"
           },
           "city": "Ahmedabad",
-          "pinCode": "380050",
-          "address": "B/12 chanchalba appt., 19th jayant park society, bhadwatnagar, maninagar, ahmedabad"
+          "pinCode": "876987",
+          "address": "India"
         }
       ],
       "id": 3
@@ -6462,12 +6462,12 @@
       "selectedDeliveryMethod": "Free Delivery",
       "selectedPaymentMethod": "Credit Card",
       "orderDate": "2024-07-01T09:34:31.720Z",
-      "status": "pending",
+      "status": "dispatched",
       "pricing": {
         "savings": 3.85,
         "tax_amount": 1,
         "store_pickup_price": 10,
-        "final_amount": "60.95",
+        "final_amount": 60.95,
         "totalAmountBeforeDiscount": 53.8
       },
       "id": 1
@@ -6758,7 +6758,7 @@
         "savings": 638.38,
         "tax_amount": 104,
         "store_pickup_price": 10,
-        "final_amount": "5313.97",
+        "final_amount": 5313.97,
         "totalAmountBeforeDiscount": 5838.349999999999
       },
       "id": 2
@@ -7051,7 +7051,7 @@
         "savings": 1305.68,
         "tax_amount": 530,
         "store_pickup_price": 10,
-        "final_amount": "27039.97",
+        "final_amount": 27039.97,
         "totalAmountBeforeDiscount": 27805.65
       },
       "id": 3
@@ -7209,7 +7209,7 @@
         "savings": 190.1,
         "tax_amount": 18,
         "store_pickup_price": 10,
-        "final_amount": "927.90",
+        "final_amount": 927.9,
         "totalAmountBeforeDiscount": 1090
       },
       "id": 4
@@ -7572,10 +7572,504 @@
         "savings": 13.36,
         "tax_amount": 2.2,
         "store_pickup_price": 10,
-        "final_amount": "122.16",
+        "final_amount": 122.16,
         "totalAmountBeforeDiscount": 123.32
       },
       "id": 5
+    },
+    {
+      "user": {
+        "name": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "password": "11111111",
+        "confirmPassword": "11111111",
+        "role": "user",
+        "addresses": [
+          {
+            "fullName": "Akhil",
+            "email": "akhil.s@lanatussystems.com",
+            "phone": "9879733657",
+            "country": {
+              "name": "India",
+              "isoCode": "IN",
+              "flag": "🇮🇳",
+              "phonecode": "91",
+              "currency": "INR",
+              "latitude": "20.00000000",
+              "longitude": "77.00000000",
+              "timezones": [
+                {
+                  "zoneName": "Asia/Kolkata",
+                  "gmtOffset": 19800,
+                  "gmtOffsetName": "UTC+05:30",
+                  "abbreviation": "IST",
+                  "tzName": "Indian Standard Time"
+                }
+              ]
+            },
+            "state": {
+              "name": "Gujarat",
+              "isoCode": "GJ",
+              "countryCode": "IN",
+              "latitude": "22.25865200",
+              "longitude": "71.19238050"
+            },
+            "city": "Ahmedabad",
+            "pinCode": "380050",
+            "address": "India"
+          }
+        ],
+        "id": 1
+      },
+      "cartItems": [
+        {
+          "item": {
+            "id": 93,
+            "title": "Brown Leather Belt Watch",
+            "description": "The Brown Leather Belt Watch is a stylish timepiece with a classic design. Featuring a genuine leather strap and a sleek dial, it adds a touch of sophistication to your look.",
+            "category": "mens-watches",
+            "price": 89.99,
+            "discountPercentage": 15.01,
+            "rating": 4.47,
+            "stock": 69,
+            "tags": [
+              "watches",
+              "leather watches"
+            ],
+            "brand": "Fashion Timepieces",
+            "sku": "WGZ21MSA",
+            "weight": 10,
+            "dimensions": {
+              "width": 18.39,
+              "height": 10.82,
+              "depth": 10.52
+            },
+            "warrantyInformation": "3 months warranty",
+            "shippingInformation": "Ships in 1 week",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 3,
+                "comment": "Very dissatisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Oscar Powers",
+                "reviewerEmail": "oscar.powers@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Eli Ward",
+                "reviewerEmail": "eli.ward@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Stella Hughes",
+                "reviewerEmail": "stella.hughes@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 10,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "9559180055872",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Brown%20Leather%20Belt%20Watch/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Brown%20Leather%20Belt%20Watch/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Brown%20Leather%20Belt%20Watch/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Brown%20Leather%20Belt%20Watch/thumbnail.png"
+          },
+          "quantity": 10,
+          "user": 1,
+          "id": 1
+        },
+        {
+          "item": {
+            "id": 94,
+            "title": "Longines Master Collection",
+            "description": "The Longines Master Collection is an elegant and refined watch known for its precision and craftsmanship. With a timeless design, it's a symbol of luxury and sophistication.",
+            "category": "mens-watches",
+            "price": 1499.99,
+            "discountPercentage": 0.64,
+            "rating": 2.64,
+            "stock": 65,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Longines",
+            "sku": "LA7B9XEV",
+            "weight": 2,
+            "dimensions": {
+              "width": 5.83,
+              "height": 12.48,
+              "depth": 7.65
+            },
+            "warrantyInformation": "1 month warranty",
+            "shippingInformation": "Ships in 3-5 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Jack Ward",
+                "reviewerEmail": "jack.ward@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Victoria McDonald",
+                "reviewerEmail": "victoria.mcdonald@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Mia Rodriguez",
+                "reviewerEmail": "mia.rodriguez@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "60 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "1865008250672",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Longines%20Master%20Collection/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 2
+        },
+        {
+          "item": {
+            "id": 95,
+            "title": "Rolex Cellini Date Black Dial",
+            "description": "The Rolex Cellini Date with Black Dial is a classic and prestigious watch. With a black dial and date complication, it exudes sophistication and is a symbol of Rolex's heritage.",
+            "category": "mens-watches",
+            "price": 8999.99,
+            "discountPercentage": 14.28,
+            "rating": 3.61,
+            "stock": 84,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "J3GPKQW0",
+            "weight": 6,
+            "dimensions": {
+              "width": 12.17,
+              "height": 27.99,
+              "depth": 10.36
+            },
+            "warrantyInformation": "5 year warranty",
+            "shippingInformation": "Ships in 1 month",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Gavin Stanley",
+                "reviewerEmail": "gavin.stanley@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Stella Hughes",
+                "reviewerEmail": "stella.hughes@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Paisley Bell",
+                "reviewerEmail": "paisley.bell@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "30 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "8917585155737",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Date%20Black%20Dial/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 3
+        },
+        {
+          "item": {
+            "id": 96,
+            "title": "Rolex Cellini Moonphase",
+            "description": "The Rolex Cellini Moonphase is a masterpiece of horology, featuring a moon phase complication and exquisite design. It reflects Rolex's commitment to precision and elegance.",
+            "category": "mens-watches",
+            "price": 12999.99,
+            "discountPercentage": 5.7,
+            "rating": 4.52,
+            "stock": 33,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "LUZDIKKR",
+            "weight": 5,
+            "dimensions": {
+              "width": 28.07,
+              "height": 13.43,
+              "depth": 10.81
+            },
+            "warrantyInformation": "3 year warranty",
+            "shippingInformation": "Ships overnight",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 4,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Sophia Jones",
+                "reviewerEmail": "sophia.jones@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Jacob Cooper",
+                "reviewerEmail": "jacob.cooper@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Elijah Cruz",
+                "reviewerEmail": "elijah.cruz@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "No return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "0330714338454",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Cellini%20Moonphase/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 4
+        },
+        {
+          "item": {
+            "id": 97,
+            "title": "Rolex Datejust",
+            "description": "The Rolex Datejust is an iconic and versatile timepiece with a date window. Known for its timeless design and reliability, it's a symbol of Rolex's watchmaking excellence.",
+            "category": "mens-watches",
+            "price": 10999.99,
+            "discountPercentage": 9.69,
+            "rating": 4.94,
+            "stock": 11,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "86V20NWJ",
+            "weight": 5,
+            "dimensions": {
+              "width": 9.68,
+              "height": 7.29,
+              "depth": 5.67
+            },
+            "warrantyInformation": "6 months warranty",
+            "shippingInformation": "Ships in 3-5 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Max Russell",
+                "reviewerEmail": "max.russell@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Jonathan Pierce",
+                "reviewerEmail": "jonathan.pierce@x.dummyjson.com"
+              },
+              {
+                "rating": 4,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Asher Scott",
+                "reviewerEmail": "asher.scott@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "4957618378388",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Datejust/thumbnail.png"
+          },
+          "quantity": 1,
+          "user": 1,
+          "id": 5
+        },
+        {
+          "item": {
+            "id": 98,
+            "title": "Rolex Submariner Watch",
+            "description": "The Rolex Submariner is a legendary dive watch with a rich history. Known for its durability and water resistance, it's a symbol of adventure and exploration.",
+            "category": "mens-watches",
+            "price": 13999.99,
+            "discountPercentage": 0.82,
+            "rating": 2.97,
+            "stock": 35,
+            "tags": [
+              "watches",
+              "luxury watches"
+            ],
+            "brand": "Rolex",
+            "sku": "XFGRO0O5",
+            "weight": 5,
+            "dimensions": {
+              "width": 5.22,
+              "height": 27.59,
+              "depth": 16.93
+            },
+            "warrantyInformation": "No warranty",
+            "shippingInformation": "Ships in 1-2 business days",
+            "availabilityStatus": "In Stock",
+            "reviews": [
+              {
+                "rating": 2,
+                "comment": "Very dissatisfied!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Emily Brown",
+                "reviewerEmail": "emily.brown@x.dummyjson.com"
+              },
+              {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Nova Cooper",
+                "reviewerEmail": "nova.cooper@x.dummyjson.com"
+              },
+              {
+                "rating": 2,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.624Z",
+                "reviewerName": "Julian James",
+                "reviewerEmail": "julian.james@x.dummyjson.com"
+              }
+            ],
+            "returnPolicy": "90 days return policy",
+            "minimumOrderQuantity": 1,
+            "meta": {
+              "createdAt": "2024-05-23T08:56:21.624Z",
+              "updatedAt": "2024-05-23T08:56:21.624Z",
+              "barcode": "6567997358364",
+              "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+            },
+            "images": [
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/1.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/2.png",
+              "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/3.png"
+            ],
+            "thumbnail": "https://cdn.dummyjson.com/products/images/mens-watches/Rolex%20Submariner%20Watch/thumbnail.png"
+          },
+          "quantity": 10,
+          "user": 1,
+          "id": 6
+        }
+      ],
+      "selectedAddress": {
+        "fullName": "Akhil",
+        "email": "akhil.s@lanatussystems.com",
+        "phone": "9879733657",
+        "country": {
+          "name": "India",
+          "isoCode": "IN",
+          "flag": "🇮🇳",
+          "phonecode": "91",
+          "currency": "INR",
+          "latitude": "20.00000000",
+          "longitude": "77.00000000",
+          "timezones": [
+            {
+              "zoneName": "Asia/Kolkata",
+              "gmtOffset": 19800,
+              "gmtOffsetName": "UTC+05:30",
+              "abbreviation": "IST",
+              "tzName": "Indian Standard Time"
+            }
+          ]
+        },
+        "state": {
+          "name": "Gujarat",
+          "isoCode": "GJ",
+          "countryCode": "IN",
+          "latitude": "22.25865200",
+          "longitude": "71.19238050"
+        },
+        "city": "Ahmedabad",
+        "pinCode": "380050",
+        "address": "India"
+      },
+      "selectedDeliveryMethod": "Free Delivery",
+      "selectedPaymentMethod": "Credit Card",
+      "orderDate": "2024-07-05T05:38:08.033Z",
+      "status": "confirmed",
+      "pricing": {
+        "savings": 4791.42,
+        "tax_amount": 3508,
+        "store_pickup_price": 10,
+        "final_amount": 178917.76,
+        "totalAmountBeforeDiscount": 180191.18
+      },
+      "id": 6
     }
   ]
 }

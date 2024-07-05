@@ -94,11 +94,11 @@ const CheckoutPage = () => {
         orderDate: new Date(),
         status: "confirmed",
         pricing: {
-          savings,
-          tax_amount,
-          store_pickup_price,
-          final_amount,
-          totalAmountBeforeDiscount,
+          savings: +savings,
+          tax_amount: +tax_amount,
+          store_pickup_price: +store_pickup_price,
+          final_amount: +final_amount,
+          totalAmountBeforeDiscount: +totalAmountBeforeDiscount,
         },
       };
       dispatch(createOrderAsync(order));

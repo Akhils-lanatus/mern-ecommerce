@@ -5,6 +5,7 @@ import {
   fetchLoggedInUser,
   removeUserAddress,
   updateUserAddress,
+  logoutUser,
 } from "./userAPI";
 
 const initialState = {
@@ -30,26 +31,30 @@ export const fetchLoggedInUserAsync = createAsyncThunk(
 );
 
 export const addUserAddressAsync = createAsyncThunk(
-  "auth/addUserAddress",
+  "user/addUserAddress",
   async (data) => {
     const response = await addUserAddress(data);
     return response;
   }
 );
 export const removeUserAddressAsync = createAsyncThunk(
-  "auth/removeUserAddress",
+  "user/removeUserAddress",
   async (data) => {
     const response = await removeUserAddress(data);
     return response;
   }
 );
 export const updateUserAddressAsync = createAsyncThunk(
-  "auth/updateUserAddress",
+  "user/updateUserAddress",
   async (data) => {
     const response = await updateUserAddress(data);
     return response;
   }
 );
+export const logoutUserAsync = createAsyncThunk("user/logoutUser", async () => {
+  const response = await logoutUser();
+  return response;
+});
 
 export const userSlice = createSlice({
   name: "user",
@@ -95,6 +100,14 @@ export const userSlice = createSlice({
     });
     builder.addCase(updateUserAddressAsync.rejected, (state, action) => {
       state.error = action.error.message;
+    });
+    builder.addCase(logoutUserAsync.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(logoutUserAsync.fulfilled, (state) => {
+      state.error = null;
+      state.userInfo = [];
+      state.isLoading = false;
     });
   },
 });

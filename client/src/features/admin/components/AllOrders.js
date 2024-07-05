@@ -15,6 +15,7 @@ const AllOrders = () => {
   const [selectedOrderId, setSelectedOrderId] = useState(-1);
   const [selectedStatus, setSelectedStatus] = useState("DEFAULT");
   const dispatch = useDispatch();
+  const [sort, setSort] = useState({ _sort: "", _order: "asc" });
   const orders = useSelector(getAllOrders);
   const totalOrders = useSelector(getTotalOrders);
   const handlePagination = (page) => {
@@ -22,8 +23,8 @@ const AllOrders = () => {
   };
   useEffect(() => {
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE_ALL_ORDERS };
-    dispatch(fetchAllOrdersAsync(pagination));
-  }, [dispatch, page]);
+    dispatch(fetchAllOrdersAsync({ sort, pagination }));
+  }, [dispatch, page, sort]);
   const status = [
     {
       pending: {
@@ -82,8 +83,47 @@ const AllOrders = () => {
                         className="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
                       >
                         <div className="flex items-center gap-x-3">
-                          <button className="flex items-center gap-x-2">
+                          <button
+                            className="flex items-center gap-x-2"
+                            onClick={() =>
+                              setSort({
+                                _sort: "id",
+                                _order: sort._order === "asc" ? "desc" : "asc",
+                              })
+                            }
+                          >
                             <span>Order ID</span>
+                            {sort._order === "asc" ? (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                className="size-4"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
+                                />
+                              </svg>
+                            ) : (
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="size-4"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
+                                />
+                              </svg>
+                            )}
                           </button>
                         </div>
                       </th>
@@ -105,6 +145,53 @@ const AllOrders = () => {
                       >
                         Items
                       </th>
+                      <th
+                        scope="col"
+                        className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400"
+                      >
+                        <div
+                          className="flex items-center gap-1 cursor-pointer"
+                          onClick={() => {
+                            setSort({
+                              _sort: "pricing.final_amount",
+                              _order: sort._order === "asc" ? "desc" : "asc",
+                            });
+                          }}
+                        >
+                          <span> Price</span>
+                          {sort._order === "asc" ? (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="size-4"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3"
+                              />
+                            </svg>
+                          ) : (
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth="1.5"
+                              stroke="currentColor"
+                              className="size-4"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
+                              />
+                            </svg>
+                          )}
+                        </div>
+                      </th>
 
                       <th
                         scope="col"
@@ -122,7 +209,7 @@ const AllOrders = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     {orders?.map((item) => (
-                      <tr key={item.id}>
+                      <tr>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                           <div className="inline-flex items-center gap-x-3">
                             <span>#{item.id}</span>
@@ -213,11 +300,16 @@ const AllOrders = () => {
                                 </p>
                                 <p className="text-xs font-normal text-gray-600 dark:text-gray-400">
                                   x-{cartItem.quantity} -{" $"}
-                                  {item.pricing.final_amount}
+                                  {cartItem.item.price}
                                 </p>
                               </div>
                             </div>
                           ))}
+                        </td>
+                        <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
+                          <div className="inline-flex items-center gap-x-3">
+                            <span>${item.pricing.final_amount}</span>
+                          </div>
                         </td>
 
                         <td className="px-4 py-4 text-sm ">

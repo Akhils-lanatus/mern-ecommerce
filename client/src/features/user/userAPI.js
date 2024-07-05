@@ -109,3 +109,14 @@ export async function updateUserAddress(userData) {
     throw new Error(error.message);
   }
 }
+export async function logoutUser(id) {
+  try {
+    // const response = await fetch(`http://localhost:8000/users/${id}`, {
+    //   method: "DELETE",
+    // });
+    // return response.status;
+    return true;
+  } catch (error) {
+    console.log(`Error :: ${error}`);
+  }
+}
