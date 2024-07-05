@@ -29,18 +29,19 @@ const AddNewProduct = () => {
           <Formik
             initialValues={{
               title: "",
-              brand: "",
+              brand: "DEFAULT",
               price: "",
-              category: "",
+              category: "DEFAULT",
               discountPercentage: "",
               minimumOrderQuantity: "",
-              returnPolicy: "",
-              shippingInformation: "",
+              returnPolicy: "DEFAULT",
+              shippingInformation: "DEFAULT",
               stock: "",
-              availabilityStatus: "",
+              availabilityStatus: "DEFAULT",
               thumbnail: null,
               images: null,
               description: "",
+              rating: 0,
             }}
             validationSchema={Yup.object({
               title: Yup.string().required("Product requires a name."),
@@ -48,6 +49,9 @@ const AddNewProduct = () => {
               price: Yup.number()
                 .required("Product should have a price")
                 .min(1, "Negative price?"),
+              rating: Yup.number()
+                .max(5, "Max 5 rating can be given")
+                .min(0, "Negative rating?"),
               category: Yup.string().required("Product needs a category."),
               discountPercentage: Yup.number()
                 .max(100, "Who gives more than 100% discount?")
@@ -179,7 +183,7 @@ const AddNewProduct = () => {
                       id="brand"
                       name="brand"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      defaultValue={"DEFAULT"}
+                      // defaultValue={"DEFAULT"}
                     >
                       <option value="DEFAULT" hidden>
                         Select Brand
@@ -192,6 +196,25 @@ const AddNewProduct = () => {
                     </Field>
                     <p className="text-sm text-red-600 mt-2">
                       <ErrorMessage name="brand" />
+                    </p>
+                  </div>
+                  <div className="w-full">
+                    <label
+                      htmlFor="rating"
+                      className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >
+                      Rating
+                    </label>
+                    <Field
+                      type="number"
+                      name="rating"
+                      id="rating"
+                      className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                      placeholder="$2999"
+                      required=""
+                    />
+                    <p className="text-sm text-red-600 mt-2">
+                      <ErrorMessage name="rating" />
                     </p>
                   </div>
                   <div className="w-full">
@@ -225,7 +248,7 @@ const AddNewProduct = () => {
                       id="category"
                       name="category"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      defaultValue={"DEFAULT"}
+                      // defaultValue={"DEFAULT"}
                     >
                       <option value="DEFAULT" hidden>
                         Select Category
@@ -290,7 +313,7 @@ const AddNewProduct = () => {
                       name="returnPolicy"
                       id="returnPolicy"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      defaultValue={"DEFAULT"}
+                      // defaultValue={"DEFAULT"}
                     >
                       <option value="DEFAULT" hidden>
                         Select Return Policy
@@ -325,7 +348,7 @@ const AddNewProduct = () => {
                       id="shippingInformation"
                       name="shippingInformation"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      defaultValue={"DEFAULT"}
+                      // defaultValue={"DEFAULT"}
                     >
                       <option value="DEFAULT" hidden>
                         Select Shipping Information
@@ -376,7 +399,7 @@ const AddNewProduct = () => {
                       id="availabilityStatus"
                       name="availabilityStatus"
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                      defaultValue={"DEFAULT"}
+                      // defaultValue={"DEFAULT"}
                     >
                       <option value="DEFAULT" hidden>
                         Select Availability Status
@@ -415,7 +438,7 @@ const AddNewProduct = () => {
                       <ErrorMessage name="thumbnail" />
                     </p>
                   </div>
-                  <div>
+                  <div className="sm:col-span-2">
                     <label
                       htmlFor="images"
                       className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"

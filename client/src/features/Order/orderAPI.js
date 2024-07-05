@@ -13,7 +13,6 @@ export async function createOrder(order) {
 }
 export async function fetchAllOrders({ sort, pagination }) {
   try {
-    console.log(sort, pagination);
     let queryString = "";
     for (let key in pagination) {
       queryString += `${key}=${pagination[key]}&`;

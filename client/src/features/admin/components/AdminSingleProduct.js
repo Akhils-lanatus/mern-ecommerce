@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
+import { useEffect, useId, useState } from "react";
 import { Radio, RadioGroup } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -33,6 +32,57 @@ const product = {
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+
+const Star = ({ variant }) => {
+  const id = useId();
+
+  let c1, c2;
+  if (variant === "filled") {
+    c1 = "#FBBC05";
+    c2 = "#FBBC05";
+  } else if (variant === "empty") {
+    c1 = "#C4C4C4";
+    c2 = "#C4C4C4";
+  } else if (variant === "half") {
+    c1 = "#FBBC05";
+    c2 = "#C4C4C4";
+  }
+
+  return (
+    <svg
+      width="16"
+      height="15"
+      viewBox="0 0 20 19"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <linearGradient id={id}>
+          <stop offset="50%" stopColor={c1} />
+          <stop offset="50%" stopColor={c2} />
+        </linearGradient>
+      </defs>
+      <path
+        d="M10 0.148438L12.935 6.14144L19.5 7.10844L14.75 11.7704L15.871 18.3564L10 15.2454L4.129 18.3564L5.25 11.7704L0.5 7.10844L7.064 6.14144L10 0.148438Z"
+        fill={`url(#${id})`}
+      />
+    </svg>
+  );
+};
+
+const Rating = ({ rating, max = 5 }) => {
+  return (
+    <div className="flex items-center">
+      {Array.from({ length: Math.floor(rating) }, (_, i) => (
+        <Star key={i} variant="filled" />
+      ))}
+      {!Number.isInteger(rating) && <Star variant="half" />}
+      {Array.from({ length: max - Math.ceil(rating) }, (_, i) => (
+        <Star key={i} variant="empty" />
+      ))}
+    </div>
+  );
+};
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
@@ -203,18 +253,7 @@ const SingleProduct = () => {
               <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
                 <div className="flex items-center">
-                  {[0, 1, 2, 3, 4].map((rating) => (
-                    <StarIcon
-                      key={rating}
-                      className={classNames(
-                        Math.round(selectedProduct?.rating) > rating
-                          ? "text-white"
-                          : "text-gray-600",
-                        "h-5 w-5 flex-shrink-0"
-                      )}
-                      aria-hidden="true"
-                    />
-                  ))}
+                  <Rating rating={selectedProduct?.rating} />
                 </div>
                 <p className="sr-only">
                   {selectedProduct.rating} out of 5 stars

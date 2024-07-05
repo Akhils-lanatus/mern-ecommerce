@@ -6007,6 +6007,27 @@
         "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/3.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png"
+    },
+    {
+      "title": "Test",
+      "brand": "Glamour Beauty",
+      "price": "800",
+      "category": "beauty",
+      "discountPercentage": "2",
+      "minimumOrderQuantity": "2",
+      "returnPolicy": "No return policy",
+      "shippingInformation": "Ships Overnight",
+      "stock": "499",
+      "availabilityStatus": "In Stock",
+      "description": "Tesst",
+      "rating": 4.2,
+      "thumbnail": "http://localhost:8080/uploads\\1720158907597-macbookTN.jpg",
+      "images": [
+        "http://localhost:8080/uploads\\1720158907598-macbook3.jpg",
+        "http://localhost:8080/uploads\\1720158907598-macbook2.jpg",
+        "http://localhost:8080/uploads\\1720158907598-macbook1.jpg"
+      ],
+      "id": 101
     }
   ],
   "categories": [

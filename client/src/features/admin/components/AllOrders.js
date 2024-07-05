@@ -98,7 +98,7 @@ const AllOrders = () => {
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 stroke="currentColor"
                                 className="size-4"
                               >
@@ -209,7 +209,7 @@ const AllOrders = () => {
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                     {orders?.map((item) => (
-                      <tr>
+                      <tr key={item.id}>
                         <td className="px-4 py-4 text-sm font-medium text-gray-700 dark:text-gray-200 whitespace-nowrap">
                           <div className="inline-flex items-center gap-x-3">
                             <span>#{item.id}</span>
