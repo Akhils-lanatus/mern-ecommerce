@@ -5,13 +5,20 @@ import { Form, Formik, Field, ErrorMessage } from "formik";
 import { addUserAddressAsync, getLoggedInUserInfo } from "../../user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
-
+import { useState } from "react";
+import CustomDialog from "../../../utils/customDialog";
+import { HomeIcon } from "@heroicons/react/24/outline";
 const AddAddress = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [addressFormValues, setAddressFormValues] = useState([]);
+  const [open, setOpen] = useState(false);
   const loggedInUser = useSelector(getLoggedInUserInfo);
-
+  const handleAddNewAddress = () => {
+    dispatch(addUserAddressAsync(addressFormValues));
+    showToast("SUCCESS", "Address added successfully");
+    navigate("/profile");
+  };
   return (
     <section className={`bg-white py-8 antialiased dark:bg-gray-900 md:py-8`}>
       <h1 className="text-4xl text-white mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -56,22 +63,19 @@ const AddAddress = () => {
                       .max(100, "Max 100 characters are allowed"),
                   })}
                   onSubmit={(values, { resetForm }) => {
-                    dispatch(
-                      addUserAddressAsync({
-                        address: {
-                          ...values,
-                          country: Country.getCountryByCode(values.country),
-                          state: State.getStateByCodeAndCountry(
-                            values.state,
-                            values.country
-                          ),
-                        },
-                        user: loggedInUser.data,
-                      })
-                    );
-                    showToast("SUCCESS", "Address added successfully");
+                    setAddressFormValues({
+                      address: {
+                        ...values,
+                        country: Country.getCountryByCode(values.country),
+                        state: State.getStateByCodeAndCountry(
+                          values.state,
+                          values.country
+                        ),
+                      },
+                      user: loggedInUser.data,
+                    });
+                    setOpen(true);
                     resetForm();
-                    navigate("/profile");
                   }}
                 >
                   {({ values }) => (
@@ -317,6 +321,18 @@ const AddAddress = () => {
           </div>
         </div>
       </div>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={HomeIcon}
+          buttonColor="green"
+          buttonText="Add Address"
+          dialogContent="Are you sure you want to add entered data as your address?"
+          dialogTitle="Add Address"
+          onConfirm={handleAddNewAddress}
+        />
+      )}
     </section>
   );
 };

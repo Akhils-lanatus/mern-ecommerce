@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../../../pages/Loading";
 import {
@@ -6,12 +6,14 @@ import {
   selectAllProducts,
   checkIsLoading as productLoader,
   removeProductAsync,
-  fetchAllFilteredProductsAsync,
 } from "../../product-list/ProductSlice";
-import { StarIcon } from "@heroicons/react/20/solid";
+import { StarIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
+import CustomDialog from "../../../utils/customDialog";
 export function ProductList() {
+  const [removeProductIndex, setRemoveProductIndex] = useState(null);
+  const [open, setOpen] = useState(false);
   const products = useSelector(selectAllProducts);
   const productLoading = useSelector(productLoader);
   const dispatch = useDispatch();
@@ -30,6 +32,11 @@ export function ProductList() {
           console.log("err");
         }
       });
+  };
+
+  const handleRemoveProduct = () => {
+    dispatch(removeProductAsync(removeProductIndex));
+    showToast("SUCCESS", "Product Removed");
   };
 
   return (
@@ -104,14 +111,8 @@ export function ProductList() {
                       type="button"
                       className="inline-flex w-full items-center justify-center rounded-lg bg-red-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-primary-300 "
                       onClick={() => {
-                        if (
-                          window.confirm(
-                            `Are you sure you want to remove ${product.title}`
-                          )
-                        ) {
-                          dispatch(removeProductAsync(product.id));
-                          showToast("SUCCESS", "Product Removed");
-                        }
+                        setRemoveProductIndex(product?.id);
+                        setOpen(true);
                       }}
                     >
                       Remove
@@ -122,6 +123,18 @@ export function ProductList() {
             })}
         </div>
       </div>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={TrashIcon}
+          buttonColor="red"
+          buttonText="Remove"
+          dialogContent="Are you sure you want to delete selected product?"
+          dialogTitle="Remove Product"
+          onConfirm={handleRemoveProduct}
+        />
+      )}
     </div>
   );
 }

@@ -9,6 +9,8 @@ import {
 import { ITEMS_PER_PAGE_ALL_ORDERS } from "../../../app/constants";
 import { showToast } from "../../../utils/showToast";
 import Pagination from "../../Pagination/Pagination";
+import CustomDialog from "../../../utils/customDialog";
+import { ArrowPathIcon } from "@heroicons/react/24/outline";
 
 const AllOrders = () => {
   const [page, setPage] = useState(1);
@@ -18,6 +20,8 @@ const AllOrders = () => {
   const [sort, setSort] = useState({ _sort: "", _order: "asc" });
   const orders = useSelector(getAllOrders);
   const totalOrders = useSelector(getTotalOrders);
+  const [open, setOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const handlePagination = (page) => {
     setPage(page);
   };
@@ -55,10 +59,10 @@ const AllOrders = () => {
       },
     },
   ];
-  const handleOrderStatusChange = (item) => {
+  const handleOrderStatusChange = () => {
     if (selectedStatus !== "DEFAULT") {
-      if (item.status !== selectedStatus) {
-        const updatedOrder = { ...item, status: selectedStatus };
+      if (selectedProduct?.status !== selectedStatus) {
+        const updatedOrder = { ...selectedProduct, status: selectedStatus };
         dispatch(updateOrderStatusAsync(updatedOrder));
         showToast("SUCCESS", "Status Updated");
       } else {
@@ -433,7 +437,12 @@ const AllOrders = () => {
                         </td>
                         <td className="px-4 py-4 text-sm whitespace-nowrap">
                           {selectedOrderId === item.id ? (
-                            <div onClick={() => handleOrderStatusChange(item)}>
+                            <div
+                              onClick={() => {
+                                setSelectedProduct(item);
+                                setOpen(true);
+                              }}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -484,6 +493,18 @@ const AllOrders = () => {
           </div>
         </div>
       </section>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={ArrowPathIcon}
+          buttonColor="green"
+          buttonText="Update"
+          dialogContent={`Confirm want to change status for selected product?`}
+          dialogTitle="Update Status"
+          onConfirm={handleOrderStatusChange}
+        />
+      )}
     </>
   );
 };

@@ -8,7 +8,11 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowRightEndOnRectangleIcon,
+  Bars3Icon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import {
@@ -17,6 +21,8 @@ import {
 } from "../auth/AuthSlice";
 import { logoutUserAsync as logoutUserAsyncFromUser } from "../user/userSlice";
 import { showToast } from "../../utils/showToast";
+import { useState } from "react";
+import CustomDialog from "../../utils/customDialog";
 
 const navigation = [
   { name: "Home", to: "/admin/home", current: true },
@@ -27,7 +33,7 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile", linkTo: "/admin/profile" },
   { name: "Settings", linkTo: "/admin/home" },
-  { name: "Sign out", linkTo: "/auth/login" },
+  { name: "Sign out" },
 ];
 
 function classNames(...classes) {
@@ -38,10 +44,11 @@ const Navbar = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(getLoggedInUser);
+  const [open, setOpen] = useState(false);
   const handleLogout = () => {
     dispatch(logoutUserAsyncFromAuth());
     dispatch(logoutUserAsyncFromUser());
-    showToast("SUCCESS", "Logged Out Successfully");
+    showToast("SUCCESS", "Successfully Logged Out");
     navigate("/auth/login");
   };
   const user = {
@@ -116,7 +123,7 @@ const Navbar = ({ children }) => {
                               <MenuItem key={item.name}>
                                 {({ focus }) => (
                                   <Link
-                                    to={item.linkTo}
+                                    to={item?.linkTo}
                                     className={classNames(
                                       focus ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700"
@@ -124,7 +131,7 @@ const Navbar = ({ children }) => {
                                     onClick={() => {
                                       item.name === "Sign out" &&
                                         loggedInUser?.length !== 0 &&
-                                        handleLogout();
+                                        setOpen(true);
                                     }}
                                   >
                                     {item.name}
@@ -199,14 +206,14 @@ const Navbar = ({ children }) => {
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
                       <Link
-                        to={item.linkTo}
+                        to={item?.linkTo}
                         key={item.name}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                         onClick={() => {
                           item.name === "Sign out" &&
                             loggedInUser?.length !== 0 &&
                             loggedInUser?.length !== 0 &&
-                            handleLogout();
+                            setOpen(true);
                         }}
                       >
                         {item.name}
@@ -225,6 +232,18 @@ const Navbar = ({ children }) => {
           </div>
         </main>
       </div>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={ArrowRightEndOnRectangleIcon}
+          buttonColor="red"
+          buttonText="Logout"
+          dialogContent="Confirm Logout?"
+          dialogTitle="Logout"
+          onConfirm={handleLogout}
+        />
+      )}
     </>
   );
 };

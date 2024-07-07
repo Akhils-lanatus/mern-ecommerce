@@ -1,10 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../../Navbar/AdminNavbar";
 import { useDispatch, useSelector } from "react-redux";
 import {
   checkIsLoading,
   clearSingleProduct,
-  createNewProductAsync,
   fetchSingleProductAsync,
   getAllBrands,
   getAllCategories,
@@ -12,14 +11,18 @@ import {
   removeProductAsync,
   updateProductAsync,
 } from "../../product-list/ProductSlice";
+import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+
 import { showToast } from "../../../utils/showToast";
 import * as Yup from "yup";
 import LoadingPage from "../../../pages/Loading";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
+import CustomDialog from "../../../utils/customDialog";
 const EditProduct = () => {
   const brands = useSelector(getAllBrands);
   const categories = useSelector(getAllCategories);
+  const [formValues, setFormValues] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -47,6 +50,18 @@ const EditProduct = () => {
     };
   }, []);
   const isLoading = useSelector(checkIsLoading);
+  const [dispatchAction, setDispatchAction] = useState("");
+  const [open, setOpen] = useState(false);
+  const handleUpdateProduct = () => {
+    dispatch(updateProductAsync(formValues));
+    showToast("SUCCESS", "Product Updated");
+    navigate("/admin/home");
+  };
+  const handleRemoveProduct = () => {
+    dispatch(removeProductAsync(product?.id));
+    showToast("SUCCESS", "Product Removed");
+    navigate("/admin/home");
+  };
   return (
     <>
       {isLoading && <LoadingPage loadingMessage="Fetching..." />}
@@ -98,11 +113,10 @@ const EditProduct = () => {
                   .max(250, "250 words are enough to describe..."),
               })}
               onSubmit={(values, action) => {
-                const product = { ...values, id };
-                dispatch(updateProductAsync(product));
+                setFormValues({ ...values, id });
+                setDispatchAction("update");
+                setOpen(true);
                 action.resetForm();
-                showToast("SUCCESS", "Product Updated");
-                navigate("/admin/home");
               }}
             >
               <Form>
@@ -390,7 +404,7 @@ const EditProduct = () => {
                 <div className="flex gap-12">
                   <button
                     type="submit"
-                    className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 "
+                    className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200"
                   >
                     Update product
                   </button>
@@ -398,13 +412,8 @@ const EditProduct = () => {
                     type="button"
                     className="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-red-700 rounded-lg focus:ring-4 focus:ring-primary-200 "
                     onClick={() => {
-                      if (
-                        window.confirm(
-                          `Are you sure you want to remove ${product.title}`
-                        )
-                      ) {
-                        dispatch(removeProductAsync(product.id));
-                      }
+                      setOpen(true);
+                      setDispatchAction("remove");
                     }}
                   >
                     Remove product
@@ -415,6 +424,28 @@ const EditProduct = () => {
           )}
         </div>
       </section>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={dispatchAction === "remove" ? TrashIcon : PencilIcon}
+          buttonColor={dispatchAction === "remove" ? "red" : "green"}
+          buttonText={dispatchAction === "remove" ? "Remove" : "Update"}
+          dialogContent={
+            dispatchAction === "remove"
+              ? "Are you sure you want to remove selected product?"
+              : "Are you sure you want to edit selected product?"
+          }
+          dialogTitle={
+            dispatchAction === "remove" ? "Remove Product" : "Update Product"
+          }
+          onConfirm={
+            dispatchAction === "remove"
+              ? handleRemoveProduct
+              : handleUpdateProduct
+          }
+        />
+      )}
     </>
   );
 };

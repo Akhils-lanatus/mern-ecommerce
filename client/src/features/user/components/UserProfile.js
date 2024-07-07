@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import LoadingPage from "../../../pages/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,30 +8,31 @@ import {
 } from "../userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
+import { TrashIcon } from "@heroicons/react/24/outline";
+import CustomDialog from "../../../utils/customDialog";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(getLoggedInUserInfo);
   const isLoading = useSelector(checkIsLoading);
+  const [open, setOpen] = useState(false);
+  const [removeAddressIndex, setRemoveAddressIndex] = useState(null);
   const { name = "", email = "", addresses = [] } = user?.data || {};
 
   const handleEditAddress = (i) => {
     navigate(`/update-address/${i}`);
   };
 
-  const handleRemoveAddress = (index) => {
-    const confirm = window.confirm("Are you sure you want to delete address?");
-    if (confirm) {
-      const updatedUser = { ...user };
-      const addresses = [...user?.data?.addresses];
-      addresses?.splice(index, 1);
-      updatedUser.data = {
-        ...user.data,
-        addresses: addresses,
-      };
-      dispatch(removeUserAddressAsync(updatedUser?.data));
-      showToast("SUCCESS", "Address removed");
-    }
+  const handleRemoveAddress = () => {
+    const updatedUser = { ...user };
+    const addresses = [...user?.data?.addresses];
+    addresses?.splice(removeAddressIndex, 1);
+    updatedUser.data = {
+      ...user.data,
+      addresses: addresses,
+    };
+    dispatch(removeUserAddressAsync(updatedUser?.data));
+    showToast("SUCCESS", "Address removed");
   };
 
   return (
@@ -120,7 +121,10 @@ const UserProfile = () => {
                                 </button>
                                 <button
                                   className="text-white bg-red-600 p-2.5 rounded-lg"
-                                  onClick={() => handleRemoveAddress(i)}
+                                  onClick={() => {
+                                    setOpen(true);
+                                    setRemoveAddressIndex(i);
+                                  }}
                                 >
                                   Delete
                                 </button>
@@ -138,6 +142,18 @@ const UserProfile = () => {
           </div>
         </div>
       </section>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={TrashIcon}
+          buttonColor="red"
+          buttonText="Remove"
+          dialogContent="Are you sure you want to delete selected address?"
+          dialogTitle="Remove Address"
+          onConfirm={handleRemoveAddress}
+        />
+      )}
     </>
   );
 };

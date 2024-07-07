@@ -1,14 +1,22 @@
 export async function createUser(userData) {
   try {
-    const response = await fetch("http://localhost:8000/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userData),
-    });
-    const data = await response.json();
-    return { data };
+    const res = await fetch(
+      `http://localhost:8000/users?email=${userData?.email}`
+    );
+    const isEmailRegistered = await res.json();
+    if (!isEmailRegistered?.length) {
+      const response = await fetch("http://localhost:8000/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userData),
+      });
+      const data = await response.json();
+      return { data };
+    } else {
+      throw new Error("Email Alreay Registered");
+    }
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    throw new Error(error);
   }
 }
 

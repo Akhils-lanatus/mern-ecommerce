@@ -1,5 +1,6 @@
 import { Country, State, City } from "country-state-city";
 import { useMemo, useState } from "react";
+import CustomDialog from "../utils/customDialog";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
@@ -12,6 +13,8 @@ import {
 import { createOrderAsync } from "../features/Order/orderSlice";
 import OrderSuccess from "./OrderSuccess";
 import { showToast } from "../utils/showToast";
+import { CheckBadgeIcon } from "@heroicons/react/24/outline";
+
 const paymentMethods = [
   {
     name: "payment-method",
@@ -70,6 +73,7 @@ const CheckoutPage = () => {
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
   const [selectedDeliveryMethod, setSelectedDeliveryMethod] = useState("");
   const [open, setOpen] = useState(false);
+  const [openSuccessOrderDialog, setOpenSuccessOrderDialog] = useState(false);
 
   const {
     savings,
@@ -654,7 +658,7 @@ const CheckoutPage = () => {
                   selectedDeliveryMethod === "" ||
                   Object.values(selectedAddress).some((value) => value === "")
                 }
-                onClick={handleOrders}
+                onClick={() => setOpenSuccessOrderDialog(true)}
               >
                 Order Now
               </button>
@@ -712,6 +716,18 @@ const CheckoutPage = () => {
           </div>
         </div>
       </div>
+      {openSuccessOrderDialog && (
+        <CustomDialog
+          open={openSuccessOrderDialog}
+          setOpen={setOpenSuccessOrderDialog}
+          Icon={CheckBadgeIcon}
+          buttonColor="green"
+          buttonText="Checkout"
+          dialogContent="Are you sure you want to checkout?"
+          dialogTitle="Checkout"
+          onConfirm={handleOrders}
+        />
+      )}
     </section>
   );
 };

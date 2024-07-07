@@ -59,16 +59,19 @@ const Login = () => {
                     .then((res) => {
                       dispatch(fetchLoggedInUserAsync(res?.data?.id));
                       let path;
-
                       if (Boolean(state)) {
-                        if (res.data.role === "user") {
-                          if (state.prev.includes("admin")) {
-                            path = "/";
+                        if (Boolean(res.data.role)) {
+                          if (res.data.role === "user") {
+                            if (state.prev.includes("admin")) {
+                              path = "/";
+                            } else {
+                              path = state.prev;
+                            }
                           } else {
-                            path = state.prev;
+                            path = "/admin/home";
                           }
                         } else {
-                          path = "/admin/home";
+                          path = "/";
                         }
                       } else {
                         Boolean(res.data.role)

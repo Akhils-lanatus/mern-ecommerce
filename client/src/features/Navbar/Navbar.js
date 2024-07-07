@@ -12,6 +12,7 @@ import {
   Bars3Icon,
   ShoppingBagIcon,
   XMarkIcon,
+  ArrowRightEndOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
@@ -22,6 +23,8 @@ import {
 import { getLoggedInUserCartItems } from "../cart/cartSlice";
 import { logoutUserAsync as logoutUserAsyncFromUser } from "../user/userSlice";
 import { showToast } from "../../utils/showToast";
+import CustomDialog from "../../utils/customDialog";
+import { useState } from "react";
 const navigation = [
   { name: "Home", to: "/", current: true },
   { name: "Login", to: "/auth/login", current: false },
@@ -31,7 +34,7 @@ const navigation = [
 const userNavigation = [
   { name: "Your Profile", linkTo: "/profile" },
   { name: "Settings", linkTo: "/" },
-  { name: "Sign out", linkTo: "/auth/login" },
+  { name: "Sign out" },
   { name: "Your Orders", linkTo: "/my-orders" },
 ];
 
@@ -46,6 +49,7 @@ const Navbar = ({ children }) => {
   const cartItems = useSelector(getLoggedInUserCartItems);
   const totalItemsInCart = cartItems?.length;
   const isUserNotLoggedIn = loggedInUser?.length === 0;
+  const [open, setOpen] = useState(false);
   const handleLogout = () => {
     dispatch(logoutUserAsyncFromAuth());
     dispatch(logoutUserAsyncFromUser());
@@ -148,15 +152,15 @@ const Navbar = ({ children }) => {
                               <MenuItem key={item.name}>
                                 {({ focus }) => (
                                   <Link
-                                    to={item.linkTo}
+                                    to={item?.linkTo}
                                     className={classNames(
                                       focus ? "bg-gray-100" : "",
                                       "block px-4 py-2 text-sm text-gray-700"
                                     )}
                                     onClick={() => {
                                       item.name === "Sign out" &&
-                                        loggedInUser?.length !== 0 &&
-                                        handleLogout();
+                                        loggedInUser.hasOwnProperty("data") &&
+                                        setOpen(true);
                                     }}
                                   >
                                     {item.name}
@@ -254,14 +258,13 @@ const Navbar = ({ children }) => {
                   <div className="mt-3 space-y-1 px-2">
                     {userNavigation.map((item) => (
                       <Link
-                        to={item.linkTo}
+                        to={item?.linkTo}
                         key={item.name}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                         onClick={() => {
                           item.name === "Sign out" &&
-                            loggedInUser?.length !== 0 &&
-                            loggedInUser?.length !== 0 &&
-                            handleLogout();
+                            loggedInUser.hasOwnProperty("data") &&
+                            setOpen(true);
                         }}
                       >
                         {item.name}
@@ -280,6 +283,18 @@ const Navbar = ({ children }) => {
           </div>
         </main>
       </div>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={ArrowRightEndOnRectangleIcon}
+          buttonColor="red"
+          buttonText="Logout"
+          dialogContent="Confirm Logout?"
+          dialogTitle="Logout"
+          onConfirm={handleLogout}
+        />
+      )}
     </>
   );
 };

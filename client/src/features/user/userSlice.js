@@ -115,7 +115,13 @@ export const userSlice = createSlice({
 const getLoggedInUserAllOrders = (state) => state.user.loggedInUserAllOrders;
 const getLoggedInUserInfo = (state) => state.user.userInfo;
 const checkIsLoading = (state) => state.user.isLoading;
+const getError = (state) => state.user.error;
 
-export { getLoggedInUserAllOrders, getLoggedInUserInfo, checkIsLoading };
+export {
+  getLoggedInUserAllOrders,
+  getLoggedInUserInfo,
+  checkIsLoading,
+  getError,
+};
 
 export default userSlice.reducer;

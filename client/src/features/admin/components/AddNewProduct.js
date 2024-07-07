@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createNewProductAsync,
@@ -10,6 +10,8 @@ import axios from "axios";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
+import CustomDialog from "../../../utils/customDialog";
 const AddNewProduct = () => {
   const brands = useSelector(getAllBrands);
   const categories = useSelector(getAllCategories);
@@ -19,6 +21,37 @@ const AddNewProduct = () => {
   const imagesRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
+  const [formValues, setFormValues] = useState([]);
+  const handleAddNewProduct = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/products/add",
+        formValues,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      const images = res.data.images.map(
+        (file) => `http://localhost:8080/${file.path}`
+      );
+      const thumbnailUrl = `http://localhost:8080/${res.data.thumbnail.path}`;
+      const productData = {
+        ...res.data,
+        thumbnail: thumbnailUrl,
+        images,
+      };
+
+      dispatch(createNewProductAsync(productData));
+      showToast("SUCCESS", "Product Added");
+      if (thumbnailRef.current) thumbnailRef.current.value = "";
+      navigate("/admin/home");
+    } catch (error) {
+      console.error("Error adding product:", error);
+    }
+  };
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
@@ -116,37 +149,9 @@ const AddNewProduct = () => {
                 formData.append(key, values[key]);
               }
             }
-
-            try {
-              if (window.confirm("Confirm want to add selected product?")) {
-                const res = await axios.post(
-                  "http://localhost:8080/api/products/add",
-                  formData,
-                  {
-                    headers: {
-                      "Content-Type": "multipart/form-data",
-                    },
-                  }
-                );
-                const images = res.data.images.map(
-                  (file) => `http://localhost:8080/${file.path}`
-                );
-                const thumbnailUrl = `http://localhost:8080/${res.data.thumbnail.path}`;
-                const productData = {
-                  ...res.data,
-                  thumbnail: thumbnailUrl,
-                  images,
-                };
-
-                dispatch(createNewProductAsync(productData));
-                showToast("SUCCESS", "Product Added");
-                actions.resetForm();
-                if (thumbnailRef.current) thumbnailRef.current.value = "";
-                navigate("/admin/home");
-              }
-            } catch (error) {
-              console.error("Error adding product:", error);
-            }
+            setFormValues(formData);
+            setOpen(true);
+            actions.resetForm();
           }}
         >
           {({ setFieldValue }) => (
@@ -489,6 +494,18 @@ const AddNewProduct = () => {
           )}
         </Formik>
       </div>
+      {open && (
+        <CustomDialog
+          open={open}
+          setOpen={setOpen}
+          Icon={PlusCircleIcon}
+          buttonColor="green"
+          buttonText="Add"
+          dialogContent="Confirm want to add new product?"
+          dialogTitle="Add New Product"
+          onConfirm={handleAddNewProduct}
+        />
+      )}
     </section>
   );
 };
