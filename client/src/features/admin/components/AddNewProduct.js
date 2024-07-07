@@ -61,15 +61,15 @@ const AddNewProduct = () => {
         <Formik
           initialValues={{
             title: "",
-            brand: "DEFAULT",
+            brand: "",
             price: "",
-            category: "DEFAULT",
+            category: "",
             discountPercentage: "",
             minimumOrderQuantity: "",
-            returnPolicy: "DEFAULT",
-            shippingInformation: "DEFAULT",
+            returnPolicy: "",
+            shippingInformation: "",
             stock: "",
-            availabilityStatus: "DEFAULT",
+            availabilityStatus: "",
             thumbnail: null,
             images: null,
             description: "",
@@ -88,7 +88,9 @@ const AddNewProduct = () => {
             discountPercentage: Yup.number()
               .max(100, "Who gives more than 100% discount?")
               .min(0, "Must be >= 0"),
-            minimumOrderQuantity: Yup.number().min(0, "Must be >= 0"),
+            minimumOrderQuantity: Yup.number()
+              .required("Please Add Minimum Quantity")
+              .min(0, "Must be >= 0"),
             returnPolicy: Yup.string().required("Please add return policy"),
             shippingInformation: Yup.string().required(
               "Please add shipping info"
