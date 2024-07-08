@@ -6007,47 +6007,6 @@
         "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/3.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png"
-    },
-    {
-      "title": "Test",
-      "brand": "Glamour Beauty",
-      "price": "78",
-      "category": "beauty",
-      "discountPercentage": "4",
-      "minimumOrderQuantity": "78",
-      "returnPolicy": "No return policy",
-      "shippingInformation": "Ships Overnight",
-      "stock": "12",
-      "availabilityStatus": "In Stock",
-      "description": "testtoast",
-      "rating": "5",
-      "thumbnail": "http://localhost:8080/uploads\\1720200053586-6thMS-1_11zon.png",
-      "images": [
-        "http://localhost:8080/uploads\\1720200053617-jpeg-optimizer_6thMS-1.png",
-        "http://localhost:8080/uploads\\1720200053619-Green Gold Elegant Certificate  (1).png",
-        "http://localhost:8080/uploads\\1720200053662-Green Gold Elegant Certificate .png"
-      ],
-      "id": 102
-    },
-    {
-      "title": "Test Done",
-      "brand": "Glamour Beauty",
-      "price": "800",
-      "category": "beauty",
-      "discountPercentage": "10",
-      "minimumOrderQuantity": "1",
-      "returnPolicy": "No return policy",
-      "shippingInformation": "Ships Overnight",
-      "stock": "500",
-      "availabilityStatus": "In Stock",
-      "description": "Test",
-      "rating": "5",
-      "thumbnail": "http://localhost:8080/uploads\\1720352320669-WIN_20231227_19_48_39_Pro.jpg",
-      "images": [
-        "http://localhost:8080/uploads\\1720352320674-WIN_20231227_19_00_35_Pro.jpg",
-        "http://localhost:8080/uploads\\1720352320679-WIN_20231227_19_42_51_Pro.jpg"
-      ],
-      "id": 103
     }
   ],
   "categories": [

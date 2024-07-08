@@ -26,7 +26,7 @@ const AddNewProduct = () => {
   const handleAddNewProduct = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/products/add",
+        "http://localhost:8080/api/v1/admin/products/add",
         formValues,
         {
           headers: {
@@ -34,22 +34,15 @@ const AddNewProduct = () => {
           },
         }
       );
-      const images = res.data.images.map(
-        (file) => `http://localhost:8080/${file.path}`
-      );
-      const thumbnailUrl = `http://localhost:8080/${res.data.thumbnail.path}`;
       const productData = {
         ...res.data,
-        thumbnail: thumbnailUrl,
-        images,
       };
-
       dispatch(createNewProductAsync(productData));
       showToast("SUCCESS", "Product Added");
       if (thumbnailRef.current) thumbnailRef.current.value = "";
       navigate("/admin/home");
     } catch (error) {
-      console.error("Error adding product:", error);
+      showToast("ERROR", error.response.data.message);
     }
   };
   return (
@@ -68,6 +61,7 @@ const AddNewProduct = () => {
             minimumOrderQuantity: "",
             returnPolicy: "",
             shippingInformation: "",
+            warrantyInformation: "",
             stock: "",
             availabilityStatus: "",
             thumbnail: null,
@@ -94,6 +88,9 @@ const AddNewProduct = () => {
             returnPolicy: Yup.string().required("Please add return policy"),
             shippingInformation: Yup.string().required(
               "Please add shipping info"
+            ),
+            warrantyInformation: Yup.string().required(
+              "Please add warranty info"
             ),
             stock: Yup.number()
               .required("Product should have some stock")
@@ -153,7 +150,7 @@ const AddNewProduct = () => {
             }
             setFormValues(formData);
             setOpen(true);
-            actions.resetForm();
+            // actions.resetForm();
           }}
         >
           {({ setFieldValue }) => (
@@ -341,6 +338,38 @@ const AddNewProduct = () => {
                   </Field>
                   <p className="text-sm text-red-600 mt-2">
                     <ErrorMessage name="returnPolicy" />
+                  </p>
+                </div>
+                <div>
+                  <label
+                    htmlFor="shippingInformation"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Warranty Information
+                  </label>
+                  <Field
+                    as="select"
+                    id="warrantyInformation"
+                    name="warrantyInformation"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    // defaultValue={"DEFAULT"}
+                  >
+                    <option value="DEFAULT" hidden>
+                      Select Warrant Information
+                    </option>
+                    <option value="No warranty">No warranty</option>
+                    <option value="1 week warranty">1 week warranty</option>
+                    <option value="1 month warranty">1 month warranty</option>
+                    <option value="3 months warranty">3 months warranty</option>
+                    <option value="6 months warranty">6 months warranty</option>
+                    <option value="1 year warranty">1 year warranty</option>
+                    <option value="2 years warranty">2 years warranty</option>
+                    <option value="3 years warranty">3 years warranty</option>
+                    <option value="5 years warranty">5 years warranty</option>
+                    <option value="Lifetime warranty">Lifetime warranty</option>
+                  </Field>
+                  <p className="text-sm text-red-600 mt-2">
+                    <ErrorMessage name="warrantyInformation" />
                   </p>
                 </div>
                 <div>
