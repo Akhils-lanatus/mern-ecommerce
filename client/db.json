@@ -2,7 +2,7 @@
   "products": [
     {
       "id": 1,
-      "title": "Test",
+      "title": "Dhinka chicka",
       "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
       "category": "beauty",
       "price": 9.99,
@@ -6007,6 +6007,29 @@
         "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/3.png"
       ],
       "thumbnail": "https://cdn.dummyjson.com/products/images/mobile-accessories/Apple%20Airpods/thumbnail.png"
+    },
+    {
+      "title": "test",
+      "description": "test",
+      "brand": "Glamour Beauty",
+      "category": "beauty",
+      "price": 500,
+      "discountPercentage": 10,
+      "rating": 4,
+      "stock": 45,
+      "warrantyInformation": "No warranty",
+      "shippingInformation": "Ships Overnight",
+      "availabilityStatus": "Low Stock",
+      "returnPolicy": "No return policy",
+      "minimumOrderQuantity": 1,
+      "images": [
+        "http://localhost:8080/uploads\\1720528335054-macbook3.jpg",
+        "http://localhost:8080/uploads\\1720528335054-macbook2.jpg",
+        "http://localhost:8080/uploads\\1720528335054-macbook1.jpg"
+      ],
+      "thumbnail": "http://localhost:8080/uploads\\1720528335053-macbookTN.jpg",
+      "reviews": [],
+      "id": "668d2dcf6ae69b0438c7366c"
     }
   ],
   "categories": [

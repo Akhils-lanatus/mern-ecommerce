@@ -8,12 +8,14 @@ const UnProtected = () => {
   const user = useSelector(getLoggedInUser);
 
   const loggedInUser = useSelector(getLoggedInUserInfo);
+  const role = loggedInUser?.data?.role || "";
+  const isAdmin = role === "" ? false : role === "user" ? false : true;
   const location = useLocation();
   if (location.pathname === "/auth") {
     return <PageNotFound />;
   }
   if (user?.length !== 0 && loggedInUser?.length !== 0)
-    return <Navigate to="/" replace={true} />;
+    return <Navigate to={isAdmin ? "/admin/home" : "/"} replace={true} />;
   return <Outlet />;
 };
 

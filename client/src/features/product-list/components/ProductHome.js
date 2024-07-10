@@ -74,11 +74,6 @@ const ProductHome = () => {
       newFilter[section.id] = option.value;
     }
     setSelectedFilters(newFilter);
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
   };
   const handleSort = (option) => {
     const sort = {
@@ -86,11 +81,6 @@ const ProductHome = () => {
       _order: option.order,
     };
     setSelectedSort(sort);
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "smooth",
-    });
   };
   const handlePagination = (page) => {
     setPage(page);
@@ -110,6 +100,11 @@ const ProductHome = () => {
   ];
 
   useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
     const pagination = { _page: page, _limit: ITEMS_PER_PAGE };
     dispatch(
       fetchAllFilteredProductsAsync({

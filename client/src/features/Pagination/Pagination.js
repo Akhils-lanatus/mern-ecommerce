@@ -1,6 +1,4 @@
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/20/solid";
-import { useSelector } from "react-redux";
-import { selectAllProducts } from "../product-list/ProductSlice";
 import { useEffect } from "react";
 
 const Pagination = ({
@@ -10,11 +8,11 @@ const Pagination = ({
   totalItems = 0,
   itemsPerPage = 0,
 }) => {
-  const products = useSelector(selectAllProducts);
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const mod = Math.ceil(totalItems % itemsPerPage);
   useEffect(() => {
-    if (products.length === 0) {
-      if (page > 1) {
+    if (mod === 0) {
+      if (totalPages > 1 && page !== 1) {
         setPage(totalPages);
       } else setPage(1);
     }
@@ -26,15 +24,13 @@ const Pagination = ({
         <div
           onClick={() => setPage(page - 1)}
           className={`relative ml-3 inline-flex items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium  ${
-            page !== Math.ceil(totalPages / itemsPerPage)
+            page !== 1
               ? "text-white cursor-pointer"
               : "text-gray-500 border-gray-950"
           }`}
         >
           <span className="sr-only">Previous</span>
-          <button disabled={page === Math.ceil(totalPages / itemsPerPage)}>
-            Previous
-          </button>
+          <button disabled={page === 1}>Previous</button>
         </div>
         <div
           className={`ml-1 items-center rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-black bg-white `}
@@ -75,14 +71,14 @@ const Pagination = ({
           >
             <div
               className={`relative inline-flex items-center rounded-s-md px-2 py-2 ring-1 ring-inset  ring-gray-300 focus:z-20 focus:outline-offset-0 ${
-                page !== Math.ceil(totalPages / itemsPerPage)
+                page !== 1
                   ? "text-white hover:bg-white hover:text-black cursor-pointer"
                   : "text-gray-500"
               }`}
               onClick={() => setPage(page - 1)}
             >
               <span className="sr-only">Previous</span>
-              <button disabled={page === Math.ceil(totalPages / itemsPerPage)}>
+              <button disabled={page === 1}>
                 <ChevronLeftIcon className="h-5 w-5 " aria-hidden="true" />
               </button>
             </div>

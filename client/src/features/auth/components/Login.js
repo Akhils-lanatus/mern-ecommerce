@@ -68,7 +68,7 @@ const Login = () => {
                               path = state.prev;
                             }
                           } else {
-                            path = "/admin/home";
+                            path = state.prev;
                           }
                         } else {
                           path = "/";

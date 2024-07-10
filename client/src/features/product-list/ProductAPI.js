@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export async function fetchAllCategories() {
   try {
     const res = await fetch("http://localhost:8000/categories");
@@ -39,10 +41,9 @@ export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
       queryString += `${x}=${pagination[x]}&`;
     }
     // console.log(`http://localhost:8000/products?${queryString}`);
-    const res = await fetch(`http://localhost:8000/products?${queryString}`);
+    const res = await fetch(`/products/fetch-products?${queryString}`);
     const data = await res.json();
-    const totalItems = await res.headers.get("X-Total-Count");
-    return { data: { products: data, totalItems } };
+    return { data: { products: data.products, totalItems: data.totalCount } };
   } catch (error) {
     console.log(`Error :: ${error}`);
   }
@@ -50,9 +51,11 @@ export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
 
 export const fetchSingleProduct = async (id) => {
   try {
-    const res = await fetch(`http://localhost:8000/products/${id}`);
+    const res = await fetch(`/products/single-product/${id}`);
     const data = await res.json();
-    return data;
+    if (data.success) {
+      return data.product;
+    }
   } catch (error) {
     console.log(`Error :: ${error}`);
   }
@@ -60,15 +63,19 @@ export const fetchSingleProduct = async (id) => {
 
 export const createNewProduct = async (productData) => {
   try {
-    const response = await fetch("http://localhost:8000/products", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(productData),
+    const res = await axios.post("/products/admin/add-product", productData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
-    const data = await response.json();
-    return data;
+    if (res.data.success) {
+      return res.data;
+    } else {
+      console.log(res);
+    }
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data?.error;
+    throw new Error(JSON.stringify(errors));
   }
 };
 export const updateProduct = async (productData) => {
@@ -89,11 +96,11 @@ export const updateProduct = async (productData) => {
 };
 export const removeProduct = async (id) => {
   try {
-    const response = await fetch(`http://localhost:8000/products/${id}`, {
-      method: "DELETE",
-    });
-    if (response.ok) {
-      return id;
+    const response = await axios.delete(`/products/admin/delete-product/${id}`);
+    if (response.data.success) {
+      return response.data;
+    } else {
+      console.log(response);
     }
   } catch (error) {
     console.log(`Error :: ${error}`);

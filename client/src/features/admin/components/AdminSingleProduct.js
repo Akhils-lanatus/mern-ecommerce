@@ -3,14 +3,15 @@ import { Radio, RadioGroup } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   clearSingleProduct,
-  fetchSingleProductAsync,
   getSingleProduct,
+  checkIsLoading,
 } from "../../product-list/ProductSlice";
 import { Navigate, useParams } from "react-router-dom";
 import NoImageFound from "../../../assets/No_Image_Found.jpg";
 import ReviewsPage from "../../../pages/ReviewsPage";
 
 import { getLoggedInUser } from "../../auth/AuthSlice";
+import Loading from "../../../pages/Loading";
 const product = {
   colors: [
     { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
@@ -86,16 +87,10 @@ const Rating = ({ rating, max = 5 }) => {
 
 const SingleProduct = () => {
   const dispatch = useDispatch();
-  const { id } = useParams();
   const loggedInUser = useSelector(getLoggedInUser);
+  const isLoading = useSelector(checkIsLoading);
   const isUserNotLoggedIn = loggedInUser?.length === 0;
-
   let selectedProduct = useSelector(getSingleProduct);
-  useEffect(() => {
-    if (selectedProduct && Object.keys(selectedProduct)?.length === 0 && id) {
-      dispatch(fetchSingleProductAsync(id));
-    }
-  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "instant" });
@@ -111,7 +106,6 @@ const SingleProduct = () => {
     },
     { id: 2, name: secondBreadCrumb_Brand },
   ];
-
   const isImageLoadedCheck = Array.isArray(selectedProduct.images);
 
   const highlights = [
@@ -149,13 +143,12 @@ const SingleProduct = () => {
       dispatch(clearSingleProduct());
     };
   }, []);
-
-  if (Object.keys(selectedProduct).length === 0) {
-    return <Navigate to="/" />;
-  }
-
   return (
     <div className="bg-gray-950 rounded-lg">
+      {isLoading && <Loading loadingMessage="Loading..." />}
+      {!isLoading && Object.keys(selectedProduct).length === 0 && (
+        <Navigate to="/admin/home" />
+      )}
       <div className="pt-6">
         <nav aria-label="Breadcrumb">
           <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">

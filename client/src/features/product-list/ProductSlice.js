@@ -16,6 +16,7 @@ const initialState = {
   brands: [],
   singleProduct: {},
   isLoading: false,
+  error: null,
 };
 
 export const fetchAllCategoriesAsync = createAsyncThunk(
@@ -78,6 +79,9 @@ export const productsSlice = createSlice({
   name: "product",
   initialState,
   reducers: {
+    setTotalProductsCount: (state, action) => {
+      state.totalProducts = action.payload;
+    },
     clearSingleProduct: (state) => {
       state.singleProduct = {};
     },
@@ -102,7 +106,6 @@ export const productsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(fetchAllFilteredProductsAsync.rejected, (state, action) => {
-        console.log(action.error);
         state.isLoading = false;
       })
       .addCase(fetchSingleProductAsync.pending, (state, action) => {
@@ -113,20 +116,17 @@ export const productsSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(createNewProductAsync.fulfilled, (state, action) => {
-        state.products.push(action.payload);
+        state.products.push(action.payload?.product);
+        state.error = null;
+      })
+      .addCase(createNewProductAsync.rejected, (state, action) => {
+        state.error = JSON.parse(action.error.message);
       })
       .addCase(updateProductAsync.fulfilled, (state, action) => {
         const index = state.products.findIndex(
           (elem) => elem.id === action.payload.id
         );
         state.products.splice(index, 1, action.payload);
-      })
-      .addCase(removeProductAsync.fulfilled, (state, action) => {
-        const index = state.products.findIndex(
-          (elem) => elem.id === action.payload
-        );
-        state.products.splice(index, 1);
-        state.totalProducts = state.totalProducts - 1;
       });
   },
 });
@@ -147,6 +147,7 @@ export {
   checkIsLoading,
 };
 
-export const { clearSingleProduct } = productsSlice.actions;
+export const { clearSingleProduct, setTotalProductsCount } =
+  productsSlice.actions;
 
 export default productsSlice.reducer;

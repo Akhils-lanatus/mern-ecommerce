@@ -34,10 +34,10 @@ const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
   useEffect(() => {
+    dispatch(fetchAllBrandsAsync());
+    dispatch(fetchAllCategoriesAsync());
     if (user.length !== 0) {
       dispatch(getCartItemsAsync(user?.data?.id));
-      dispatch(fetchAllBrandsAsync());
-      dispatch(fetchAllCategoriesAsync());
     }
   }, [dispatch, user]);
 
@@ -77,7 +77,7 @@ const App = () => {
             <Route path="add-product" element={<AdminAddProductPage />} />
             <Route path="edit-product/:id" element={<AdminEditProductPage />} />
             <Route
-              path="/admin/selected-product/:id"
+              path="/admin/selected-product"
               element={<AdminSelectedProductPage />}
             />
             <Route path="/admin/all-orders" element={<AdminAllOrdersPage />} />

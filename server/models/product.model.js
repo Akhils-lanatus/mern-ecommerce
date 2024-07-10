@@ -117,17 +117,4 @@ const ProductSchema = new Schema({
   },
 });
 
-const virtualId = ProductSchema.virtual("id");
-virtualId.get(function () {
-  return this._id;
-});
-
-ProductSchema.set("toJSON", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, dataInMongoDb) {
-    delete dataInMongoDb._id;
-  },
-});
-
 export const ProductModel = mongoose.model("Product", ProductSchema);

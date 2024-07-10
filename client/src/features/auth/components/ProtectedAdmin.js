@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { getLoggedInUser } from "../AuthSlice";
+import PageNotFound from "../../../pages/PageNotFound";
 const AdminProtected = () => {
   const location = useLocation();
   const loggedInUser = useSelector(getLoggedInUser);
@@ -22,6 +23,9 @@ const AdminProtected = () => {
         state={{ prev: location.pathname }}
       />
     );
+  }
+  if (location.pathname === "/admin") {
+    return <PageNotFound />;
   }
   return <Outlet />;
 };
