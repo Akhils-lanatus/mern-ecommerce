@@ -80,16 +80,11 @@ export const createNewProduct = async (productData) => {
 };
 export const updateProduct = async (productData) => {
   try {
-    const response = await fetch(
-      `http://localhost:8000/products/${productData.id}`,
-      {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(productData),
-      }
+    const response = await axios.put(
+      `/products/admin/update-product`,
+      productData
     );
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     console.log(`Error :: ${error}`);
   }

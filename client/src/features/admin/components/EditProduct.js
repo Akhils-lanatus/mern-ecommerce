@@ -58,10 +58,12 @@ const EditProduct = () => {
   const isLoading = useSelector(checkIsLoading);
   const [dispatchAction, setDispatchAction] = useState("");
   const [open, setOpen] = useState(false);
-  const handleUpdateProduct = () => {
-    dispatch(updateProductAsync(formValues));
-    showToast("SUCCESS", "Product Updated");
-    navigate("/admin/home");
+  const handleUpdateProduct = async () => {
+    const res = await dispatch(updateProductAsync(formValues));
+    if (res.payload.success) {
+      showToast("SUCCESS", res.payload.message);
+      navigate("/admin/home");
+    }
   };
   const handleRemoveProduct = async () => {
     const res = await dispatch(removeProductAsync(product?._id));

@@ -13,7 +13,6 @@ import { StarIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 import CustomDialog from "../../../utils/customDialog";
-import axios from "axios";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
 export function ProductList() {
   const [removeProductIndex, setRemoveProductIndex] = useState(null);
@@ -26,8 +25,8 @@ export function ProductList() {
     return classes.filter(Boolean).join(" ");
   }
 
-  const handleFetchSingleProduct = (id) => {
-    dispatch(fetchSingleProductAsync(id));
+  const handleFetchSingleProduct = async (id) => {
+    await dispatch(fetchSingleProductAsync(id));
     navigate(`/admin/selected-product`);
   };
 

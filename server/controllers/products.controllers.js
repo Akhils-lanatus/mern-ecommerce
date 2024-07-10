@@ -3,7 +3,7 @@ import { errorHandler } from "../utils/errorHandler.js";
 import { ProductModel } from "../models/product.model.js";
 
 //ADMIN
-export const adminAddNewProduct = async (req, res, next) => {
+export const adminAddNewProductController = async (req, res, next) => {
   try {
     const errors = validationResult(req);
     const allErrors = {};
@@ -47,7 +47,7 @@ export const adminAddNewProduct = async (req, res, next) => {
   }
 };
 
-export const fetchAllProducts = async (req, res) => {
+export const fetchAllProductsController = async (req, res) => {
   let {
     category = "",
     brand = "",
@@ -101,7 +101,7 @@ export const fetchAllProducts = async (req, res) => {
   }
 };
 
-export const fetchSingleProduct = async (req, res) => {
+export const fetchSingleProductController = async (req, res) => {
   try {
     const { id } = req.params;
     const product = await ProductModel.findById(id);
@@ -121,7 +121,7 @@ export const fetchSingleProduct = async (req, res) => {
   }
 };
 
-export const removeProduct = async (req, res) => {
+export const removeProductController = async (req, res) => {
   try {
     const { id } = req.params;
     const response = await ProductModel.findByIdAndDelete(id);
@@ -136,6 +136,25 @@ export const removeProduct = async (req, res) => {
       success: true,
       message: "Product Deleted Successfully",
       remainingCount,
+    });
+  } catch (error) {
+    errorHandler(error, res);
+  }
+};
+
+export const updateProductController = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const product = await ProductModel.findByIdAndUpdate(id, req.body);
+    if (!product) {
+      return res.status(400).json({
+        success: false,
+        message: "Product Not Found",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Product Updated Successfully",
     });
   } catch (error) {
     errorHandler(error, res);

@@ -121,12 +121,6 @@ export const productsSlice = createSlice({
       })
       .addCase(createNewProductAsync.rejected, (state, action) => {
         state.error = JSON.parse(action.error.message);
-      })
-      .addCase(updateProductAsync.fulfilled, (state, action) => {
-        const index = state.products.findIndex(
-          (elem) => elem.id === action.payload.id
-        );
-        state.products.splice(index, 1, action.payload);
       });
   },
 });
