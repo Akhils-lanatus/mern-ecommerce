@@ -29,6 +29,8 @@ import UserOrdersPage from "./pages/UserOrdersPage";
 import UserAddAddressPage from "./pages/UserAddAddressPage";
 import UserUpdateAddressPage from "./pages/UserUpdateAddressPage";
 import AdminAddProductPage from "./pages/AdminAddProductPage";
+import AdminAddCategoryPage from "./pages/AdminAddCategoryPage";
+import AdminAddBrandPage from "./pages/AdminAddBrandPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
 const App = () => {
   const dispatch = useDispatch();
@@ -75,6 +77,8 @@ const App = () => {
           <Route path="/admin" element={<AdminProtected />}>
             <Route path="home" element={<AdminHome />} />
             <Route path="add-product" element={<AdminAddProductPage />} />
+            <Route path="add-category" element={<AdminAddCategoryPage />} />
+            <Route path="add-brand" element={<AdminAddBrandPage />} />
             <Route path="edit-product/:id" element={<AdminEditProductPage />} />
             <Route
               path="/admin/selected-product/:id"

@@ -6691,7 +6691,7 @@
       "selectedDeliveryMethod": "Free Delivery",
       "selectedPaymentMethod": "Credit Card",
       "orderDate": "2024-07-01T09:34:31.720Z",
-      "status": "dispatched",
+      "status": "confirmed",
       "pricing": {
         "savings": 3.85,
         "tax_amount": 1,

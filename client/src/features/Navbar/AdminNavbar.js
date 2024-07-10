@@ -28,6 +28,8 @@ const navigation = [
   { name: "Home", to: "/admin/home", current: true },
   { name: "Error", to: "/admin/homes", current: false },
   { name: "Add Product", to: "/admin/add-product", current: false },
+  { name: "Add Category", to: "/admin/add-category", current: false },
+  { name: "Add Brand", to: "/admin/add-brand", current: false },
   { name: "All Orders", to: "/admin/all-orders", current: false },
 ];
 const userNavigation = [
