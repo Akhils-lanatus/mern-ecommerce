@@ -4,14 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   checkIsLoading,
   clearSingleProduct,
+  fetchAllFilteredProductsAsync,
   fetchSingleProductAsync,
   getAllBrands,
   getAllCategories,
   getSingleProduct,
   removeProductAsync,
+  setTotalProductsCount,
   updateProductAsync,
 } from "../../product-list/ProductSlice";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
+import axios from "axios";
 
 import { showToast } from "../../../utils/showToast";
 import * as Yup from "yup";
@@ -19,6 +22,8 @@ import LoadingPage from "../../../pages/Loading";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 import CustomDialog from "../../../utils/customDialog";
+import { ITEMS_PER_PAGE } from "../../../app/constants";
+
 const EditProduct = () => {
   const brands = useSelector(getAllBrands);
   const categories = useSelector(getAllCategories);
@@ -53,15 +58,28 @@ const EditProduct = () => {
   const isLoading = useSelector(checkIsLoading);
   const [dispatchAction, setDispatchAction] = useState("");
   const [open, setOpen] = useState(false);
-  const handleUpdateProduct = () => {
-    dispatch(updateProductAsync(formValues));
-    showToast("SUCCESS", "Product Updated");
-    navigate("/admin/home");
+  const handleUpdateProduct = async () => {
+    const res = await dispatch(updateProductAsync(formValues));
+    if (res.payload.success) {
+      showToast("SUCCESS", res.payload.message);
+      navigate("/admin/home");
+    }
   };
-  const handleRemoveProduct = () => {
-    dispatch(removeProductAsync(product?.id));
-    showToast("SUCCESS", "Product Removed");
-    navigate("/admin/home");
+  const handleRemoveProduct = async () => {
+    const res = await dispatch(removeProductAsync(product?._id));
+
+    if (res.payload.success) {
+      const totalProducts = res.payload.remainingCount;
+      const _page = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+      showToast("SUCCESS", res.payload.message);
+      dispatch(setTotalProductsCount(totalProducts));
+      dispatch(
+        fetchAllFilteredProductsAsync({
+          pagination: { _page, _limit: ITEMS_PER_PAGE },
+        })
+      );
+      navigate("/admin/home");
+    }
   };
   return (
     <>

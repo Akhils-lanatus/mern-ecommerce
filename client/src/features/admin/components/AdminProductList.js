@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LoadingPage from "../../../pages/Loading";
 import {
   fetchSingleProductAsync,
   selectAllProducts,
   checkIsLoading as productLoader,
+  fetchAllFilteredProductsAsync,
+  setTotalProductsCount,
   removeProductAsync,
 } from "../../product-list/ProductSlice";
 import { StarIcon, TrashIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 import CustomDialog from "../../../utils/customDialog";
+import { ITEMS_PER_PAGE } from "../../../app/constants";
 export function ProductList() {
   const [removeProductIndex, setRemoveProductIndex] = useState(null);
   const [open, setOpen] = useState(false);
@@ -22,21 +25,25 @@ export function ProductList() {
     return classes.filter(Boolean).join(" ");
   }
 
-  const handleFetchSingleProduct = (id) => {
-    dispatch(fetchSingleProductAsync(id))
-      .unwrap()
-      .then((res) => {
-        if (Object.keys(res).length > 0) {
-          navigate(`/admin/selected-product/${id}`);
-        } else {
-          console.log("err");
-        }
-      });
+  const handleFetchSingleProduct = async (id) => {
+    await dispatch(fetchSingleProductAsync(id));
+    navigate(`/admin/selected-product`);
   };
 
-  const handleRemoveProduct = () => {
-    dispatch(removeProductAsync(removeProductIndex));
-    showToast("SUCCESS", "Product Removed");
+  const handleRemoveProduct = async () => {
+    const res = await dispatch(removeProductAsync(removeProductIndex));
+
+    if (res.payload.success) {
+      const totalProducts = res.payload.remainingCount;
+      const _page = Math.ceil(totalProducts / ITEMS_PER_PAGE);
+      showToast("SUCCESS", res.payload.message);
+      dispatch(setTotalProductsCount(totalProducts));
+      dispatch(
+        fetchAllFilteredProductsAsync({
+          pagination: { _page, _limit: ITEMS_PER_PAGE },
+        })
+      );
+    }
   };
 
   return (
@@ -51,7 +58,7 @@ export function ProductList() {
               const priceBeforeDiscount = (P / d).toFixed(2);
 
               return (
-                <div key={product.id}>
+                <div key={product._id}>
                   <div className="group relative">
                     <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
                       <img
@@ -94,7 +101,7 @@ export function ProductList() {
                     <button
                       type="button"
                       className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 "
-                      onClick={() => handleFetchSingleProduct(product.id)}
+                      onClick={() => handleFetchSingleProduct(product._id)}
                     >
                       View
                     </button>
@@ -102,7 +109,7 @@ export function ProductList() {
                       type="button"
                       className="inline-flex w-full items-center justify-center rounded-lg bg-green-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-primary-300 "
                       onClick={() =>
-                        navigate(`/admin/edit-product/${product.id}`)
+                        navigate(`/admin/edit-product/${product._id}`)
                       }
                     >
                       Edit
@@ -111,7 +118,7 @@ export function ProductList() {
                       type="button"
                       className="inline-flex w-full items-center justify-center rounded-lg bg-red-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-primary-300 "
                       onClick={() => {
-                        setRemoveProductIndex(product?.id);
+                        setRemoveProductIndex(product?._id);
                         setOpen(true);
                       }}
                     >

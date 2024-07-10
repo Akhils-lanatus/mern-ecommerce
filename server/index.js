@@ -19,7 +19,7 @@ app.use(cors());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes
-app.use("/api/v1/admin/products", productRoutes);
+app.use("/api/v1/products", productRoutes);
 
 // Start the server
 app.listen(PORT, () => {

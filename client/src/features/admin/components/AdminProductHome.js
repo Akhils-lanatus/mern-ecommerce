@@ -209,7 +209,6 @@ const ProductHome = () => {
                                           ? "radio"
                                           : "checkbox"
                                       }
-                                      defaultChecked={option.checked}
                                       className="h-4 w-4 rounded"
                                       onChange={(e) =>
                                         handleFilter(e, section, option)
@@ -358,7 +357,6 @@ const ProductHome = () => {
                                       ? "radio"
                                       : "checkbox"
                                   }
-                                  defaultChecked={option.checked}
                                   className="h-4 w-4 rounded "
                                   onChange={(e) =>
                                     handleFilter(e, section, option)

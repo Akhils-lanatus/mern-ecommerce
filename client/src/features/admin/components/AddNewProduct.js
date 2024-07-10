@@ -13,6 +13,7 @@ import { showToast } from "../../../utils/showToast";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import CustomDialog from "../../../utils/customDialog";
 const AddNewProduct = () => {
+  const dispatch = useDispatch();
   const brands = useSelector(getAllBrands);
   const categories = useSelector(getAllCategories);
   const FILE_SIZE = 1000 * 1024;
@@ -20,29 +21,27 @@ const AddNewProduct = () => {
   const thumbnailRef = useRef(null);
   const imagesRef = useRef(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState([]);
   const handleAddNewProduct = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/admin/products/add",
-        formValues,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
-      const productData = {
-        ...res.data,
-      };
-      dispatch(createNewProductAsync(productData));
-      showToast("SUCCESS", "Product Added");
-      if (thumbnailRef.current) thumbnailRef.current.value = "";
-      navigate("/admin/home");
+      const res = await dispatch(createNewProductAsync(formValues));
+      if (res?.error) {
+        const errorMessages = JSON.parse(res.error.message);
+        Object.values(errorMessages).forEach((val) => showToast("ERROR", val));
+      }
+      if (res?.payload?.success) {
+        showToast("SUCCESS", res.payload.message);
+        window.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "smooth",
+        });
+        if (thumbnailRef.current) thumbnailRef.current.value = "";
+        navigate("/admin/home");
+      }
     } catch (error) {
-      showToast("ERROR", error.response.data.message);
+      console.log(error);
     }
   };
   return (
@@ -150,7 +149,7 @@ const AddNewProduct = () => {
             }
             setFormValues(formData);
             setOpen(true);
-            // actions.resetForm();
+            actions.resetForm();
           }}
         >
           {({ setFieldValue }) => (
