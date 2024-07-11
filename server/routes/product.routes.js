@@ -10,8 +10,6 @@ import { upload } from "../middlewares/multer.middleware.js";
 import { productValidation } from "../validators/productValidation.js";
 const router = express.Router();
 
-//<<==========ADMIN==========>>
-//POST || ADD-NEW-PRODUCT
 router.post(
   "/admin/add-product",
   upload.fields([

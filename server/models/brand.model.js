@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const CategorySchema = new Schema(
+const BrandSchema = new Schema(
   {
     value: {
       type: String,
@@ -18,4 +18,4 @@ const CategorySchema = new Schema(
   { timestamps: true }
 );
 
-export const CategoryModel = mongoose.model("Category", CategorySchema);
+export const BrandModel = mongoose.model("Brand", BrandSchema);

@@ -47,7 +47,9 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<UnProtected />}>
+            <Route path="" element={<Home />} />
+          </Route>
           {/* UnProtected */}
           <Route path="/auth" element={<UnProtected />}>
             <Route path="login" element={<LoginPage />} />

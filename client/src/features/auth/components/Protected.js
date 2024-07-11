@@ -5,6 +5,8 @@ import { getLoggedInUser } from "../AuthSlice";
 const Protected = () => {
   const location = useLocation();
   const loggedInUser = useSelector(getLoggedInUser);
+  console.log(loggedInUser);
+
   if (loggedInUser.length === 0) {
     return (
       <Navigate
@@ -14,7 +16,10 @@ const Protected = () => {
       />
     );
   }
-  if (loggedInUser.length > 0 && loggedInUser.data.role !== "user") {
+  if (
+    loggedInUser?.data?.role === "admin" ||
+    (loggedInUser.length > 0 && loggedInUser.data.role !== "user")
+  ) {
     return (
       <Navigate
         to="/auth/login"

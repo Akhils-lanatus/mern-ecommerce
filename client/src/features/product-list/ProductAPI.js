@@ -34,9 +34,12 @@ export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
         }
       }
     }
-    for (let x in sort) {
-      queryString += `${x}=${sort[x]}&`;
+    if (Object.keys(sort).length) {
+      for (let x in sort) {
+        queryString += `${x}=${sort[x]}&`;
+      }
     }
+
     for (let x in pagination) {
       queryString += `${x}=${pagination[x]}&`;
     }

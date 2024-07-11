@@ -6,15 +6,14 @@ import { getLoggedInUserInfo } from "../features/user/userSlice";
 import { getLoggedInUser } from "../features/auth/AuthSlice";
 const UnProtected = () => {
   const user = useSelector(getLoggedInUser);
-
   const loggedInUser = useSelector(getLoggedInUserInfo);
-  const role = loggedInUser?.data?.role || "";
+  const role = loggedInUser?.data?.role || user?.data?.role || "";
   const isAdmin = role === "" ? false : role === "user" ? false : true;
   const location = useLocation();
   if (location.pathname === "/auth") {
     return <PageNotFound />;
   }
-  if (user?.length !== 0 && loggedInUser?.length !== 0)
+  if (user?.hasOwnProperty("data") || loggedInUser?.hasOwnProperty("data"))
     return <Navigate to={isAdmin ? "/admin/home" : "/"} replace={true} />;
   return <Outlet />;
 };

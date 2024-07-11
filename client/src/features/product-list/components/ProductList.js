@@ -5,7 +5,6 @@ import {
   fetchSingleProductAsync,
   selectAllProducts,
   checkIsLoading as productLoader,
-  fetchAllFilteredProductsAsync,
 } from "../ProductSlice";
 import { StarIcon } from "@heroicons/react/20/solid";
 import { useNavigate } from "react-router-dom";
