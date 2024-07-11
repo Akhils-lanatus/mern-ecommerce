@@ -4,6 +4,7 @@ import { SendOtpForEmailVerification } from "../utils/SendOtpForEmailVerificatio
 import { OtpModel } from "../models/otp.model.js";
 import { generateTokens } from "../utils/generateTokens.js";
 import { generateCookies } from "../utils/generateCookies.js";
+import { refreshAccessToken } from "../utils/refreshAccessToken.js";
 
 export const registerUserController = async (req, res) => {
   try {
@@ -204,6 +205,19 @@ export const loginUserController = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Login failed, please try again",
+    });
+  }
+};
+
+export const refreshTokenController = async (req, res) => {
+  try {
+    const output = await refreshAccessToken(req);
+    return res.status(400).json({ output });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message:
+        error?.message || "Error while generating token, please try again",
     });
   }
 };
