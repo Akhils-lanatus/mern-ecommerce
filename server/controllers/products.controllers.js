@@ -1,6 +1,11 @@
 import { validationResult } from "express-validator";
 import { errorHandler } from "../utils/errorHandler.js";
 import { ProductModel } from "../models/product.model.js";
+import {
+  deleteImagesFromCloudinary,
+  deleteThumbnailFromCloudinary,
+  uploadOnCloudinary,
+} from "../utils/cloudinary.js";
 
 //ADMIN
 export const adminAddNewProductController = async (req, res, next) => {
@@ -31,11 +36,31 @@ export const adminAddNewProductController = async (req, res, next) => {
     }
 
     const { body, files } = req;
-    const imagesUrls = files.images.map(
-      (file) => `http://localhost:8080/${file.path}`
-    );
-    const thumbnailUrl = `http://localhost:8080/${files?.thumbnail[0].path}`;
-    const allData = { ...body, images: imagesUrls, thumbnail: thumbnailUrl };
+    const imagesUrls = files.images.map((file) => `${file.path}`);
+    const cloudinaryImagesUrls = [];
+    const thumbnailUrl = `${files?.thumbnail[0].path}`;
+    for (const image in imagesUrls) {
+      const result = await uploadOnCloudinary(imagesUrls[image]);
+      cloudinaryImagesUrls.push(result.url);
+    }
+    if (cloudinaryImagesUrls.length !== imagesUrls.length) {
+      return res.status(400).json({
+        success: false,
+        message: "Error while adding images",
+      });
+    }
+    const thumbnailUrlPath = await uploadOnCloudinary(thumbnailUrl);
+    if (!thumbnailUrlPath) {
+      return res.status(400).json({
+        success: false,
+        message: "Error while adding thumbnail",
+      });
+    }
+    const allData = {
+      ...body,
+      images: cloudinaryImagesUrls,
+      thumbnail: thumbnailUrlPath.url,
+    };
     const product = await ProductModel.create(allData);
     return res.status(201).json({
       success: true,
@@ -56,7 +81,6 @@ export const fetchAllProductsController = async (req, res) => {
     _page = 1,
     _limit = 10,
   } = req.query;
-  console.log(brand);
 
   try {
     let matchStage = {};
@@ -129,6 +153,28 @@ export const removeProductController = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Product Not Found",
+      });
+    }
+    const thumbnailResponse = await deleteThumbnailFromCloudinary(
+      response.thumbnail
+    );
+    const imagesResponse = await deleteImagesFromCloudinary(response.images);
+    if (thumbnailResponse?.result !== "ok") {
+      return res.status(400).json({
+        success: false,
+        message: "Failed to delete thumbnail",
+      });
+    }
+    if (
+      !imagesResponse ||
+      !imagesResponse.deleted ||
+      imagesResponse.deleted === null ||
+      imagesResponse.deleted === undefined ||
+      !Object.keys(imagesResponse.deleted).length
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Failed to delete delete some or all images",
       });
     }
     const remainingCount = await ProductModel.countDocuments();
