@@ -32,6 +32,7 @@ import AdminAddProductPage from "./pages/AdminAddProductPage";
 import AdminAddCategoryPage from "./pages/AdminAddCategoryPage";
 import AdminAddBrandPage from "./pages/AdminAddBrandPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
+import VerifyEmail from "./features/auth/components/VerifyEmail";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -53,6 +54,7 @@ const App = () => {
           {/* UnProtected */}
           <Route path="/auth" element={<UnProtected />}>
             <Route path="login" element={<LoginPage />} />
+            <Route path="verify-email" element={<VerifyEmail />} />
             <Route path="register" element={<SignupPage />} />
             <Route
               path="forgot-password-auth-0"

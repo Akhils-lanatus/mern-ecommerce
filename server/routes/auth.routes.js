@@ -6,6 +6,7 @@ import {
   logoutUserController,
   refreshTokenController,
   registerUserController,
+  resendEmailVerificationLinkController,
   resetPasswordController,
   sendPasswordResetLinkController,
   userProfileController,
@@ -16,6 +17,9 @@ const router = Router();
 
 //POST - USER REGISTER
 router.post("/register", registerUserController);
+
+//POST - RESEND-LINK
+router.post("/resend-verification-link", resendEmailVerificationLinkController);
 
 //POST - USER VERIFY EMAIL
 router.post("/verify-email", verifyEmailController);

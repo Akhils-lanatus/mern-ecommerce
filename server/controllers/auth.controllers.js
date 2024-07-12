@@ -8,6 +8,7 @@ import { generateCookies } from "../utils/generateCookies.js";
 import { refreshAccessToken } from "../utils/refreshAccessToken.js";
 import { UserRefreshTokenModel } from "../models/refreshToken.model.js";
 import { transporter } from "../config/nodemailerConfig.js";
+import mongoose from "mongoose";
 
 export const registerUserController = async (req, res) => {
   try {
@@ -88,6 +89,8 @@ export const verifyEmailController = async (req, res) => {
         message: "No such email found",
       });
     }
+    res.cookie("user", email);
+
     if (existingUser.is_verified) {
       return res.status(200).json({
         success: false,
@@ -115,6 +118,7 @@ export const verifyEmailController = async (req, res) => {
           return res.status(200).json({
             success: false,
             message: "OTP Expired, Try Sending New One",
+            expired: true,
           });
         }
         if (existingUserInOtpDB.otp !== otp) {
@@ -140,6 +144,84 @@ export const verifyEmailController = async (req, res) => {
       message: "Email verification failed, please try again",
     });
   }
+};
+
+export const resendEmailVerificationLinkController = async (req, res) => {
+  /*
+  >check is verified
+  >check if exist 
+    >if exist and generated in last 30 seconds then cant send new otp
+    >if exist and not generated in last 30 seconds then cant send new otp
+  */
+  try {
+    let email = req.cookies.user;
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Error while resending otp, please try again",
+      });
+    }
+    const data = await UserModel.aggregate([
+      {
+        $match: {
+          email: email,
+        },
+      },
+      {
+        $lookup: {
+          from: "otps",
+          localField: "_id",
+          foreignField: "userId",
+          as: "jd",
+        },
+      },
+      {
+        $addFields: {
+          joinedData: { $arrayElemAt: ["$jd", 0] },
+        },
+      },
+      {
+        $project: {
+          is_verified: "$is_verified",
+          jd: "$joinedData",
+          _id: "$_id",
+          email: "$email",
+        },
+      },
+    ]);
+    // const isVerified = data[0].is_verified;
+    // const otpData = data[0].jd || null;
+    // const userData = { _id, email: data[0]?.email };
+    // if (isVerified) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Account already verified - Please Login",
+    //   });
+    // }
+    // if (!Boolean(otpData)) {
+    //   await SendOtpForEmailVerification(userData);
+    //   return res.status(200).json({
+    //     success: true,
+    //     message: "OTP Sent to your email",
+    //   });
+    // }
+    // const currentTime = Date.now();
+    // const thirtySecondsAfterOtpCreation =
+    //   otpData.createdAt.getTime() + 30 * 1000;
+    // if (currentTime < thirtySecondsAfterOtpCreation) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Please wait for 30 second before requesting new OTP",
+    //   });
+    // }
+
+    // await SendOtpForEmailVerification(userData);
+    return res.status(200).json({
+      success: true,
+      message: "OTP Sent to your email",
+      data,
+    });
+  } catch (error) {}
 };
 
 export const loginUserController = async (req, res) => {
@@ -189,7 +271,7 @@ export const loginUserController = async (req, res) => {
       accessTokenExp,
       refreshTokenExp
     );
-
+    res.clearCookie("user");
     return res.status(200).json({
       success: true,
       message: "Login Successful",
