@@ -5,10 +5,9 @@ export const generateTokens = async (req, user) => {
     const payload = { _id: user._id, role: user.role, email: user.email };
     const accessTokenExp = Math.floor(Date.now() / 1000) + 120;
     const refreshTokenExp = Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 5;
-    const refreshToken = jwt.sign(
-      { ...payload, exp: refreshTokenExp },
-      process.env.REFRESH_TOKEN
-    );
+    const refreshToken =
+      req?.cookies?.refreshToken ||
+      jwt.sign({ ...payload, exp: refreshTokenExp }, process.env.REFRESH_TOKEN);
     const accessToken = jwt.sign(
       { ...payload, exp: accessTokenExp },
       process.env.ACCESS_TOKEN
@@ -16,12 +15,12 @@ export const generateTokens = async (req, user) => {
 
     await UserRefreshTokenModel.findOneAndUpdate(
       { userId: user._id },
-      { token: req?.cookies?.refreshToken || refreshToken },
+      { token: refreshToken },
       { upsert: true }
     );
     return {
       accessToken,
-      refreshToken: req?.cookies?.refreshToken || refreshToken,
+      refreshToken: refreshToken,
       accessTokenExp,
       refreshTokenExp,
     };

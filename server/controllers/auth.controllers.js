@@ -186,6 +186,7 @@ export const loginUserController = async (req, res) => {
       accessTokenExp,
       refreshTokenExp
     );
+
     return res.status(200).json({
       success: true,
       message: "Login Successful",
@@ -211,13 +212,43 @@ export const loginUserController = async (req, res) => {
 
 export const refreshTokenController = async (req, res) => {
   try {
-    const output = await refreshAccessToken(req);
-    return res.status(400).json({ output });
+    const { accessToken, refreshToken, accessTokenExp, refreshTokenExp } =
+      await refreshAccessToken(req);
+    generateCookies(
+      res,
+      accessToken,
+      refreshToken,
+      accessTokenExp,
+      refreshTokenExp
+    );
+
+    res.status(200).json({
+      success: true,
+      message: "New tokens generated",
+      accessToken,
+      refreshToken,
+      accessTokenExp,
+    });
   } catch (error) {
     return res.status(500).json({
       success: false,
       message:
         error?.message || "Error while generating token, please try again",
+    });
+  }
+};
+
+export const userProfileController = async (req, res) => {
+  try {
+    return res.status(200).json({
+      success: true,
+      user: req.user,
+    });
+  } catch (error) {
+    console.log(`Profile fetch Time Error :: ${error}`);
+    return res.status(500).json({
+      success: false,
+      message: "Profile Fetching failed, please try again",
     });
   }
 };

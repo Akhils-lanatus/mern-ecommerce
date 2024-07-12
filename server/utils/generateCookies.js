@@ -9,8 +9,7 @@ export const generateCookies = async (
     (accessTokenExp = Math.floor(Date.now() / 1000)) * 1000;
   const refreshTokenMaxAge =
     (refreshTokenExp = Math.floor(Date.now() / 1000)) * 1000;
-  console.log({ refreshTokenMaxAge, refreshTokenExp });
-  console.log({ accessTokenMaxAge, accessTokenExp });
+
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: true,
@@ -24,6 +23,11 @@ export const generateCookies = async (
   res.cookie("is_auth", 1, {
     httpOnly: false,
     secure: false,
+    maxAge: refreshTokenMaxAge,
+  });
+  res.cookie("isVerified", true, {
+    httpOnly: true,
+    secure: true,
     maxAge: refreshTokenMaxAge,
   });
 };

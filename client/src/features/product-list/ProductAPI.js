@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import qs from "qs";
 export async function fetchAllCategories() {
   try {
     const res = await fetch("http://localhost:8000/categories");
@@ -22,13 +22,13 @@ export async function fetchAllBrands() {
 export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
   try {
     let queryString = "";
+    let brand = [];
 
     if (Object.keys(filters).length) {
       for (let x in filters) {
         if (x !== "category") {
-          let allData = filters[x];
-          const lastSelectedData = allData[allData?.length - 1];
-          queryString += `${x}=${lastSelectedData}&`;
+          let tempDataToStoreBrands = filters[x];
+          brand = tempDataToStoreBrands;
         } else {
           queryString += `${x}=${filters[x]}&`;
         }
@@ -44,8 +44,15 @@ export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
       queryString += `${x}=${pagination[x]}&`;
     }
     // console.log(`http://localhost:8000/products?${queryString}`);
-    const res = await fetch(`/products/fetch-products?${queryString}`);
-    const data = await res.json();
+    const res = await axios.get(`/products/fetch-products?${queryString}`, {
+      params: {
+        brand,
+      },
+      paramsSerializer: (params) => {
+        return qs.stringify(params);
+      },
+    });
+    const data = await res.data;
     return { data: { products: data.products, totalItems: data.totalCount } };
   } catch (error) {
     console.log(`Error :: ${error}`);

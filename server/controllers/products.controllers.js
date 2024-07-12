@@ -50,12 +50,13 @@ export const adminAddNewProductController = async (req, res, next) => {
 export const fetchAllProductsController = async (req, res) => {
   let {
     category = "",
-    brand = "",
+    brand = [],
     _sort = "_id",
     _order = "asc",
     _page = 1,
     _limit = 10,
   } = req.query;
+  console.log(brand);
 
   try {
     let matchStage = {};
@@ -66,8 +67,8 @@ export const fetchAllProductsController = async (req, res) => {
     if (category) {
       matchStage.category = category;
     }
-    if (brand) {
-      matchStage.brand = brand;
+    if (brand?.length) {
+      matchStage.brand = { $in: brand };
     }
     const result = await ProductModel.aggregate([
       {
@@ -88,7 +89,6 @@ export const fetchAllProductsController = async (req, res) => {
       ? result[0].totalCount[0].totalProducts
       : 0;
     const products = result[0].products;
-    req.headers["X-Total-Count"] = totalCount;
 
     return res.status(200).json({
       totalCount,

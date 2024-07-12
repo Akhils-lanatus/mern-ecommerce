@@ -10,6 +10,7 @@ import productRoutes from "./routes/product.routes.js";
 import authRoutes from "./routes/auth.routes.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import "./config/passport-jwt-strategy.js";
 const PORT = process.env.PORT || 8080;
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

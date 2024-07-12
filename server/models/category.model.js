@@ -14,6 +14,10 @@ const CategorySchema = new Schema(
       required: true,
       trim: true,
     },
+    checked: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );
