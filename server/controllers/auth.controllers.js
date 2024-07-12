@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import { UserModel } from "../models/user.model.js";
 import { SendOtpForEmailVerification } from "../utils/SendOtpForEmailVerification.js";
@@ -5,6 +6,8 @@ import { OtpModel } from "../models/otp.model.js";
 import { generateTokens } from "../utils/generateTokens.js";
 import { generateCookies } from "../utils/generateCookies.js";
 import { refreshAccessToken } from "../utils/refreshAccessToken.js";
+import { UserRefreshTokenModel } from "../models/refreshToken.model.js";
+import { transporter } from "../config/nodemailerConfig.js";
 
 export const registerUserController = async (req, res) => {
   try {
@@ -249,6 +252,262 @@ export const userProfileController = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Profile Fetching failed, please try again",
+    });
+  }
+};
+
+export const changePasswordController = async (req, res) => {
+  try {
+    const { old_password, new_password, confirm_password } = req.body;
+    if (!old_password || !new_password || !confirm_password) {
+      return res.status(200).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+    const token = req.cookies.refreshToken;
+    const userData = await UserRefreshTokenModel.aggregate([
+      {
+        $match: { token },
+      },
+      {
+        $lookup: {
+          from: "users",
+          foreignField: "_id",
+          localField: "userId",
+          as: "mergedData",
+        },
+      },
+      {
+        $addFields: {
+          mergedData: { $arrayElemAt: ["$mergedData", 0] },
+        },
+      },
+      {
+        $project: {
+          user_id: "$mergedData._id",
+          user_password: "$mergedData.password",
+          _id: 0,
+        },
+      },
+    ]);
+    if (!userData) {
+      return res.status(200).json({
+        success: false,
+        message: "Invalid entry ",
+      });
+    }
+    const isOldPassValid = await bcrypt.compare(
+      old_password,
+      userData[0].user_password
+    );
+    if (!isOldPassValid) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid Credentials",
+      });
+    }
+    if (new_password.trim() !== confirm_password.trim()) {
+      return res.status(200).json({
+        success: false,
+        message: "Password didn't match",
+      });
+    }
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(new_password, salt);
+    await UserModel.findByIdAndUpdate(
+      userData[0].user_id,
+      {
+        $set: { password: hashedPass },
+      },
+      { new: true }
+    );
+    return res.status(200).json({
+      success: true,
+      message: "Password changed successfully",
+    });
+  } catch (error) {
+    console.log(`Change Password Time Error :: ${error}`);
+    return res.status(500).json({
+      success: false,
+      message: "Error while changing password, please try again",
+    });
+  }
+};
+
+export const logoutUserController = async (req, res) => {
+  try {
+    res.clearCookie("accessToken");
+    res.clearCookie("refreshToken");
+    res.clearCookie("is_auth");
+    res.clearCookie("isVerified");
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out",
+    });
+  } catch (error) {
+    console.log(`Logout Time Error :: ${error}`);
+    return res.status(500).json({
+      success: false,
+      message: "Logout failed, please try again",
+    });
+  }
+};
+
+export const sendPasswordResetLinkController = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: "No such email found",
+      });
+    }
+    const secret = user._id + process.env.ACCESS_TOKEN;
+    const token = jwt.sign({ userId: user._id }, secret, {
+      expiresIn: "15m",
+    });
+    const resetPassLink = `${process.env.FRONTEND_HOST}/account/reset-password/${user._id}/${token}`;
+    const htmlContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset Email</title>
+    <style>
+        /* Reset styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .reset-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff !important;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Password Reset Request</h2>
+        <p>You have requested to reset your password. Click the button below to reset it:</p>
+        <a href="${resetPassLink}" class="reset-link">Reset Password</a>
+        <p>This Link is valid for 15 minutes. Do not share this link with anyone.</p>
+        <p>If you didn't request this, you can safely ignore this email.</p>
+    </div>
+</body>
+</html>
+`;
+    transporter.sendMail(
+      {
+        from: process.env.EMAIL_FROM,
+        to: user.email,
+        subject: "Reset Password",
+        html: htmlContent,
+      },
+      (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          if (info.response.includes("OK")) {
+            console.log(`Otp sent :: ${info}`);
+          }
+        }
+      }
+    );
+    return res.status(200).json({
+      success: true,
+      message: "Password reset link sent to your email",
+      resetPassLink,
+    });
+  } catch (error) {
+    console.log(`sendPasswordResetLinkController Time Error :: ${error}`);
+    return res.status(500).json({
+      success: false,
+      message: "Link sending failed, please try again",
+    });
+  }
+};
+
+export const resetPasswordController = async (req, res) => {
+  try {
+    const { id, token } = req.params;
+    const { password, confirm_password } = req.body;
+    if (!password || !confirm_password) {
+      return res.status(200).json({
+        success: false,
+        message: "All fields are required",
+      });
+    }
+    const user = await UserModel.findById(id);
+    if (!user) {
+      return res.status(200).json({
+        success: false,
+        message: "No such user found",
+      });
+    }
+    const secret = user._id + process.env.ACCESS_TOKEN;
+    jwt.verify(token, secret);
+
+    if (password.trim() !== confirm_password.trim()) {
+      return res.status(200).json({
+        success: false,
+        message: "Password didn't match",
+      });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPass = await bcrypt.hash(password, salt);
+
+    user.password = hashedPass;
+    user.save();
+
+    return res.status(200).json({
+      success: true,
+      message: "Password reset successful",
+    });
+  } catch (error) {
+    console.log(`resetPasswordController Time Error :: ${error}`);
+    return res.status(500).json({
+      success: false,
+      message:
+        error.name === "TokenExpiredError"
+          ? "Token Expired"
+          : error.name === "JsonWebTokenError"
+          ? "Invalid link"
+          : "Unable to reset password, please try again",
     });
   }
 };

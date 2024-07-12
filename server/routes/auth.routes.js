@@ -1,9 +1,13 @@
 import { Router } from "express";
 import passport from "passport";
 import {
+  changePasswordController,
   loginUserController,
+  logoutUserController,
   refreshTokenController,
   registerUserController,
+  resetPasswordController,
+  sendPasswordResetLinkController,
   userProfileController,
   verifyEmailController,
 } from "../controllers/auth.controllers.js";
@@ -22,12 +26,35 @@ router.post("/login", loginUserController);
 //GET - USER REFRESH TOKEN
 router.get("/refresh-token", refreshTokenController);
 
+//POST - USER FORGOT PASSWORD LINK SEND
+router.post("/forgot-password-link", sendPasswordResetLinkController);
+
+//POST - USER FORGOT PASSWORD
+router.post("/forgot-password/:id/:token", resetPasswordController);
+
 // ======================PROTECTED ROUTES
+
 //GET - USER-PROFILE
 router.get(
   "/profile",
   setAuthHeadersAndAutoRefreshAccessToken,
   passport.authenticate("jwt", { session: false }),
   userProfileController
+);
+
+//POST - USER CHANGE PASS
+router.post(
+  "/change-password",
+  setAuthHeadersAndAutoRefreshAccessToken,
+  passport.authenticate("jwt", { session: false }),
+  changePasswordController
+);
+
+//GET - USER LOGOUT
+router.get(
+  "/logout",
+  setAuthHeadersAndAutoRefreshAccessToken,
+  passport.authenticate("jwt", { session: false }),
+  logoutUserController
 );
 export default router;

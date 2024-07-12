@@ -1,6 +1,6 @@
-import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 dotenv.config();
+import { transporter } from "../config/nodemailerConfig.js";
 import { OtpModel } from "../models/otp.model.js";
 const SendOtpForEmailVerification = async (user) => {
   const GeneratedOtp = Math.floor(1000 + Math.random() * 9000);
@@ -75,19 +75,6 @@ const SendOtpForEmailVerification = async (user) => {
 </body>
 </html>
     `;
-
-  const transporter = nodemailer.createTransport({
-    service: process.env.EMAIL_HOST,
-    secure: true,
-    port: process.env.EMAIL_PORT,
-    tls: {
-      rejectUnauthorized: true,
-    },
-    auth: {
-      user: process.env.EMAIL_USER,
-      pass: process.env.EMAIL_PASS,
-    },
-  });
 
   transporter.sendMail(
     {

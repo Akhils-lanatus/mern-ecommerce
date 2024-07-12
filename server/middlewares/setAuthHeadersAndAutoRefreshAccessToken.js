@@ -28,9 +28,7 @@ export const setAuthHeadersAndAutoRefreshAccessToken = async (
         req.cookies.isVerified && res.clearCookie("isVerified");
         return res.status(200).json({
           success: false,
-          message: !isVerified
-            ? "Unauthorized Request - Please Verify Your Account First"
-            : "Unauthorized Request - Please Login",
+          message: "Unauthorized Request - Please Login",
           token: false,
         });
       }
