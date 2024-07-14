@@ -279,7 +279,9 @@ export const loginUserController = async (req, res) => {
       throw new Error("No such email found");
     }
     if (!userExist.is_verified) {
-      throw new Error("Account not verified, Please verify");
+      const error = new Error("Account not verified, Please verify");
+      error.emailVerify = true;
+      throw error;
     }
     const isPasswordCorrect = await bcrypt.compare(
       password,
@@ -313,10 +315,17 @@ export const loginUserController = async (req, res) => {
       is_auth: true,
     });
   } catch (error) {
+    const customFields = {};
+    for (let key in error) {
+      if (error.hasOwnProperty(key)) {
+        customFields[key] = error[key];
+      }
+    }
     const message = errorHandler(error) || "Internal server error";
     return res.status(400).json({
       success: false,
       message,
+      ...customFields,
     });
   }
 };
