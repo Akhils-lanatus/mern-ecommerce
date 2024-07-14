@@ -1,22 +1,32 @@
+import axios from "axios";
+
 export async function createUser(userData) {
   try {
-    const res = await fetch(
-      `http://localhost:8000/users?email=${userData?.email}`
-    );
-    const isEmailRegistered = await res.json();
-    if (!isEmailRegistered?.length) {
-      const response = await fetch("http://localhost:8000/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
-      });
-      const data = await response.json();
-      return { data };
-    } else {
-      throw new Error("Email Alreay Registered");
-    }
+    const res = await axios.post("/auth/register", userData, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return { data: res.data };
   } catch (error) {
     throw new Error(error);
+  }
+}
+
+export async function VerifyEmail(email) {
+  try {
+    const response = await axios.post("/auth/verify-email", email);
+    return response.data;
+  } catch (error) {
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
+  }
+}
+export async function VerifyOtp(otp) {
+  try {
+    const response = await axios.post("/auth/verify-email-by-otp", otp);
+    return response.data;
+  } catch (error) {
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 }
 

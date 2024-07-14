@@ -11,6 +11,7 @@ import {
   sendPasswordResetLinkController,
   userProfileController,
   verifyEmailController,
+  verifyEmailWithOtpController,
 } from "../controllers/auth.controllers.js";
 import { setAuthHeadersAndAutoRefreshAccessToken } from "../middlewares/setAuthHeadersAndAutoRefreshAccessToken.js";
 const router = Router();
@@ -18,11 +19,14 @@ const router = Router();
 //POST - USER REGISTER
 router.post("/register", registerUserController);
 
-//POST - RESEND-LINK
-router.post("/resend-verification-link", resendEmailVerificationLinkController);
+//GET - RESEND-LINK
+router.get("/resend-verification-link", resendEmailVerificationLinkController);
 
 //POST - USER VERIFY EMAIL
 router.post("/verify-email", verifyEmailController);
+
+//POST - USER VERIFY EMAIL WITH OTP
+router.post("/verify-email-by-otp", verifyEmailWithOtpController);
 
 //POST - USER LOGIN
 router.post("/login", loginUserController);

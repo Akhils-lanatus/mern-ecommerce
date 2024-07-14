@@ -44,17 +44,11 @@ export const adminAddNewProductController = async (req, res, next) => {
       cloudinaryImagesUrls.push(result.url);
     }
     if (cloudinaryImagesUrls.length !== imagesUrls.length) {
-      return res.status(400).json({
-        success: false,
-        message: "Error while adding images",
-      });
+      throw new Error("Error while adding images");
     }
     const thumbnailUrlPath = await uploadOnCloudinary(thumbnailUrl);
     if (!thumbnailUrlPath) {
-      return res.status(400).json({
-        success: false,
-        message: "Error while adding thumbnail",
-      });
+      throw new Error("Error while adding thumbnail");
     }
     const allData = {
       ...body,
@@ -68,7 +62,11 @@ export const adminAddNewProductController = async (req, res, next) => {
       product,
     });
   } catch (error) {
-    errorHandler(error, res);
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
+      success: false,
+      message,
+    });
   }
 };
 
@@ -121,7 +119,11 @@ export const fetchAllProductsController = async (req, res) => {
       products,
     });
   } catch (error) {
-    errorHandler(error, res);
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
+      success: false,
+      message,
+    });
   }
 };
 
@@ -130,10 +132,7 @@ export const fetchSingleProductController = async (req, res) => {
     const { id } = req.params;
     const product = await ProductModel.findById(id);
     if (!product) {
-      return res.status(400).json({
-        success: false,
-        message: "Product Not Found",
-      });
+      throw new Error("Product not found");
     }
     return res.status(200).json({
       success: true,
@@ -141,7 +140,11 @@ export const fetchSingleProductController = async (req, res) => {
       product,
     });
   } catch (error) {
-    errorHandler(error, res);
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
+      success: false,
+      message,
+    });
   }
 };
 
@@ -150,20 +153,14 @@ export const removeProductController = async (req, res) => {
     const { id } = req.params;
     const response = await ProductModel.findByIdAndDelete(id);
     if (!response) {
-      return res.status(400).json({
-        success: false,
-        message: "Product Not Found",
-      });
+      throw new Error("Product not found");
     }
     const thumbnailResponse = await deleteThumbnailFromCloudinary(
       response.thumbnail
     );
     const imagesResponse = await deleteImagesFromCloudinary(response.images);
     if (thumbnailResponse?.result !== "ok") {
-      return res.status(400).json({
-        success: false,
-        message: "Failed to delete thumbnail",
-      });
+      throw new Error("Failed to delete thumbnail");
     }
     if (
       !imagesResponse ||
@@ -172,10 +169,7 @@ export const removeProductController = async (req, res) => {
       imagesResponse.deleted === undefined ||
       !Object.keys(imagesResponse.deleted).length
     ) {
-      return res.status(400).json({
-        success: false,
-        message: "Failed to delete delete some or all images",
-      });
+      throw new Error("Failed to delete delete some or all images");
     }
     const remainingCount = await ProductModel.countDocuments();
     return res.status(200).json({
@@ -184,7 +178,11 @@ export const removeProductController = async (req, res) => {
       remainingCount,
     });
   } catch (error) {
-    errorHandler(error, res);
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
+      success: false,
+      message,
+    });
   }
 };
 
@@ -193,16 +191,17 @@ export const updateProductController = async (req, res) => {
     const { id } = req.body;
     const product = await ProductModel.findByIdAndUpdate(id, req.body);
     if (!product) {
-      return res.status(400).json({
-        success: false,
-        message: "Product Not Found",
-      });
+      throw new Error("Product not found");
     }
     return res.status(200).json({
       success: true,
       message: "Product Updated Successfully",
     });
   } catch (error) {
-    errorHandler(error, res);
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
+      success: false,
+      message,
+    });
   }
 };

@@ -10,7 +10,7 @@ const SendOtpForEmailVerification = async (user) => {
     { upsert: true }
   );
 
-  const verifyEmailFrontEndLink = `${process.env.FRONTEND_HOST}/user/account/verify-email`;
+  const verifyEmailFrontEndLink = `${process.env.FRONTEND_HOST}/auth/verify-email`;
 
   let htmlContent = `
 <!DOCTYPE html>

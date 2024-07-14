@@ -1,25 +1,23 @@
-export function errorHandler(err, res) {
+export function errorHandler(err) {
   let statusCode;
-  if (err.name === "MongoServerError" && err.code === 11000) {
-    statusCode = 400;
-    return res.status(statusCode).json({
-      success: false,
-      message: `Some another product has already used same title, LOL 🤣`,
-    });
-  } else if (err.name === "ValidationError") {
-    statusCode = 400;
-    let ErrString = "";
-    Object.keys(err.errors).forEach((key, i) => {
-      ErrString += i + 1 + ". " + err.errors[key].message + " ";
-    });
-    let slicedErrorString = ErrString.slice(0, -1);
-
-    return res.status(statusCode).json({
-      success: false,
-      message: slicedErrorString,
-    });
-  } else {
-    console.log(err);
-    res.status(500).json({ success: false, message: "Internal Server Error" });
+  let ErrString = "";
+  if (err.code === 11000 && err.keyPattern && err.keyValue) {
+    Object.values(err).forEach((val) => console.log(val));
+    const keyPattern = Object.keys(err.keyPattern)[0];
+    const keyValue = err.keyValue[keyPattern];
+    return `Duplicate ${keyPattern} '${keyValue}' entered. Please try adding a new one.`;
   }
+  if (err.name === "CastError") {
+    return "Invalid id entered";
+  }
+  if (err.name === "ValidationError") {
+    statusCode = 400;
+    Object.keys(err.errors).forEach((key, i) => {
+      message += err.errors[key].message;
+      message += ", ";
+    });
+    let slicedErrorString = ErrString.slice(0, -2);
+    return slicedErrorString;
+  }
+  return err.message;
 }

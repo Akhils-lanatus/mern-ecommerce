@@ -48,11 +48,10 @@ const App = () => {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<UnProtected />}>
-            <Route path="" element={<Home />} />
-          </Route>
+          <Route path="/" element={<Home />} />
           {/* UnProtected */}
-          <Route path="/auth" element={<UnProtected />}>
+          <Route path="/auth">
+            {/* <Route path="/auth" element={<UnProtected />}> */}
             <Route path="login" element={<LoginPage />} />
             <Route path="verify-email" element={<VerifyEmail />} />
             <Route path="register" element={<SignupPage />} />
@@ -66,19 +65,20 @@ const App = () => {
             />
           </Route>
           {/* Protected */}
-          <Route path="" element={<Protected />}>
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/profile" element={<UserProfilePage />} />
-            <Route path="/my-orders" element={<UserOrdersPage />} />
-            <Route path="/add-address" element={<UserAddAddressPage />} />
-            <Route
-              path="/update-address/:id"
-              element={<UserUpdateAddressPage />}
-            />
-          </Route>
+          {/* <Route path="" element={<Protected />}> */}
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/my-orders" element={<UserOrdersPage />} />
+          <Route path="/add-address" element={<UserAddAddressPage />} />
+          <Route
+            path="/update-address/:id"
+            element={<UserUpdateAddressPage />}
+          />
+          {/* </Route> */}
           {/* Admin Protected */}
-          <Route path="/admin" element={<AdminProtected />}>
+          <Route path="/admin">
+            {/* <Route path="/admin" element={<AdminProtected />}> */}
             <Route path="home" element={<AdminHome />} />
             <Route path="add-product" element={<AdminAddProductPage />} />
             <Route path="add-category" element={<AdminAddCategoryPage />} />

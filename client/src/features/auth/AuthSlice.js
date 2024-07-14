@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createUser, checkUser, logoutUser } from "./AuthAPI";
+import {
+  createUser,
+  checkUser,
+  logoutUser,
+  VerifyEmail,
+  VerifyOtp,
+} from "./AuthAPI";
 
 const initialState = {
   loggedInUser: [],
@@ -11,6 +17,21 @@ export const createUserAsync = createAsyncThunk(
   "auth/createUser",
   async (userData) => {
     const response = await createUser(userData);
+    return response;
+  }
+);
+
+export const VerifyEmailAsync = createAsyncThunk(
+  "auth/verifyEmail",
+  async (email) => {
+    const response = await VerifyEmail(email);
+    return response;
+  }
+);
+export const VerifyOtpAsync = createAsyncThunk(
+  "auth/verifyOtp",
+  async (otp) => {
+    const response = await VerifyOtp(otp);
     return response;
   }
 );
@@ -45,6 +66,18 @@ export const authSlice = createSlice({
       state.error = action.error.message;
       state.isLoading = false;
     });
+    builder.addCase(VerifyEmailAsync.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(VerifyEmailAsync.fulfilled, (state, action) => {
+      state.error = null;
+      state.isLoading = false;
+    });
+    builder.addCase(VerifyEmailAsync.rejected, (state, action) => {
+      state.error = JSON.parse(action.error.message);
+      state.isLoading = false;
+    });
+
     builder.addCase(checkUserAsync.pending, (state) => {
       state.isLoading = true;
     });

@@ -8,39 +8,25 @@ import { generateCookies } from "../utils/generateCookies.js";
 import { refreshAccessToken } from "../utils/refreshAccessToken.js";
 import { UserRefreshTokenModel } from "../models/refreshToken.model.js";
 import { transporter } from "../config/nodemailerConfig.js";
-import mongoose from "mongoose";
+import { errorHandler } from "../utils/errorHandler.js";
 
 export const registerUserController = async (req, res) => {
   try {
     const { name, email, password, confirm_password } = req.body;
     if (!name || !email || !password || !confirm_password) {
-      return res.status(400).json({
-        success: false,
-        message: "Please fill all fields",
-      });
+      throw new Error("Please fill all fields");
     }
     if (password.trim() !== confirm_password.trim()) {
-      return res.status(400).json({
-        success: false,
-        message: "Password didn't match",
-      });
+      throw new Error("Password didn't match");
     }
 
-    const isEmailRegistered = await UserModel.findOne({ email });
-    if (isEmailRegistered) {
-      return res.status(400).json({
-        success: false,
-        message: "Email already registered",
-      });
-    }
+    await UserModel.findOne({ email });
+    //if already registered will show duplicate error - 11000
 
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(password, salt);
     if (!hashedPass) {
-      return res.status(400).json({
-        success: false,
-        message: "Error in hashing pass",
-      });
+      throw new Error("Error in hashing pass");
     }
 
     const user = await UserModel.create({
@@ -51,52 +37,42 @@ export const registerUserController = async (req, res) => {
 
     const createdUser = await UserModel.findOne(
       { _id: user._id },
-      { password: 0 }
+      { name: 1, email: 1, role: 1 }
     );
 
     await SendOtpForEmailVerification(createdUser);
     if (!createdUser) {
-      return res
-        .status(200)
-        .json({ success: false, message: "User registration failed" });
+      throw new Error("User registration failed");
     }
+    res.cookie("session_same", email);
     return res.status(201).json({
       success: true,
       message: "User Registered Successfully, OTP Sent to email to verify",
+      user: createdUser,
     });
   } catch (error) {
-    console.log(`Registration Time Error :: ${error}`);
-    return res.status(500).json({
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
       success: false,
-      message: "Registration failed, please try again",
+      message,
     });
   }
 };
 
 export const verifyEmailController = async (req, res) => {
   try {
-    const { email, otp } = req.body;
-    if (!email || !otp) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
+    const { email } = req.body;
+    if (!email) {
+      throw new Error("Please enter email");
     }
     const existingUser = await UserModel.findOne({ email });
     if (!existingUser) {
-      return res.status(400).json({
-        success: false,
-        message: "No such email found",
-      });
+      throw new Error("No such email found");
     }
-    res.cookie("user", email);
-
     if (existingUser.is_verified) {
-      return res.status(200).json({
-        success: false,
-        message: "Already verified",
-      });
+      throw new Error("Already verified, Kindly login");
     }
+    res.cookie("session_same", email);
     const existingUserInOtpDB = await OtpModel.findOne({
       userId: existingUser._id,
     });
@@ -104,8 +80,8 @@ export const verifyEmailController = async (req, res) => {
       if (!existingUser.is_verified) {
         await SendOtpForEmailVerification(existingUser);
         return res.status(200).json({
-          success: false,
-          message: "Invalid otp, new otp sent to your email",
+          success: true,
+          message: "Otp sent to your email",
         });
       }
     } else {
@@ -115,33 +91,20 @@ export const verifyEmailController = async (req, res) => {
           existingUserInOtpDB.createdAt.getTime() + 5 * 60 * 1000
         );
         if (currentTime > otpExpirationTime) {
+          throw new Error("OTP Expired, Try Resending OTP");
+        } else {
           return res.status(200).json({
-            success: false,
-            message: "OTP Expired, Try Sending New One",
-            expired: true,
-          });
-        }
-        if (existingUserInOtpDB.otp !== otp) {
-          return res.status(200).json({
-            success: false,
-            message: "Invalid OTP",
+            success: true,
+            message: "OTP already sent to your email",
           });
         }
       }
     }
-    await UserModel.findByIdAndUpdate(existingUser._id, {
-      $set: { is_verified: true },
-    });
-    await OtpModel.findByIdAndDelete(existingUserInOtpDB._id);
-    return res.status(200).json({
-      success: true,
-      message: "Email Verified successfully",
-    });
   } catch (error) {
-    console.log(`Email Verify Time Error :: ${error}`);
-    return res.status(500).json({
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
       success: false,
-      message: "Email verification failed, please try again",
+      message,
     });
   }
 };
@@ -151,15 +114,12 @@ export const resendEmailVerificationLinkController = async (req, res) => {
   >check is verified
   >check if exist 
     >if exist and generated in last 30 seconds then cant send new otp
-    >if exist and not generated in last 30 seconds then cant send new otp
+    >if exist and not generated in last 30 seconds then can send new otp
   */
   try {
-    let email = req.cookies.user;
+    let email = req.cookies.session_same;
     if (!email) {
-      return res.status(400).json({
-        success: false,
-        message: "Error while resending otp, please try again",
-      });
+      throw new Error("Invalid entry - Please enter email again");
     }
     const data = await UserModel.aggregate([
       {
@@ -189,78 +149,144 @@ export const resendEmailVerificationLinkController = async (req, res) => {
         },
       },
     ]);
-    // const isVerified = data[0].is_verified;
-    // const otpData = data[0].jd || null;
-    // const userData = { _id, email: data[0]?.email };
-    // if (isVerified) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Account already verified - Please Login",
-    //   });
-    // }
-    // if (!Boolean(otpData)) {
-    //   await SendOtpForEmailVerification(userData);
-    //   return res.status(200).json({
-    //     success: true,
-    //     message: "OTP Sent to your email",
-    //   });
-    // }
-    // const currentTime = Date.now();
-    // const thirtySecondsAfterOtpCreation =
-    //   otpData.createdAt.getTime() + 30 * 1000;
-    // if (currentTime < thirtySecondsAfterOtpCreation) {
-    //   return res.status(400).json({
-    //     success: false,
-    //     message: "Please wait for 30 second before requesting new OTP",
-    //   });
-    // }
 
-    // await SendOtpForEmailVerification(userData);
+    const isVerified = data[0].is_verified;
+    const otpData = data[0].jd || null;
+    const userData = { _id: data[0]._id, email: data[0]?.email };
+    if (isVerified) {
+      throw new Error("Account already verified - Please Login");
+    }
+    if (!Boolean(otpData)) {
+      await SendOtpForEmailVerification(userData);
+      return res.status(200).json({
+        success: true,
+        message: "OTP Sent to your email",
+      });
+    }
+    const currentTime = Date.now();
+    const thirtySecondsAfterOtpCreation =
+      otpData.createdAt.getTime() + 30 * 1000;
+    if (currentTime < thirtySecondsAfterOtpCreation) {
+      throw new Error("Please wait for 30 second before requesting new OTP");
+    }
+
+    await SendOtpForEmailVerification(userData);
     return res.status(200).json({
       success: true,
       message: "OTP Sent to your email",
-      data,
     });
-  } catch (error) {}
+  } catch (error) {
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
+      success: false,
+      message,
+    });
+  }
+};
+
+export const verifyEmailWithOtpController = async (req, res) => {
+  try {
+    let { otp } = req.body;
+    otp = parseInt(otp);
+    if (!otp) {
+      throw new Error("Please enter otp");
+    }
+    const cookie_email = req.cookies.session_same;
+    if (!cookie_email) {
+      const error = new Error("Invalid entry - Please verify email again");
+      error.emailVerify = true;
+      throw error;
+    }
+    const data = await UserModel.aggregate([
+      {
+        $match: {
+          email: cookie_email,
+        },
+      },
+      {
+        $lookup: {
+          from: "otps",
+          localField: "_id",
+          foreignField: "userId",
+          as: "jd",
+        },
+      },
+      {
+        $addFields: {
+          joinedData: { $arrayElemAt: ["$jd", 0] },
+        },
+      },
+      {
+        $project: {
+          is_verified: "$is_verified",
+          jd: "$joinedData",
+          _id: "$_id",
+          email: "$email",
+        },
+      },
+    ]);
+    const isVerified = data[0].is_verified;
+    const otpData = data[0].jd || null;
+    const userData = { _id: data[0]._id, email: data[0]?.email };
+
+    if (isVerified) {
+      throw new Error("Account already verified - Please Login");
+    }
+
+    if (!Boolean(otpData)) {
+      await SendOtpForEmailVerification(userData);
+      throw new Error("No OTP Found , New OTP Sent to your email");
+    }
+    if (otp !== otpData.otp) {
+      throw new Error("Invalid OTP");
+    }
+
+    await UserModel.findByIdAndUpdate(userData?._id, {
+      $set: { is_verified: true },
+    });
+    await OtpModel.findByIdAndDelete(otpData._id);
+    return res.status(200).json({
+      success: true,
+      message: "Email Verified successfully, Please Login",
+    });
+  } catch (error) {
+    const customFields = {};
+    for (let key in error) {
+      if (error.hasOwnProperty(key)) {
+        customFields[key] = error[key];
+      }
+    }
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
+      success: false,
+      message,
+      ...customFields,
+    });
+  }
 };
 
 export const loginUserController = async (req, res) => {
   try {
     const { email, password, confirm_password } = req.body;
     if (!email || !password || !confirm_password) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
+      throw new Error("All fields are required");
     }
     if (password.trim() !== confirm_password.trim()) {
-      return res.status(400).json({
-        success: false,
-        message: "Password didn't match",
-      });
+      throw new Error("Password didn't match");
     }
     const userExist = await UserModel.findOne({ email });
     if (!userExist) {
-      return res.status(400).json({
-        success: false,
-        message: "No such email found",
-      });
+      throw new Error("No such email found");
     }
     if (!userExist.is_verified) {
-      return res.status(400).json({
-        success: false,
-        message: "Account not verified, Please verify",
-      });
+      throw new Error("Account not verified, Please verify");
     }
     const isPasswordCorrect = await bcrypt.compare(
       password,
       userExist.password
     );
     if (!isPasswordCorrect) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Credentials",
-      });
+      throw new Error("Invalid Credentials");
     }
     const { accessToken, refreshToken, accessTokenExp, refreshTokenExp } =
       await generateTokens(req, userExist);
@@ -271,7 +297,7 @@ export const loginUserController = async (req, res) => {
       accessTokenExp,
       refreshTokenExp
     );
-    res.clearCookie("user");
+    req.cookies.session_same && res.clearCookie("session_same");
     return res.status(200).json({
       success: true,
       message: "Login Successful",
@@ -287,10 +313,10 @@ export const loginUserController = async (req, res) => {
       is_auth: true,
     });
   } catch (error) {
-    console.log(`Login Time Error :: ${error}`);
-    return res.status(500).json({
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
       success: false,
-      message: "Login failed, please try again",
+      message,
     });
   }
 };
@@ -342,10 +368,7 @@ export const changePasswordController = async (req, res) => {
   try {
     const { old_password, new_password, confirm_password } = req.body;
     if (!old_password || !new_password || !confirm_password) {
-      return res.status(200).json({
-        success: false,
-        message: "All fields are required",
-      });
+      throw new Error("All fields are required");
     }
     const token = req.cookies.refreshToken;
     const userData = await UserRefreshTokenModel.aggregate([
@@ -374,26 +397,17 @@ export const changePasswordController = async (req, res) => {
       },
     ]);
     if (!userData) {
-      return res.status(200).json({
-        success: false,
-        message: "Invalid entry ",
-      });
+      throw new Error("Invalid entry");
     }
     const isOldPassValid = await bcrypt.compare(
       old_password,
       userData[0].user_password
     );
     if (!isOldPassValid) {
-      return res.status(400).json({
-        success: false,
-        message: "Invalid Credentials",
-      });
+      throw new Error("Invalid Credentials");
     }
     if (new_password.trim() !== confirm_password.trim()) {
-      return res.status(200).json({
-        success: false,
-        message: "Password didn't match",
-      });
+      throw new Error("Password didn't match");
     }
     const salt = await bcrypt.genSalt(10);
     const hashedPass = await bcrypt.hash(new_password, salt);
@@ -409,10 +423,10 @@ export const changePasswordController = async (req, res) => {
       message: "Password changed successfully",
     });
   } catch (error) {
-    console.log(`Change Password Time Error :: ${error}`);
-    return res.status(500).json({
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
       success: false,
-      message: "Error while changing password, please try again",
+      message,
     });
   }
 };
@@ -441,23 +455,17 @@ export const sendPasswordResetLinkController = async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
+      throw new Error("All fields are required");
     }
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(400).json({
-        success: false,
-        message: "No such email found",
-      });
+      throw new Error("No such email found");
     }
     const secret = user._id + process.env.ACCESS_TOKEN;
     const token = jwt.sign({ userId: user._id }, secret, {
       expiresIn: "15m",
     });
-    const resetPassLink = `${process.env.FRONTEND_HOST}/account/reset-password/${user._id}/${token}`;
+    const resetPassLink = `${process.env.FRONTEND_HOST}/auth/reset-password/${user._id}/${token}`;
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -535,10 +543,10 @@ export const sendPasswordResetLinkController = async (req, res) => {
       resetPassLink,
     });
   } catch (error) {
-    console.log(`sendPasswordResetLinkController Time Error :: ${error}`);
-    return res.status(500).json({
+    const message = errorHandler(error) || "Internal server error";
+    return res.status(400).json({
       success: false,
-      message: "Link sending failed, please try again",
+      message,
     });
   }
 };
@@ -548,26 +556,17 @@ export const resetPasswordController = async (req, res) => {
     const { id, token } = req.params;
     const { password, confirm_password } = req.body;
     if (!password || !confirm_password) {
-      return res.status(200).json({
-        success: false,
-        message: "All fields are required",
-      });
+      throw new Error("All fields are required");
     }
     const user = await UserModel.findById(id);
     if (!user) {
-      return res.status(200).json({
-        success: false,
-        message: "No such user found",
-      });
+      throw new Error("No such user found");
     }
     const secret = user._id + process.env.ACCESS_TOKEN;
     jwt.verify(token, secret);
 
     if (password.trim() !== confirm_password.trim()) {
-      return res.status(200).json({
-        success: false,
-        message: "Password didn't match",
-      });
+      throw new Error("Password didn't match");
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -581,15 +580,21 @@ export const resetPasswordController = async (req, res) => {
       message: "Password reset successful",
     });
   } catch (error) {
-    console.log(`resetPasswordController Time Error :: ${error}`);
-    return res.status(500).json({
+    const message = errorHandler(error) || "Internal server error";
+    let errorMessage;
+
+    if (error.name === "TokenExpiredError") {
+      errorMessage = "Token Expired";
+    } else if (error.name === "JsonWebTokenError") {
+      errorMessage = "Invalid link";
+    } else {
+      errorMessage = "Unable to reset password, please try again";
+    }
+    console.log(errorMessage);
+
+    return res.status(400).json({
       success: false,
-      message:
-        error.name === "TokenExpiredError"
-          ? "Token Expired"
-          : error.name === "JsonWebTokenError"
-          ? "Invalid link"
-          : "Unable to reset password, please try again",
+      message: message || errorMessage,
     });
   }
 };

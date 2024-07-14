@@ -5,7 +5,6 @@ import { getLoggedInUser } from "../AuthSlice";
 const Protected = () => {
   const location = useLocation();
   const loggedInUser = useSelector(getLoggedInUser);
-  console.log(loggedInUser);
 
   if (loggedInUser.length === 0) {
     return (
