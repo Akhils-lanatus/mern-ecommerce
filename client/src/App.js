@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import CheckoutPage from "./pages/CheckoutPage";
 import SingleProductPage from "./pages/SingleProductPage";
 import ForgotPasswordEnterEmail from "./features/auth/components/ForgotPasswordEnterEmail";
-import ForgotPasswordEnterOTP from "./features/auth/components/ForgotPasswordEnterOTP";
 import Protected from "./features/auth/components/Protected";
 import PageNotFound from "./pages/PageNotFound";
 import UnProtected from "./utils/checkIsLoggedIn";
@@ -33,6 +32,8 @@ import AdminAddCategoryPage from "./pages/AdminAddCategoryPage";
 import AdminAddBrandPage from "./pages/AdminAddBrandPage";
 import AdminEditProductPage from "./pages/AdminEditProductPage";
 import VerifyEmail from "./features/auth/components/VerifyEmail";
+import ChangePassword from "./features/auth/components/ChangePassword";
+import ForgotPasswordEnterPass from "./features/auth/components/ForgotPasswordEnterPass";
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
@@ -60,8 +61,8 @@ const App = () => {
               element={<ForgotPasswordEnterEmail />}
             />
             <Route
-              path="forgot-password-auth-1"
-              element={<ForgotPasswordEnterOTP />}
+              path="forgot-password-auth-1/:id/:token"
+              element={<ForgotPasswordEnterPass />}
             />
           </Route>
           {/* Protected */}
@@ -69,6 +70,7 @@ const App = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/profile" element={<UserProfilePage />} />
+          <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/my-orders" element={<UserOrdersPage />} />
           <Route path="/add-address" element={<UserAddAddressPage />} />
           <Route

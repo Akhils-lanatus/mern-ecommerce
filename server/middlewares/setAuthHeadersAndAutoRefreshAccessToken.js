@@ -22,11 +22,9 @@ export const setAuthHeadersAndAutoRefreshAccessToken = async (
 
     if (!cookiesAccessToken || isTokenExpired(cookiesAccessToken)) {
       const refToken = req.cookies.refreshToken;
-      const isVerified = req.cookies.isVerified;
-      if (!refToken || !isVerified) {
+      if (!refToken) {
         req.cookies.is_auth && res.clearCookie("is_auth");
-        req.cookies.isVerified && res.clearCookie("isVerified");
-        return res.status(200).json({
+        return res.status(400).json({
           success: false,
           message: "Unauthorized Request - Please Login",
           token: false,

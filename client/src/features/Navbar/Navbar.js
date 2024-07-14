@@ -36,6 +36,7 @@ const userNavigation = [
   { name: "Settings", linkTo: "/" },
   { name: "Sign out" },
   { name: "Your Orders", linkTo: "/my-orders" },
+  { name: "Change Password", linkTo: "/change-password" },
 ];
 
 function classNames(...classes) {

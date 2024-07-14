@@ -45,6 +45,7 @@ export const registerUserController = async (req, res) => {
       throw new Error("User registration failed");
     }
     res.cookie("session_same", email);
+
     return res.status(201).json({
       success: true,
       message: "User Registered Successfully, OTP Sent to email to verify",
@@ -409,10 +410,10 @@ export const changePasswordController = async (req, res) => {
     }
     const isOldPassValid = await bcrypt.compare(
       old_password,
-      userData[0].user_password
+      userData[0]?.user_password
     );
     if (!isOldPassValid) {
-      throw new Error("Invalid Credentials");
+      throw new Error("Invalid old password");
     }
     if (new_password.trim() !== confirm_password.trim()) {
       throw new Error("Password didn't match");
@@ -444,7 +445,6 @@ export const logoutUserController = async (req, res) => {
     res.clearCookie("accessToken");
     res.clearCookie("refreshToken");
     res.clearCookie("is_auth");
-    res.clearCookie("isVerified");
 
     return res.status(200).json({
       success: true,
@@ -473,7 +473,7 @@ export const sendPasswordResetLinkController = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, secret, {
       expiresIn: "15m",
     });
-    const resetPassLink = `${process.env.FRONTEND_HOST}/auth/reset-password/${user._id}/${token}`;
+    const resetPassLink = `${process.env.FRONTEND_HOST}/auth/forgot-password-auth-1/${user._id}/${token}`;
     const htmlContent = `<!DOCTYPE html>
 <html lang="en">
 <head>

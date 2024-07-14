@@ -1,8 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { sendForgotPassLinkAsync } from "../AuthSlice";
+import { showToast } from "../../../utils/showToast";
 const ForgotPasswordEnterEmail = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <section>
@@ -21,7 +25,7 @@ const ForgotPasswordEnterEmail = () => {
               Enter Email
             </h1>
             <div className="text-sm text-gray-300 text-center my-3">
-              OTP will be sent to entered Email
+              Password change link will be sent to entered Email
             </div>
             <Formik
               initialValues={{
@@ -32,10 +36,27 @@ const ForgotPasswordEnterEmail = () => {
                   .required("Email is required")
                   .email("Invalid email format"),
               })}
-              onSubmit={(values, { resetForm }) => {
-                console.log(values);
-                resetForm();
-                navigate("/auth/forgot-password-auth-1");
+              onSubmit={async (values, { resetForm }) => {
+                const { email } = values;
+                try {
+                  const res = await dispatch(
+                    sendForgotPassLinkAsync({ email })
+                  );
+
+                  if (res.error) {
+                    const error = JSON.parse(res.error.message);
+                    showToast("ERROR", error.message);
+                  } else if (res.payload) {
+                    const errorType = res.payload.success ? "SUCCESS" : "ERROR";
+                    showToast(errorType, res.payload.message);
+                    resetForm();
+                    navigate("/");
+                  } else {
+                    showToast("ERROR", "Unexpected response from the server.");
+                  }
+                } catch (err) {
+                  showToast("ERROR", "An unexpected error occurred.");
+                }
               }}
             >
               <Form className="space-y-4 md:space-y-6">
@@ -63,7 +84,7 @@ const ForgotPasswordEnterEmail = () => {
                   type="submit"
                   className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
-                  Send Otp
+                  Send Link
                 </button>
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Remembered Password ?{" "}

@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  changePassword,
   createUser,
   loginUser,
   logoutUser,
+  sendForgotPassLink,
   VerifyEmail,
   VerifyOtp,
 } from "./AuthAPI";
@@ -43,6 +45,21 @@ export const loginUserAsync = createAsyncThunk(
     return response;
   }
 );
+export const ChangePasswordAsync = createAsyncThunk(
+  "auth/ChangePassword",
+  async (changePasswordInfo) => {
+    const response = await changePassword(changePasswordInfo);
+    return response;
+  }
+);
+
+export const sendForgotPassLinkAsync = createAsyncThunk(
+  "auth/sendForgotPassLink",
+  async (email) => {
+    const response = await sendForgotPassLink(email);
+    return response;
+  }
+);
 
 export const logoutUserAsync = createAsyncThunk("auth/logoutUser", async () => {
   const response = await logoutUser();
@@ -66,18 +83,6 @@ export const authSlice = createSlice({
       state.error = action.error.message;
       state.isLoading = false;
     });
-    builder.addCase(VerifyEmailAsync.pending, (state) => {
-      state.isLoading = true;
-    });
-    builder.addCase(VerifyEmailAsync.fulfilled, (state, action) => {
-      state.error = null;
-      state.isLoading = false;
-    });
-    builder.addCase(VerifyEmailAsync.rejected, (state, action) => {
-      state.error = JSON.parse(action.error.message);
-      state.isLoading = false;
-    });
-
     builder.addCase(loginUserAsync.pending, (state) => {
       state.isLoading = true;
     });

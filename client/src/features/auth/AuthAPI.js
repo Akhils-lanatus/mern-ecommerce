@@ -41,6 +41,27 @@ export async function loginUser(loginInfo) {
     throw new Error(JSON.stringify(errors));
   }
 }
+export async function changePassword(changePasswordInfo) {
+  try {
+    const response = await axios.post(
+      `/auth/change-password`,
+      changePasswordInfo
+    );
+    return response.data;
+  } catch (error) {
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
+  }
+}
+export async function sendForgotPassLink(email) {
+  try {
+    const response = await axios.post(`/auth/forgot-password-link`, email);
+    return response.data;
+  } catch (error) {
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
+  }
+}
 
 export async function logoutUser(id) {
   try {

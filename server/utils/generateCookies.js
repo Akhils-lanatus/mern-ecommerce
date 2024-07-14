@@ -25,9 +25,4 @@ export const generateCookies = async (
     secure: false,
     maxAge: refreshTokenMaxAge,
   });
-  res.cookie("isVerified", true, {
-    httpOnly: true,
-    secure: true,
-    maxAge: refreshTokenMaxAge,
-  });
 };
