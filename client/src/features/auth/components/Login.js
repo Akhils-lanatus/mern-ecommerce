@@ -5,13 +5,11 @@ import LoadingPage from "../../../pages/Loading";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { checkUserAsync, checkIsLoading } from "../AuthSlice";
+import { loginUserAsync, checkIsLoading } from "../AuthSlice";
 import { showToast } from "../../../utils/showToast";
-import { fetchLoggedInUserAsync } from "../../user/userSlice";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { state } = useLocation();
   const isLoading = useSelector(checkIsLoading);
   return (
     <section>
@@ -40,7 +38,6 @@ const Login = () => {
               initialValues={{
                 email: "",
                 password: "",
-                rememberMe: false,
               }}
               validationSchema={Yup.object({
                 email: Yup.string()
@@ -50,45 +47,22 @@ const Login = () => {
                   .required("Password is required")
                   .min(6, "Enter at least 6 characters")
                   .max(16, "Max 16 characters are allowed"),
-                rememberMe: Yup.boolean(),
               })}
-              onSubmit={(values, { resetForm }) => {
+              onSubmit={async (values, { resetForm }) => {
                 try {
-                  dispatch(checkUserAsync(values))
-                    .unwrap()
-                    .then((res) => {
-                      dispatch(fetchLoggedInUserAsync(res?.data?.id));
-                      let path;
-                      if (Boolean(state)) {
-                        if (Boolean(res.data.role)) {
-                          if (res.data.role === "user") {
-                            if (state.prev.includes("admin")) {
-                              path = "/";
-                            } else {
-                              path = state.prev;
-                            }
-                          } else {
-                            path = state.prev;
-                          }
-                        } else {
-                          path = "/";
-                        }
-                      } else {
-                        Boolean(res.data.role)
-                          ? (path =
-                              res.data.role === "user" ? "/" : "/admin/home")
-                          : (path = "/");
-                      }
-                      showToast("SUCCESS", "Login Successful");
-
-                      navigate(path);
-                      resetForm();
-                    })
-                    .catch((err) => {
-                      showToast("ERROR", err.message);
-                    });
+                  const res = await dispatch(loginUserAsync(values));
+                  if (res?.error) {
+                    let error = JSON.parse(res.error.message);
+                    showToast("ERROR", error.message);
+                    if (error.hasOwnProperty("emailVerify")) {
+                      navigate("/auth/verify-email");
+                    }
+                  } else if (res?.payload?.success) {
+                    showToast("SUCCESS", res.payload.message);
+                    navigate("/");
+                  }
                 } catch (error) {
-                  console.log(`Error in login :: ${error}`);
+                  showToast("ERROR", "Login Failed, Try again");
                 }
               }}
             >
@@ -130,26 +104,7 @@ const Login = () => {
                     <ErrorMessage name="password" />
                   </p>
                 </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-start">
-                    <div className="flex items-center h-5">
-                      <Field
-                        id="remember"
-                        aria-describedby="remember"
-                        type="checkbox"
-                        className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                        name="rememberMe"
-                      />
-                    </div>
-                    <div className="ml-3 text-sm">
-                      <label
-                        htmlFor="remember"
-                        className="text-gray-500 dark:text-gray-300"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-                  </div>
+                <div className="flex items-center justify-end">
                   <Link
                     to={"/auth/forgot-password-auth-0"}
                     className="text-sm font-medium text-white hover:underline "

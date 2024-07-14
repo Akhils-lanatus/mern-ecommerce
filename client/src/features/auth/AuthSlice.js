@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   createUser,
-  checkUser,
+  loginUser,
   logoutUser,
   VerifyEmail,
   VerifyOtp,
@@ -36,10 +36,10 @@ export const VerifyOtpAsync = createAsyncThunk(
   }
 );
 
-export const checkUserAsync = createAsyncThunk(
-  "auth/checkUser",
+export const loginUserAsync = createAsyncThunk(
+  "auth/loginUser",
   async (loginInfo) => {
-    const response = await checkUser(loginInfo);
+    const response = await loginUser(loginInfo);
     return response;
   }
 );
@@ -78,15 +78,15 @@ export const authSlice = createSlice({
       state.isLoading = false;
     });
 
-    builder.addCase(checkUserAsync.pending, (state) => {
+    builder.addCase(loginUserAsync.pending, (state) => {
       state.isLoading = true;
     });
-    builder.addCase(checkUserAsync.fulfilled, (state, action) => {
+    builder.addCase(loginUserAsync.fulfilled, (state, action) => {
       state.loggedInUser = action.payload;
       state.error = null;
       state.isLoading = false;
     });
-    builder.addCase(checkUserAsync.rejected, (state, action) => {
+    builder.addCase(loginUserAsync.rejected, (state, action) => {
       state.error = action.error.message;
       state.isLoading = false;
     });

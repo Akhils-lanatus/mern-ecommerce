@@ -28,7 +28,9 @@ const OtpComponent = ({ setIsEmailSent, dispatch }) => {
 
   const handleResendOtp = useCallback(async () => {
     try {
-      const res = await axios.get("/auth/resend-verification-link");
+      const res = await axios.get("/auth/resend-verification-link", {
+        withCredentials: true,
+      });
       if (res.data.success) {
         setIsOtpSent(true);
         setThirtySecondTimer(30);
@@ -204,7 +206,6 @@ const EmailComponent = ({ setIsEmailSent, dispatch }) => {
                 const { email } = values;
                 try {
                   const res = await dispatch(VerifyEmailAsync({ email }));
-                  console.log(res);
 
                   if (res.error) {
                     const error = JSON.parse(res.error.message);

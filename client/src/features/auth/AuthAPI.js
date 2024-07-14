@@ -22,7 +22,9 @@ export async function VerifyEmail(email) {
 }
 export async function VerifyOtp(otp) {
   try {
-    const response = await axios.post("/auth/verify-email-by-otp", otp);
+    const response = await axios.post("/auth/verify-email-by-otp", otp, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     const errors = error.response?.data;
@@ -30,22 +32,13 @@ export async function VerifyOtp(otp) {
   }
 }
 
-export async function checkUser(loginInfo) {
+export async function loginUser(loginInfo) {
   try {
-    const { email, password } = loginInfo;
-    const response = await fetch(`http://localhost:8000/users?email=${email}`);
-    const data = await response.json();
-    if (data.length) {
-      if (password === data[0].password) {
-        return { data: data[0] };
-      } else {
-        throw new Error("Invalid Credentials");
-      }
-    } else {
-      throw new Error("User Not Found");
-    }
+    const response = await axios.post(`/auth/login`, loginInfo);
+    return response.data;
   } catch (error) {
-    throw new Error(error.message);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 }
 

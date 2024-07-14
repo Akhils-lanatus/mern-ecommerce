@@ -267,21 +267,14 @@ export const verifyEmailWithOtpController = async (req, res) => {
 
 export const loginUserController = async (req, res) => {
   try {
-    const { email, password, confirm_password } = req.body;
-    if (!email || !password || !confirm_password) {
+    const { email, password } = req.body;
+    if (!email || !password) {
       throw new Error("All fields are required");
     }
-    if (password.trim() !== confirm_password.trim()) {
-      throw new Error("Password didn't match");
-    }
+
     const userExist = await UserModel.findOne({ email });
     if (!userExist) {
       throw new Error("No such email found");
-    }
-    if (!userExist.is_verified) {
-      const error = new Error("Account not verified, Please verify");
-      error.emailVerify = true;
-      throw error;
     }
     const isPasswordCorrect = await bcrypt.compare(
       password,
@@ -290,6 +283,12 @@ export const loginUserController = async (req, res) => {
     if (!isPasswordCorrect) {
       throw new Error("Invalid Credentials");
     }
+    if (!userExist.is_verified) {
+      const error = new Error("Account not verified, Please verify");
+      error.emailVerify = true;
+      throw error;
+    }
+
     const { accessToken, refreshToken, accessTokenExp, refreshTokenExp } =
       await generateTokens(req, userExist);
     await generateCookies(
