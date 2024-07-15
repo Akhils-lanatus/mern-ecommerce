@@ -7,12 +7,14 @@ const CategorySchema = new Schema(
       unique: true,
       required: true,
       trim: true,
+      lowercase: true,
     },
     label: {
       type: String,
       unique: true,
       required: true,
       trim: true,
+      lowercase: true,
     },
     checked: {
       type: Boolean,

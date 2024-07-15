@@ -15,11 +15,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import {
-  getLoggedInUser,
-  logoutUserAsync as logoutUserAsyncFromAuth,
-} from "../auth/AuthSlice";
-import { logoutUserAsync as logoutUserAsyncFromUser } from "../user/userSlice";
+import { getLoggedInUser, logoutUserAsync } from "../auth/AuthSlice";
 import { showToast } from "../../utils/showToast";
 import { useState } from "react";
 import CustomDialog from "../../utils/customDialog";
@@ -47,11 +43,19 @@ const Navbar = ({ children }) => {
   const dispatch = useDispatch();
   const loggedInUser = useSelector(getLoggedInUser);
   const [open, setOpen] = useState(false);
-  const handleLogout = () => {
-    dispatch(logoutUserAsyncFromAuth());
-    dispatch(logoutUserAsyncFromUser());
-    showToast("SUCCESS", "Successfully Logged Out");
-    navigate("/auth/login");
+  const handleLogout = async () => {
+    try {
+      const res = await dispatch(logoutUserAsync());
+      if (res?.error) {
+        let error = JSON.parse(res.error.message);
+        showToast("ERROR", error.message);
+      } else if (res?.payload?.success) {
+        showToast("SUCCESS", res.payload.message);
+        navigate("/");
+      }
+    } catch (error) {
+      showToast("ERROR", "Unable to logout");
+    }
   };
   const user = {
     name: loggedInUser?.data?.name || "Tom Cook",
@@ -131,9 +135,7 @@ const Navbar = ({ children }) => {
                                       "block px-4 py-2 text-sm text-gray-700"
                                     )}
                                     onClick={() => {
-                                      item.name === "Sign out" &&
-                                        loggedInUser?.length !== 0 &&
-                                        setOpen(true);
+                                      item.name === "Sign out" && setOpen(true);
                                     }}
                                   >
                                     {item.name}
@@ -212,10 +214,7 @@ const Navbar = ({ children }) => {
                         key={item.name}
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
                         onClick={() => {
-                          item.name === "Sign out" &&
-                            loggedInUser?.length !== 0 &&
-                            loggedInUser?.length !== 0 &&
-                            setOpen(true);
+                          item.name === "Sign out" && setOpen(true);
                         }}
                       >
                         {item.name}

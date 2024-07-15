@@ -11,15 +11,6 @@ export async function fetchLoggedInUserOrders(userId) {
     console.log(`Error :: ${error}`);
   }
 }
-export async function fetchLoggedInUser(userId) {
-  try {
-    const res = await fetch("http://localhost:8000/users/" + userId);
-    const data = await res.json();
-    return { data };
-  } catch (error) {
-    console.log(`Error :: ${error}`);
-  }
-}
 
 export async function addUserAddress(userData) {
   try {

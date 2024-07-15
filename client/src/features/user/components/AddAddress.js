@@ -2,7 +2,8 @@ import { Country, State, City } from "country-state-city";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
-import { addUserAddressAsync, getLoggedInUserInfo } from "../../user/userSlice";
+import { addUserAddressAsync } from "../../user/userSlice";
+import { getLoggedInUser } from "../../auth/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 import { useState } from "react";
@@ -13,7 +14,7 @@ const AddAddress = () => {
   const navigate = useNavigate();
   const [addressFormValues, setAddressFormValues] = useState([]);
   const [open, setOpen] = useState(false);
-  const loggedInUser = useSelector(getLoggedInUserInfo);
+  const loggedInUser = useSelector(getLoggedInUser);
   const handleAddNewAddress = () => {
     dispatch(addUserAddressAsync(addressFormValues));
     showToast("SUCCESS", "Address added successfully");

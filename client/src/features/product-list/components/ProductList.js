@@ -38,7 +38,6 @@ export function ProductList() {
         }
       });
   };
-
   const handleCart = (product) => {
     dispatch(
       addToCartAsync({ item: product, quantity: 1, user: loggedInUser.data.id })

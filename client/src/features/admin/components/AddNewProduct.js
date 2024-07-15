@@ -1,12 +1,13 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createNewProductAsync,
+  fetchAllBrandsAsync,
+  fetchAllCategoriesAsync,
   getAllBrands,
   getAllCategories,
 } from "../../product-list/ProductSlice";
 import * as Yup from "yup";
-import axios from "axios";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
@@ -23,12 +24,25 @@ const AddNewProduct = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState([]);
+  useEffect(() => {
+    dispatch(fetchAllBrandsAsync());
+    dispatch(fetchAllCategoriesAsync());
+  }, []);
   const handleAddNewProduct = async () => {
     try {
       const res = await dispatch(createNewProductAsync(formValues));
       if (res?.error) {
         const errorMessages = JSON.parse(res.error.message);
-        Object.values(errorMessages).forEach((val) => showToast("ERROR", val));
+        const allErrors = errorMessages.error || {};
+
+        if (Object.keys(allErrors).length > 0) {
+          Object.values(allErrors).forEach((val) => showToast("ERROR", val));
+        } else {
+          showToast("ERROR", errorMessages.message);
+          if (errorMessages.hasOwnProperty("unAuth")) {
+            navigate("/auth/login");
+          }
+        }
       }
       if (res?.payload?.success) {
         showToast("SUCCESS", res.payload.message);
@@ -174,6 +188,37 @@ const AddNewProduct = () => {
                     <ErrorMessage name="title" />
                   </p>
                 </div>
+
+                <div>
+                  <label
+                    htmlFor="category"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Category
+                  </label>
+                  <Field
+                    as="select"
+                    id="category"
+                    name="category"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                    // defaultValue={"DEFAULT"}
+                  >
+                    <option value="DEFAULT" hidden>
+                      {categories?.length === 0
+                        ? "No category found, Add one"
+                        : "Select Category"}
+                    </option>
+
+                    {categories?.map((category) => (
+                      <option key={category.value} value={category.value}>
+                        {category.label}
+                      </option>
+                    ))}
+                  </Field>
+                  <p className="text-sm text-red-600 mt-2">
+                    <ErrorMessage name="category" />
+                  </p>
+                </div>
                 <div>
                   <label
                     htmlFor="brand"
@@ -189,7 +234,9 @@ const AddNewProduct = () => {
                     // defaultValue={"DEFAULT"}
                   >
                     <option value="DEFAULT" hidden>
-                      Select Brand
+                      {brands?.length === 0
+                        ? "No brands found, Add one"
+                        : "Select Brand"}
                     </option>
                     {brands?.map((brand) => (
                       <option key={brand.value} value={brand.value}>
@@ -239,33 +286,7 @@ const AddNewProduct = () => {
                     <ErrorMessage name="price" />
                   </p>
                 </div>
-                <div>
-                  <label
-                    htmlFor="category"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Category
-                  </label>
-                  <Field
-                    as="select"
-                    id="category"
-                    name="category"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                    // defaultValue={"DEFAULT"}
-                  >
-                    <option value="DEFAULT" hidden>
-                      Select Category
-                    </option>
-                    {categories?.map((category) => (
-                      <option key={category.value} value={category.value}>
-                        {category.label}
-                      </option>
-                    ))}
-                  </Field>
-                  <p className="text-sm text-red-600 mt-2">
-                    <ErrorMessage name="category" />
-                  </p>
-                </div>
+
                 <div>
                   <label
                     htmlFor="discountPercentage"

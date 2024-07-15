@@ -289,7 +289,6 @@ export const loginUserController = async (req, res) => {
       error.emailVerify = true;
       throw error;
     }
-
     const { accessToken, refreshToken, accessTokenExp, refreshTokenExp } =
       await generateTokens(req, userExist);
     await generateCookies(

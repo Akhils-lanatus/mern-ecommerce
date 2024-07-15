@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   fetchLoggedInUserOrders,
   addUserAddress,
-  fetchLoggedInUser,
   removeUserAddress,
   updateUserAddress,
   logoutUser,
@@ -19,13 +18,6 @@ export const fetchLoggedInUserOrdersAsync = createAsyncThunk(
   "user/fetchLoggedInUserOrders",
   async (userId) => {
     const response = await fetchLoggedInUserOrders(userId);
-    return response;
-  }
-);
-export const fetchLoggedInUserAsync = createAsyncThunk(
-  "user/fetchLoggedInUser",
-  async (userId) => {
-    const response = await fetchLoggedInUser(userId);
     return response;
   }
 );
@@ -81,14 +73,7 @@ export const userSlice = createSlice({
       state.error = action.error.message;
       state.isLoading = false;
     });
-    builder.addCase(fetchLoggedInUserAsync.pending, (state, action) => {
-      state.isLoading = true;
-    });
-    builder.addCase(fetchLoggedInUserAsync.fulfilled, (state, action) => {
-      state.userInfo = action.payload;
-      state.error = "";
-      state.isLoading = false;
-    });
+
     builder.addCase(removeUserAddressAsync.fulfilled, (state, action) => {
       state.userInfo.data = action.payload;
       state.error = "";
@@ -113,15 +98,10 @@ export const userSlice = createSlice({
 });
 
 const getLoggedInUserAllOrders = (state) => state.user.loggedInUserAllOrders;
-const getLoggedInUserInfo = (state) => state.user.userInfo;
+
 const checkIsLoading = (state) => state.user.isLoading;
 const getError = (state) => state.user.error;
 
-export {
-  getLoggedInUserAllOrders,
-  getLoggedInUserInfo,
-  checkIsLoading,
-  getError,
-};
+export { getLoggedInUserAllOrders, checkIsLoading, getError };
 
 export default userSlice.reducer;

@@ -34,7 +34,9 @@ export async function VerifyOtp(otp) {
 
 export async function loginUser(loginInfo) {
   try {
-    const response = await axios.post(`/auth/login`, loginInfo);
+    const response = await axios.post(`/auth/login`, loginInfo, {
+      withCredentials: true,
+    });
     return response.data;
   } catch (error) {
     const errors = error.response?.data;
@@ -65,12 +67,10 @@ export async function sendForgotPassLink(email) {
 
 export async function logoutUser(id) {
   try {
-    // const response = await fetch(`http://localhost:8000/users/${id}`, {
-    //   method: "DELETE",
-    // });
-    // return response.status;
-    return true;
+    const response = await axios.get(`/auth/logout`, { withCredentials: true });
+    return response.data;
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 }

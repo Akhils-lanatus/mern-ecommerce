@@ -57,12 +57,12 @@ const ProductHome = () => {
     if (section.id !== "category") {
       if (e.target.checked) {
         if (newFilter[section.id]) {
-          newFilter[section.id].push(option.value);
+          newFilter[section.id].push(option.label);
         } else {
-          newFilter[section.id] = [option.value];
+          newFilter[section.id] = [option.label];
         }
       } else {
-        const index = newFilter[section.id]?.indexOf(option.value);
+        const index = newFilter[section.id]?.indexOf(option.label);
         if (index !== -1) {
           newFilter[section.id].splice(index, 1);
         }
@@ -114,7 +114,6 @@ const ProductHome = () => {
       })
     );
   }, [dispatch, selectedFilters, selectedSort, page]);
-
   return (
     <div>
       {isLoading && <LoadingPage loadingMessage={"Loading..."} />}
@@ -204,11 +203,18 @@ const ProductHome = () => {
                                           ? "radio"
                                           : "checkbox"
                                       }
-                                      defaultChecked={option.checked}
-                                      className="h-4 w-4 rounded"
-                                      onChange={(e) =>
-                                        handleFilter(e, section, option)
+                                      defaultChecked={
+                                        section.id === "category"
+                                          ? selectedFilters[section.id] ===
+                                            option.value
+                                          : selectedFilters[
+                                              section.id
+                                            ]?.includes(option.label)
                                       }
+                                      className="h-4 w-4 rounded"
+                                      onChange={(e) => {
+                                        handleFilter(e, section, option);
+                                      }}
                                     />
                                     <label
                                       htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
@@ -353,7 +359,14 @@ const ProductHome = () => {
                                       ? "radio"
                                       : "checkbox"
                                   }
-                                  defaultChecked={option.checked}
+                                  defaultChecked={
+                                    section.id === "category"
+                                      ? selectedFilters[section.id] ===
+                                        option.value
+                                      : selectedFilters[section.id]?.includes(
+                                          option.label
+                                        )
+                                  }
                                   className="h-4 w-4 rounded "
                                   onChange={(e) =>
                                     handleFilter(e, section, option)

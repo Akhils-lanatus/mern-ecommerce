@@ -1,10 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { getLoggedInUserInfo } from "../features/user/userSlice";
 import { useSelector } from "react-redux";
+import { getLoggedInUser } from "../features/auth/AuthSlice";
 
 const PageNotFound = () => {
-  const user = useSelector(getLoggedInUserInfo);
+  const user = useSelector(getLoggedInUser);
   const isAdmin = user?.data?.role === "admin" || false;
   return (
     <>

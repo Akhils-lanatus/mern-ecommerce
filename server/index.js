@@ -6,6 +6,8 @@ import cors from "cors";
 import connectDB from "./config/connectDB.js";
 import productRoutes from "./routes/product.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import categoryRoutes from "./routes/category.routes.js";
+import brandRoutes from "./routes/brand.routes.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import "./config/passport-jwt-strategy.js";
@@ -22,6 +24,8 @@ app.use(passport.initialize());
 // Routes
 app.use("/api/v1/products", productRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes);
+app.use("/api/v1/brand", brandRoutes);
 
 // Start the server
 app.listen(PORT, () => {

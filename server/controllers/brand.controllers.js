@@ -1,16 +1,16 @@
 import { errorHandler } from "../utils/errorHandler.js";
-import { CategoryModel } from "../models/category.model.js";
-export const addCategoryController = async (req, res) => {
+import { BrandModel } from "../models/brand.model.js";
+export const addBrandController = async (req, res) => {
   try {
     const { value, label } = req.body;
     if (!value || !label) {
       throw new Error("All fields are required");
     }
-    const category = await CategoryModel.create({ value, label });
+    const brand = await BrandModel.create({ value, label });
     return res.status(201).json({
       success: true,
-      message: "Category Added Successfully",
-      category,
+      message: "Brand Added Successfully",
+      brand,
     });
   } catch (error) {
     const message = errorHandler(error);
@@ -20,13 +20,13 @@ export const addCategoryController = async (req, res) => {
     });
   }
 };
-export const fetchCategoriesController = async (req, res) => {
+export const fetchBrandsController = async (req, res) => {
   try {
-    const categories = await CategoryModel.find();
+    const brand = await BrandModel.find();
     return res.status(201).json({
       success: true,
-      message: "All Categories Fetched Successfully",
-      categories,
+      message: "All Brand Fetched Successfully",
+      brand,
     });
   } catch (error) {
     return res.status(400).json({

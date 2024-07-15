@@ -59,7 +59,11 @@ const Login = () => {
                     }
                   } else if (res?.payload?.success) {
                     showToast("SUCCESS", res.payload.message);
-                    navigate("/");
+                    if (res?.payload?.roles === "admin") {
+                      navigate("/admin/home");
+                    } else {
+                      navigate("/");
+                    }
                   }
                 } catch (error) {
                   showToast("ERROR", "Login Failed, Try again");

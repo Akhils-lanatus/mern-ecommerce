@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import LoadingPage from "../../../pages/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getLoggedInUserInfo,
-  checkIsLoading,
-  removeUserAddressAsync,
-} from "../userSlice";
+import { checkIsLoading, removeUserAddressAsync } from "../userSlice";
 import { Link, useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import CustomDialog from "../../../utils/customDialog";
+import { getLoggedInUser } from "../../auth/AuthSlice";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector(getLoggedInUserInfo);
+  const user = useSelector(getLoggedInUser);
   const isLoading = useSelector(checkIsLoading);
   const [open, setOpen] = useState(false);
   const [removeAddressIndex, setRemoveAddressIndex] = useState(null);

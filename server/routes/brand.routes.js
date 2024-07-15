@@ -2,16 +2,16 @@ import { Router } from "express";
 import { checkIsAdmin } from "../middlewares/checkIsAdmin.middleware.js";
 import { setAuthHeadersAndAutoRefreshAccessToken } from "../middlewares/setAuthHeadersAndAutoRefreshAccessToken.js";
 import {
-  addCategoryController,
-  fetchCategoriesController,
-} from "../controllers/category.controllers.js";
+  addBrandController,
+  fetchBrandsController,
+} from "../controllers/brand.controllers.js";
 const router = Router();
 
 router.post(
-  "/add-category",
+  "/add-brand",
   setAuthHeadersAndAutoRefreshAccessToken,
   checkIsAdmin,
-  addCategoryController
+  addBrandController
 );
-router.get("/fetch-categories", fetchCategoriesController);
+router.get("/fetch-brands", fetchBrandsController);
 export default router;

@@ -7,6 +7,8 @@ import {
   createNewProduct,
   updateProduct,
   removeProduct,
+  createNewCategory,
+  createNewBrand,
 } from "./ProductAPI";
 
 const initialState = {
@@ -60,6 +62,20 @@ export const createNewProductAsync = createAsyncThunk(
     return response;
   }
 );
+export const createNewCategoryAsync = createAsyncThunk(
+  "product/createNewCategory",
+  async (categoryData) => {
+    const response = await createNewCategory(categoryData);
+    return response;
+  }
+);
+export const createNewBrandAsync = createAsyncThunk(
+  "product/createNewCategory",
+  async (brandData) => {
+    const response = await createNewBrand(brandData);
+    return response;
+  }
+);
 export const updateProductAsync = createAsyncThunk(
   "product/updateProduct",
   async (productData) => {
@@ -89,12 +105,13 @@ export const productsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllCategoriesAsync.fulfilled, (state, action) => {
-        state.categories = action.payload;
+        state.categories = action.payload.categories;
         state.isLoading = false;
       })
 
       .addCase(fetchAllBrandsAsync.fulfilled, (state, action) => {
-        state.brands = action.payload;
+        state.brands = action.payload.brand;
+        // state.brands = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchAllFilteredProductsAsync.pending, (state, action) => {

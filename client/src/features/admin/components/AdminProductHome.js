@@ -29,6 +29,8 @@ import {
   getAllCategories,
   checkIsLoading,
   getProductsLength,
+  fetchAllBrandsAsync,
+  fetchAllCategoriesAsync,
 } from "../../product-list/ProductSlice";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
 import LoadingPage from "../../../pages/Loading";
@@ -51,6 +53,10 @@ const ProductHome = () => {
   const brands = useSelector(getAllBrands);
   const isLoading = useSelector(checkIsLoading);
   const totalProducts = useSelector(getProductsLength);
+  useEffect(() => {
+    dispatch(fetchAllBrandsAsync());
+    dispatch(fetchAllCategoriesAsync());
+  }, []);
 
   const handleFilter = (e, section, option) => {
     const newFilter = { ...selectedFilters };
@@ -209,6 +215,14 @@ const ProductHome = () => {
                                           ? "radio"
                                           : "checkbox"
                                       }
+                                      defaultChecked={
+                                        section.id === "category"
+                                          ? selectedFilters[section.id] ===
+                                            option.value
+                                          : selectedFilters[
+                                              section.id
+                                            ]?.includes(option.label)
+                                      }
                                       className="h-4 w-4 rounded"
                                       onChange={(e) =>
                                         handleFilter(e, section, option)
@@ -356,6 +370,14 @@ const ProductHome = () => {
                                     section.id === "category"
                                       ? "radio"
                                       : "checkbox"
+                                  }
+                                  defaultChecked={
+                                    section.id === "category"
+                                      ? selectedFilters[section.id] ===
+                                        option.value
+                                      : selectedFilters[section.id]?.includes(
+                                          option.label
+                                        )
                                   }
                                   className="h-4 w-4 rounded "
                                   onChange={(e) =>

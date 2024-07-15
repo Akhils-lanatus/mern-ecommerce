@@ -1,20 +1,30 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
-import axios from "axios";
+import { useDispatch } from "react-redux";
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import CustomDialog from "../../../utils/customDialog";
+import { createNewBrandAsync } from "../../product-list/ProductSlice";
 const AddNewBrand = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState([]);
   const handleAddNewBrand = async () => {
     try {
-      showToast("SUCCESS", "Brand Added");
+      const res = await dispatch(createNewBrandAsync(formValues));
+      if (res?.error) {
+        let errors = JSON.parse(res.error.message);
+        showToast("ERROR", errors.message);
+      }
+      if (res?.payload) {
+        showToast("SUCCESS", res.payload?.message);
+        navigate("/admin/home");
+      }
     } catch (error) {
-      showToast("ERROR", error.response.data.message);
+      console.log(error);
     }
   };
   return (

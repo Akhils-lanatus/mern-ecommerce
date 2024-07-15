@@ -14,7 +14,6 @@ import {
   updateProductAsync,
 } from "../../product-list/ProductSlice";
 import { PencilIcon, TrashIcon } from "@heroicons/react/24/outline";
-import axios from "axios";
 
 import { showToast } from "../../../utils/showToast";
 import * as Yup from "yup";

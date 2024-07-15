@@ -2,20 +2,20 @@ import axios from "axios";
 import qs from "qs";
 export async function fetchAllCategories() {
   try {
-    const res = await fetch("http://localhost:8000/categories");
-    const data = await res.json();
-    return data;
+    const res = await axios.get("/category/fetch-categories");
+    return res.data;
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 }
 export async function fetchAllBrands() {
   try {
-    const res = await fetch("http://localhost:8000/brands");
-    const data = await res.json();
-    return data;
+    const res = await axios.get("/brand/fetch-brands");
+    return res.data;
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 }
 
@@ -55,7 +55,8 @@ export const fetchAllFilteredProducts = async (filters, sort, pagination) => {
     const data = await res.data;
     return { data: { products: data.products, totalItems: data.totalCount } };
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 };
 
@@ -67,10 +68,33 @@ export const fetchSingleProduct = async (id) => {
       return data.product;
     }
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 };
 
+export const createNewCategory = async (categoryData) => {
+  try {
+    const res = await axios.post("/category/add-category", categoryData, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
+  }
+};
+export const createNewBrand = async (brandData) => {
+  try {
+    const res = await axios.post("/brand/add-brand", brandData, {
+      withCredentials: true,
+    });
+    return res.data;
+  } catch (error) {
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
+  }
+};
 export const createNewProduct = async (productData) => {
   try {
     const res = await axios.post("/products/admin/add-product", productData, {
@@ -78,13 +102,9 @@ export const createNewProduct = async (productData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    if (res.data.success) {
-      return res.data;
-    } else {
-      console.log(res);
-    }
+    return res.data;
   } catch (error) {
-    const errors = error.response?.data?.error;
+    const errors = error.response?.data;
     throw new Error(JSON.stringify(errors));
   }
 };
@@ -96,18 +116,16 @@ export const updateProduct = async (productData) => {
     );
     return response.data;
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 };
 export const removeProduct = async (id) => {
   try {
     const response = await axios.delete(`/products/admin/delete-product/${id}`);
-    if (response.data.success) {
-      return response.data;
-    } else {
-      console.log(response);
-    }
+    return response.data;
   } catch (error) {
-    console.log(`Error :: ${error}`);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 };

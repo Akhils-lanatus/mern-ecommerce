@@ -2,7 +2,6 @@ export function errorHandler(err) {
   let statusCode;
   let ErrString = "";
   if (err.code === 11000 && err.keyPattern && err.keyValue) {
-    Object.values(err).forEach((val) => console.log(val));
     const keyPattern = Object.keys(err.keyPattern)[0];
     const keyValue = err.keyValue[keyPattern];
     return `Duplicate ${keyPattern} '${keyValue}' entered. Please try adding a new one.`;

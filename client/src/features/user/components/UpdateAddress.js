@@ -2,15 +2,13 @@ import { Country, State, City } from "country-state-city";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
-import {
-  getLoggedInUserInfo,
-  updateUserAddressAsync,
-} from "../../user/userSlice";
+import { updateUserAddressAsync } from "../../user/userSlice";
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 import { PencilIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import CustomDialog from "../../../utils/customDialog";
+import { getLoggedInUser } from "../../auth/AuthSlice";
 
 const UpdateAddress = () => {
   const dispatch = useDispatch();
@@ -18,7 +16,7 @@ const UpdateAddress = () => {
   const { id } = useParams();
   const [formValues, setFormValues] = useState([]);
 
-  const loggedInUser = useSelector(getLoggedInUserInfo);
+  const loggedInUser = useSelector(getLoggedInUser);
   const selectedAddress = loggedInUser?.data?.addresses[id] || [];
 
   const { fullName, email, phone, country, state, city, pinCode, address } =

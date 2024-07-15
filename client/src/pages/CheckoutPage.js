@@ -6,14 +6,12 @@ import { Link, Navigate, useLocation } from "react-router-dom";
 import { getLoggedInUserCartItems } from "../features/cart/cartSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
-import {
-  addUserAddressAsync,
-  getLoggedInUserInfo,
-} from "../features/user/userSlice";
+import { addUserAddressAsync } from "../features/user/userSlice";
 import { createOrderAsync } from "../features/Order/orderSlice";
 import OrderSuccess from "./OrderSuccess";
 import { showToast } from "../utils/showToast";
 import { CheckBadgeIcon } from "@heroicons/react/24/outline";
+import { getLoggedInUser } from "../features/auth/AuthSlice";
 
 const paymentMethods = [
   {
@@ -58,7 +56,7 @@ const CheckoutPage = () => {
   const dispatch = useDispatch();
 
   const cartItems = useSelector(getLoggedInUserCartItems);
-  const loggedInUser = useSelector(getLoggedInUserInfo);
+  const loggedInUser = useSelector(getLoggedInUser);
   const [selectedAddress, setSelectedAddress] = useState({
     fullName: "",
     email: "",
