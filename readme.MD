@@ -1,46 +1,52 @@
-# Getting Started with Create React App and Redux
+# WELCOME TO MERN-ECOMMERCE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
+## Description
 
-## Available Scripts
+This is just a practice project which mainly focus on better understanding MERN concepts.
+It include multiple functionalities like:-
 
-In the project directory, you can run:
+- Add To Cart
+- Total Amount
+- Sort Products
+- Filters Products
+- Pagination
+- User authentication
+- OTP based authentication
+- Admin panel
+- Payment gateway
 
-### `npm start`
+##
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You can also clone the project and open it in localhost
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+##
 
-### `npm test`
+## Prerequisits
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Before cloning/forking this project, make sure you have the following tools installed:
 
-### `npm run build`
+- [Git](https://git-scm.com/downloads)
+- [NodeJS](https://nodejs.org/en/download/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Fork the project
+2. Clone the project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Frontend Installation
 
-### `npm run eject`
+1. Install the dependencies npm install
+2. Run the project npm run dev
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Backend Installation
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Install the dependencies npm install
+2. Run the project npm run server
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Contributors
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+[//]: contributor-faces
 
-## Learn More
+<a href="https://github.com/Akhils-lanatus"><img src="https://avatars.githubusercontent.com/u/79786197?v=4" title="Akhil Shah" width="80" height="80"></a>
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[//]: contributor-faces
