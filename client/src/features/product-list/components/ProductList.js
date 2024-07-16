@@ -23,6 +23,7 @@ export function ProductList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector(getLoggedInUserCartItems);
+  console.log(cartItems);
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -40,17 +41,22 @@ export function ProductList() {
   };
   const handleCart = (product) => {
     dispatch(
-      addToCartAsync({ item: product, quantity: 1, user: loggedInUser.data.id })
+      addToCartAsync({
+        items: { productId: product._id, quantity: 1 },
+        userId: loggedInUser.user.id,
+      })
     );
     showToast("SUCCESS", "Item added to cart");
   };
   const handleRemoveFromCart = (product) => {
     const cartItem = cartItems.find(
       (elem) =>
-        elem.user === loggedInUser.data.id && product.id === elem.item.id
+        elem?.userId === loggedInUser?.user.id &&
+        product._id === elem.items.productId
     );
     if (cartItem) {
-      const cartItemID = cartItem.id;
+      console.log(cartItem);
+      const cartItemID = cartItem.items.productId;
       dispatch(removeFromCartAsync(cartItemID));
     } else {
       console.log("NOT FOUND");
@@ -117,8 +123,8 @@ export function ProductList() {
                   </button>
                   {cartItems?.some(
                     (elem) =>
-                      loggedInUser?.data?.id === elem.user &&
-                      product.id === elem.item.id
+                      loggedInUser?.user?.id === elem?.userId &&
+                      product._id === elem.items.productId
                   ) ? (
                     <button
                       type="button"

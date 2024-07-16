@@ -29,8 +29,8 @@ export const getCartItemsAsync = createAsyncThunk(
 );
 export const removeFromCartAsync = createAsyncThunk(
   "cart/removeFromCart",
-  async (cartItemID, { getState }) => {
-    const response = await removeFromCart(cartItemID, getState);
+  async (cartItemID) => {
+    const response = await removeFromCart(cartItemID);
     return response;
   }
 );
@@ -62,7 +62,7 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(addToCartAsync.fulfilled, (state, action) => {
-      state.item = action.payload;
+      state.item.push(action.payload);
       state.isLoading = false;
     });
     builder.addCase(getCartItemsAsync.pending, (state, action) => {
@@ -74,7 +74,9 @@ export const cartSlice = createSlice({
     });
 
     builder.addCase(removeFromCartAsync.fulfilled, (state, action) => {
-      state.item = action.payload;
+      // console.log(action.payload);
+      // const index = state.item.findIndex((elem) => console.log(elem));
+      // state.item.splice(index, 1);
       state.isLoading = false;
     });
 

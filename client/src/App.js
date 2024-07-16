@@ -41,7 +41,7 @@ const App = () => {
     dispatch(fetchAllBrandsAsync());
     dispatch(fetchAllCategoriesAsync());
     if (user.length !== 0) {
-      dispatch(getCartItemsAsync(user?.data?.id));
+      dispatch(getCartItemsAsync(user?.user?.id));
     }
   }, [dispatch, user]);
 

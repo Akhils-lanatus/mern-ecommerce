@@ -1,13 +1,11 @@
+import axios from "axios";
+
 export const addToCart = async (cartData, getData) => {
   try {
-    const response = await fetch("http://localhost:8000/cart", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(cartData),
+    const response = await axios.post("/cart/addToCart", cartData, {
+      withCredentials: true,
     });
-    const prevState = await getData().cart;
-    const data = await response.json();
-    return { data: [...prevState.item, data] };
+    return response.data;
   } catch (error) {
     console.log(`Error while adding to cart :: ${error} `);
   }
@@ -23,17 +21,15 @@ export const getCartItems = async (userId) => {
   }
 };
 
-export const removeFromCart = async (cartItemID, getState = () => {}) => {
+export const removeFromCart = async (cartItemID) => {
   try {
-    const response = await fetch(`http://localhost:8000/cart/${cartItemID}`, {
-      method: "DELETE",
-    });
-    if (response.status === 200) {
-      const filteredData = getState().cart.item?.filter(
-        (item) => item.id !== cartItemID
-      );
-      return filteredData;
-    }
+    // const response = await fetch(`http://localhost:8000/cart/${cartItemID}`, {
+    //   method: "DELETE",
+    // });
+    // if (response.status === 200) {
+    //   return cartItemID;
+    // }
+    return cartItemID;
   } catch (error) {
     console.log(`Error while removing from cart :: ${error} `);
   }
