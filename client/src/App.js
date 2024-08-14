@@ -40,10 +40,13 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchAllBrandsAsync());
     dispatch(fetchAllCategoriesAsync());
-    if (user.length !== 0) {
-      dispatch(getCartItemsAsync(user?.user?.id));
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (user?.user?.id) {
+      dispatch(getCartItemsAsync(user.user.id));
     }
-  }, [dispatch, user]);
+  }, [dispatch, user?.user?.id]);
 
   return (
     <>

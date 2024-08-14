@@ -111,7 +111,6 @@ export const productsSlice = createSlice({
 
       .addCase(fetchAllBrandsAsync.fulfilled, (state, action) => {
         state.brands = action.payload.brand;
-        // state.brands = action.payload;
         state.isLoading = false;
       })
       .addCase(fetchAllFilteredProductsAsync.pending, (state, action) => {

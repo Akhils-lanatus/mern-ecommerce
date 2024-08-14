@@ -50,7 +50,7 @@ const ForgotPasswordEnterEmail = () => {
                     const errorType = res.payload.success ? "SUCCESS" : "ERROR";
                     showToast(errorType, res.payload.message);
                     resetForm();
-                    navigate("/");
+                    navigate("/auth/login");
                   } else {
                     showToast("ERROR", "Unexpected response from the server.");
                   }
