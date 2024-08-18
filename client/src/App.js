@@ -11,8 +11,6 @@ import Protected from "./features/auth/components/Protected";
 import PageNotFound from "./pages/PageNotFound";
 import UnProtected from "./utils/checkIsLoggedIn";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoggedInUser } from "./features/auth/AuthSlice";
-import { getCartItemsAsync } from "./features/cart/cartSlice";
 import { Toaster } from "react-hot-toast";
 import "react-toastify/dist/ReactToastify.css";
 import AdminProtected from "./features/auth/components/ProtectedAdmin";
@@ -36,17 +34,10 @@ import ChangePassword from "./features/auth/components/ChangePassword";
 import ForgotPasswordEnterPass from "./features/auth/components/ForgotPasswordEnterPass";
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector(getLoggedInUser);
   useEffect(() => {
     dispatch(fetchAllBrandsAsync());
     dispatch(fetchAllCategoriesAsync());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (user?.user?.id) {
-      dispatch(getCartItemsAsync(user.user.id));
-    }
-  }, [dispatch, user?.user?.id]);
 
   return (
     <>

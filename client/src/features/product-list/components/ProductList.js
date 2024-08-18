@@ -23,7 +23,6 @@ export function ProductList() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const cartItems = useSelector(getLoggedInUserCartItems);
-  console.log(cartItems);
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -39,28 +38,29 @@ export function ProductList() {
         }
       });
   };
-  const handleCart = (product) => {
-    dispatch(
-      addToCartAsync({
-        items: { productId: product._id, quantity: 1 },
-        userId: loggedInUser.user.id,
-      })
-    );
-    showToast("SUCCESS", "Item added to cart");
-  };
-  const handleRemoveFromCart = (product) => {
-    const cartItem = cartItems.find(
-      (elem) =>
-        elem?.userId === loggedInUser?.user.id &&
-        product._id === elem.items.productId
-    );
-    if (cartItem) {
-      console.log(cartItem);
-      const cartItemID = cartItem.items.productId;
-      dispatch(removeFromCartAsync(cartItemID));
-    } else {
-      console.log("NOT FOUND");
+  const handleCart = async (product) => {
+    try {
+      const res = await dispatch(
+        addToCartAsync({
+          items: { productId: product._id, quantity: 1 },
+          userId: loggedInUser.user.id,
+        })
+      );
+      if (res?.error) {
+        let error = JSON.parse(res.error.message);
+        showToast("ERROR", error.message);
+      }
+      if (res?.payload?.success) {
+        showToast("SUCCESS", res.payload.message);
+      }
+    } catch (error) {
+      showToast("ERROR", "Login Failed, Try again");
     }
+  };
+  const handleRemoveFromCart = (productId) => {
+    const response = dispatch(
+      removeFromCartAsync({ productId, userId: loggedInUser.user.id })
+    );
   };
 
   return (
@@ -121,15 +121,11 @@ export function ProductList() {
                   >
                     View
                   </button>
-                  {cartItems?.some(
-                    (elem) =>
-                      loggedInUser?.user?.id === elem?.userId &&
-                      product._id === elem.items.productId
-                  ) ? (
+                  {cartItems?.some((elem) => product._id === elem.productId) ? (
                     <button
                       type="button"
                       className={`inline-flex w-full items-center justify-center rounded-lg px-2 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4 hover:bg-red-700 bg-red-600`}
-                      onClick={() => handleRemoveFromCart(product)}
+                      onClick={() => handleRemoveFromCart(product._id)}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

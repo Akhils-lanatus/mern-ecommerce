@@ -1,37 +1,38 @@
 import axios from "axios";
 
-export const addToCart = async (cartData, getData) => {
+export const addToCart = async (cartData) => {
   try {
     const response = await axios.post("/cart/addToCart", cartData, {
       withCredentials: true,
     });
     return response.data;
   } catch (error) {
-    console.log(`Error while adding to cart :: ${error} `);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 };
 
 export const getCartItems = async (userId) => {
   try {
-    const response = await fetch(`http://localhost:8000/cart?user=${userId}`);
-    const data = await response.json();
-    return data;
+    const response = await axios.get(`/cart/getCartItems?uId=${userId}`, {
+      withCredentials: true,
+    });
+    return response.data;
   } catch (error) {
-    console.log(`Error while getCartItems :: ${error} `);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 };
 
-export const removeFromCart = async (cartItemID) => {
+export const removeFromCart = async (data) => {
   try {
-    // const response = await fetch(`http://localhost:8000/cart/${cartItemID}`, {
-    //   method: "DELETE",
-    // });
-    // if (response.status === 200) {
-    //   return cartItemID;
-    // }
-    return cartItemID;
+    const response = await axios.post("/cart/removeFromCart", data, {
+      withCredentials: true,
+    });
+    return response.data;
   } catch (error) {
-    console.log(`Error while removing from cart :: ${error} `);
+    const errors = error.response?.data;
+    throw new Error(JSON.stringify(errors));
   }
 };
 

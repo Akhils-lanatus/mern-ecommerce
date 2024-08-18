@@ -11,13 +11,14 @@ import {
 const initialState = {
   item: [],
   isLoading: false,
+  cartItemsCount: 0,
 };
 
 export const addToCartAsync = createAsyncThunk(
   "cart/addToCart",
-  async (cartData, { getState }) => {
-    const response = await addToCart(cartData, getState);
-    return response.data;
+  async (cartData) => {
+    const response = await addToCart(cartData);
+    return response;
   }
 );
 export const getCartItemsAsync = createAsyncThunk(
@@ -29,8 +30,8 @@ export const getCartItemsAsync = createAsyncThunk(
 );
 export const removeFromCartAsync = createAsyncThunk(
   "cart/removeFromCart",
-  async (cartItemID) => {
-    const response = await removeFromCart(cartItemID);
+  async (data) => {
+    const response = await removeFromCart(data);
     return response;
   }
 );
@@ -62,22 +63,23 @@ export const cartSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(addToCartAsync.fulfilled, (state, action) => {
-      state.item.push(action.payload);
+      state.item.push(action.payload.item);
       state.isLoading = false;
+      state.cartItemsCount = action.payload.cartItemsCount;
     });
     builder.addCase(getCartItemsAsync.pending, (state, action) => {
       state.isLoading = true;
     });
     builder.addCase(getCartItemsAsync.fulfilled, (state, action) => {
-      state.item = action.payload;
+      state.item = action.payload.cartItems;
       state.isLoading = false;
+      state.cartItemsCount = action.payload.cartItemsCount;
     });
 
     builder.addCase(removeFromCartAsync.fulfilled, (state, action) => {
-      // console.log(action.payload);
-      // const index = state.item.findIndex((elem) => console.log(elem));
-      // state.item.splice(index, 1);
+      state.item = [...action.payload.cartItems];
       state.isLoading = false;
+      state.cartItemsCount = action.payload.cartItemsCount;
     });
 
     builder.addCase(emptyCartOnSuccessOrderAsync.fulfilled, (state, action) => {
@@ -105,7 +107,8 @@ export const cartSlice = createSlice({
 
 const getLoggedInUserCartItems = (state) => state.cart.item;
 const checkIsLoading = (state) => state.cart.isLoading;
+const getCartItemsLength = (state) => state.cart.cartItemsCount;
 
-export { getLoggedInUserCartItems, checkIsLoading };
+export { getLoggedInUserCartItems, checkIsLoading, getCartItemsLength };
 
 export default cartSlice.reducer;
