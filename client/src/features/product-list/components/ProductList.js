@@ -57,10 +57,17 @@ export function ProductList() {
       showToast("ERROR", "Login Failed, Try again");
     }
   };
-  const handleRemoveFromCart = (productId) => {
-    const response = dispatch(
+  const handleRemoveFromCart = async (productId) => {
+    const response = await dispatch(
       removeFromCartAsync({ productId, userId: loggedInUser.user.id })
     );
+    if (response?.error) {
+      let error = JSON.parse(response.error.message);
+      showToast("ERROR", error.message);
+    }
+    if (response?.payload?.success) {
+      showToast("SUCCESS", response.payload.message);
+    }
   };
 
   return (
@@ -117,11 +124,12 @@ export function ProductList() {
                   <button
                     type="button"
                     className="inline-flex w-full items-center justify-center rounded-lg bg-primary-700 px-2 py-2.5 text-sm font-medium  text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    onClick={() => handleFetchSingleProduct(product.id)}
+                    onClick={() => handleFetchSingleProduct(product._id)}
                   >
                     View
                   </button>
-                  {cartItems?.some((elem) => product._id === elem.productId) ? (
+                  {cartItems?.some((elem) => product._id === elem.productId) &&
+                  !isUserNotLoggedIn ? (
                     <button
                       type="button"
                       className={`inline-flex w-full items-center justify-center rounded-lg px-2 py-2.5 text-sm font-medium text-white focus:outline-none focus:ring-4 hover:bg-red-700 bg-red-600`}

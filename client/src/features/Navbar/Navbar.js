@@ -71,7 +71,7 @@ const Navbar = ({ children }) => {
   };
 
   useEffect(() => {
-    dispatch(getCartItemsAsync(loggedInUser?.user?.id));
+    !isUserNotLoggedIn && dispatch(getCartItemsAsync(loggedInUser?.user?.id));
   }, []);
 
   return (

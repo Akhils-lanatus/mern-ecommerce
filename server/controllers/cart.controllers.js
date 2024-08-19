@@ -13,6 +13,9 @@ export const addToCartController = async (req, res) => {
     const userId = new mongoose.Types.ObjectId(data.userId);
     let cart = await CartModel.findOne({ userId });
 
+    if (!req.user._id.equals(userId)) {
+      throw new Error("Invalid access");
+    }
     if (cart) {
       const existingItem = cart.items.find((item) => {
         return item.productId.equals(data.items.productId);
@@ -54,6 +57,10 @@ export const getCartItemsController = async (req, res) => {
     const userId = new mongoose.Types.ObjectId(uId);
     const cart = await CartModel.findOne({ userId });
 
+    if (!req.user._id.equals(userId)) {
+      throw new Error("Invalid access");
+    }
+
     if (cart) {
       return res.status(200).json({
         success: true,
@@ -88,6 +95,10 @@ export const removeFromCartController = async (req, res) => {
     const productIdObjectId = new mongoose.Types.ObjectId(productId);
 
     const cart = await CartModel.findOne({ userId: userIdObjectId });
+
+    if (!req.user._id.equals(userIdObjectId)) {
+      throw new Error("Invalid access");
+    }
 
     if (!cart) {
       throw new Error("Cart not found");
