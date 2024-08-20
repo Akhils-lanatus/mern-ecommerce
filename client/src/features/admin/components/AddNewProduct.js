@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createNewProductAsync,
-  fetchAllBrandsAsync,
-  fetchAllCategoriesAsync,
   getAllBrands,
   getAllCategories,
+  checkIsLoading,
 } from "../../product-list/ProductSlice";
 import * as Yup from "yup";
 import { Form, Formik, Field, ErrorMessage } from "formik";
@@ -13,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { showToast } from "../../../utils/showToast";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 import CustomDialog from "../../../utils/customDialog";
+import LoadingPage from "../../../pages/Loading";
 const AddNewProduct = () => {
   const dispatch = useDispatch();
   const brands = useSelector(getAllBrands);
@@ -24,10 +24,8 @@ const AddNewProduct = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [formValues, setFormValues] = useState([]);
-  useEffect(() => {
-    dispatch(fetchAllBrandsAsync());
-    dispatch(fetchAllCategoriesAsync());
-  }, []);
+  const isLoading = useSelector(checkIsLoading);
+
   const handleAddNewProduct = async () => {
     try {
       const res = await dispatch(createNewProductAsync(formValues));
@@ -60,6 +58,7 @@ const AddNewProduct = () => {
   };
   return (
     <section className="bg-white dark:bg-gray-900">
+      {isLoading && <LoadingPage loadingMessage={"Adding Product..."} />}
       <div className="py-8 px-4 mx-auto max-w-2xl lg:py-8">
         <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
           Add a new product

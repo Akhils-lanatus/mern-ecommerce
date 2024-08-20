@@ -37,6 +37,7 @@ import ForgotPasswordEnterPass from "./features/auth/components/ForgotPasswordEn
 const App = () => {
   const dispatch = useDispatch();
   const user = useSelector(getLoggedInUser);
+
   useEffect(() => {
     dispatch(fetchAllBrandsAsync());
     dispatch(fetchAllCategoriesAsync());

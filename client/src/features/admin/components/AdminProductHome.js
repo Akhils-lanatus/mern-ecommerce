@@ -29,8 +29,6 @@ import {
   getAllCategories,
   checkIsLoading,
   getProductsLength,
-  fetchAllBrandsAsync,
-  fetchAllCategoriesAsync,
 } from "../../product-list/ProductSlice";
 import { ITEMS_PER_PAGE } from "../../../app/constants";
 import LoadingPage from "../../../pages/Loading";
@@ -53,10 +51,6 @@ const ProductHome = () => {
   const brands = useSelector(getAllBrands);
   const isLoading = useSelector(checkIsLoading);
   const totalProducts = useSelector(getProductsLength);
-  useEffect(() => {
-    dispatch(fetchAllBrandsAsync());
-    dispatch(fetchAllCategoriesAsync());
-  }, []);
 
   const handleFilter = (e, section, option) => {
     const newFilter = { ...selectedFilters };

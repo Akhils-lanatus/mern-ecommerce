@@ -70,7 +70,7 @@ export const createNewCategoryAsync = createAsyncThunk(
   }
 );
 export const createNewBrandAsync = createAsyncThunk(
-  "product/createNewCategory",
+  "product/createNewBrand",
   async (brandData) => {
     const response = await createNewBrand(brandData);
     return response;
@@ -132,12 +132,43 @@ export const productsSlice = createSlice({
         state.singleProduct = action.payload;
         state.isLoading = false;
       })
+      .addCase(createNewProductAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
       .addCase(createNewProductAsync.fulfilled, (state, action) => {
         state.products.push(action.payload?.product);
         state.error = null;
+        state.isLoading = false;
       })
       .addCase(createNewProductAsync.rejected, (state, action) => {
         state.error = JSON.parse(action.error.message);
+        state.isLoading = false;
+      })
+      .addCase(createNewBrandAsync.fulfilled, (state, action) => {
+        state.brands.push(action.payload.brand);
+        state.error = null;
+      })
+      .addCase(createNewBrandAsync.rejected, (state, action) => {
+        state.error = JSON.parse(action.error.message);
+      })
+      .addCase(createNewCategoryAsync.fulfilled, (state, action) => {
+        state.categories.push(action.payload.category);
+        state.error = null;
+      })
+      .addCase(createNewCategoryAsync.rejected, (state, action) => {
+        state.error = JSON.parse(action.error.message);
+      })
+      .addCase(removeProductAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(removeProductAsync.fulfilled, (state, action) => {
+        state.error = null;
+        state.isLoading = false;
+        state.totalProducts = action.payload.remainingCount;
+      })
+      .addCase(removeProductAsync.rejected, (state, action) => {
+        state.error = JSON.parse(action.error.message);
+        state.isLoading = false;
       });
   },
 });
