@@ -17,10 +17,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { getLoggedInUser, logoutUserAsync } from "../auth/AuthSlice";
-import { getLoggedInUserCartItems } from "../cart/cartSlice";
+import { getCartItemsAsync, getCartItemsLength } from "../cart/cartSlice";
+
 import { showToast } from "../../utils/showToast";
 import CustomDialog from "../../utils/customDialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const navigation = [
   { name: "Home", to: "/", current: true },
   { name: "Login", to: "/auth/login", current: false },
@@ -43,8 +44,9 @@ const Navbar = ({ children }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const loggedInUser = useSelector(getLoggedInUser);
-  const cartItems = useSelector(getLoggedInUserCartItems);
-  const totalItemsInCart = cartItems?.length;
+
+  const cartItems = useSelector(getCartItemsLength);
+
   const isUserNotLoggedIn = loggedInUser?.length === 0;
   const [open, setOpen] = useState(false);
   const handleLogout = async () => {
@@ -67,6 +69,11 @@ const Navbar = ({ children }) => {
     imageUrl:
       "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
   };
+
+  useEffect(() => {
+    !isUserNotLoggedIn && dispatch(getCartItemsAsync(loggedInUser?.user?.id));
+  }, []);
+
   return (
     <>
       <div className="sticky min-h-full">
@@ -126,7 +133,7 @@ const Navbar = ({ children }) => {
                                 isUserNotLoggedIn && "cursor-not-allowed"
                               }`}
                             >
-                              {totalItemsInCart}
+                              {cartItems}
                             </span>
                           </span>
                         </button>
@@ -252,7 +259,7 @@ const Navbar = ({ children }) => {
                               isUserNotLoggedIn && "cursor-not-allowed"
                             }`}
                           >
-                            {totalItemsInCart}
+                            {cartItems}
                           </span>
                         </span>
                       </button>
